@@ -1,0 +1,11 @@
+{
+  "name": "sisbotica_paulino",
+  "authors": [
+    "Eddy Erazo Zamudio <eerazozamudio@gmail.com>"
+  ],
+  "description": "Aplicacion para inventario y ventas",
+  "main": "",
+  "license": "MIT",
+  "homepage": "www.gsystemperu.com"
+  
+}
