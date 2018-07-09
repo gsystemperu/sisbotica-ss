@@ -14,9 +14,7 @@ final class Util
 
     private static $current;
 
-    private function __construct()
-    {
-    }
+    private function __construct(){}
 
     public static function getInstance()
     {
@@ -70,8 +68,8 @@ HTML;
         if (getenv('GREENTER_NO_FILES')) {
             return;
         }
-
-        file_put_contents(__DIR__ . '/../files/'.$filenam, $content);
+        
+        file_put_contents(__DIR__ . '/../../public/files/'.$filenam, $content);
     }
 
     public function getPdf(DocumentInterface $document)
