@@ -511,9 +511,12 @@ Ext.define('sisbotica_paulino.model.OrdenCompra', {
         {name: 'totalorden',type: 'float'},
         {name: 'pagoacuenta',type: 'float'},
         {name: 'saldopagar',type: 'float'},
-        {name: 'idmoneda',type: 'integer'}
-        
-
+        {name: 'idmoneda',type: 'integer'},
+        {name: 'serie',type: 'string'},
+        {name: 'numero',type: 'string'},
+        {name: 'idalmacen',type: 'integer'},
+        {name: 'documentoventa',type: 'integer'},
+        {name: 'idformapago',type: 'integer'}
     ]
 });
 

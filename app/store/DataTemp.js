@@ -40,7 +40,8 @@ Ext.define('sisbotica_paulino.store.DetalleOrdenCompra', {
             {name: "producto", type:'string' },
             {name: "cantidad", type:'int' },
             {name: "precio", type:'float' },
-            {name: "total", type:'float' }
+            {name: "total", type:'float' },
+            {name: "precioventa", type:'float' }
     ],
     proxy: { type: 'memory' }
 });

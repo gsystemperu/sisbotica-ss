@@ -31,8 +31,16 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompraEditar', {
        store.each(function (record) {
            _tot = _tot + record.get('total');
        });
-       i  =_tot - (_tot / 1.18);
-       st = _tot / 1.18;  
+       s = Ext.ComponentQuery.query('#ckbAplicarIgvEditar')[0].getValue();
+       if(s){
+        i  =_tot - (_tot / 1.18);
+        st = _tot / 1.18;  
+       }else{
+        st = _tot;
+        i  =_tot * 0.18;
+        _tot = _tot + (_tot * 0.18);  
+       }
+    
        Ext.ComponentQuery.query('#txtSubtotalOrdenCompraEditar')[0].setValue(st.toFixed(2));
        Ext.ComponentQuery.query('#txtIgvOrdenCompraEditar')[0].setValue(i.toFixed(2));
        Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompraEditar')[0].setValue(
@@ -102,5 +110,30 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompraEditar', {
            sisbotica_paulino.util.Util.showErrorMsg('Ingresar los datos necesarios!');
        }
    },
+   onChangeInIgv: function ( o, nv, ov, opt) {
+    me = this;
+    s = Ext.ComponentQuery.query('#dgvDetalleOrdenCompraEditar')[0].getStore();
+    t = 0;
+    s.each(function (r) {t += r.get('total');});
+    if(nv){
+        st = t / 1.18;
+        i  = t - st;
+        Ext.ComponentQuery.query('#txtSubtotalOrdenCompraEditar')[0].setValue(st.toFixed(2));
+        Ext.ComponentQuery.query('#txtIgvOrdenCompraEditar')[0].setValue(i.toFixed(2));
+        Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompraEditar')[0].setValue(
+            t.toFixed(2)
+        );
+    }else{
+    
+        st = t;
+        i  = t * 0.18;
+        t  = st + i;
+        Ext.ComponentQuery.query('#txtSubtotalOrdenCompraEditar')[0].setValue(st.toFixed(2));
+        Ext.ComponentQuery.query('#txtIgvOrdenCompraEditar')[0].setValue(i.toFixed(2));
+        Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompraEditar')[0].setValue(
+            t.toFixed(2)
+        );
+   }
+ }
 
 });

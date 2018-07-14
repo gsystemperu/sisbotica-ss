@@ -91,6 +91,13 @@ Ext.define('sisbotica_paulino.store.tree.ControlAlmacen', {
         
         ]
       },
+      {
+        text: 'Configuraciones',
+        leaf: true,
+        itemId: "wFormConfiguraciones",
+        titulo: "Almacen / Configuraciones",
+        glyph: 'xf013'
+      }
 
 
     ]

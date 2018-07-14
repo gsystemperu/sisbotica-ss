@@ -18,9 +18,14 @@ class OrdencompraController extends Controller
                     $request->getPost('vfecha'),
                     ($request->getPost('flagestadoigv')==''?0:1),
                     $request->getPost('vjsondetalle'),
-                    $request->getPost('idmoneda')
-             );
-
+                    $request->getPost('idmoneda'),
+                    $request->getPost('documentoventa'),
+                    $request->getPost('idalmacen'),
+                    $request->getPost('idformapago'),
+                    $request->getPost('serie'),
+                    $request->getPost('numerodoc'),
+                    $request->getPost('usuario')
+              );
               $jsonData = OrdenCompra::actualizar($data);
               $response->setContentType('application/json', 'UTF-8');
               $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));

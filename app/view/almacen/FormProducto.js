@@ -335,6 +335,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
 
           {
             fieldLabel: 'Unidad Medida',
+            labelWidth : 124,
             name: 'idunidadmedida',
             itemId: 'idunidadmedida',
             flex: 1,
@@ -347,9 +348,23 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
           },
           { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'), handler: 'onClickNuevoUnidadMedida' },
           { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('refrescar'), handler: 'onClickRefrescarUnidadMedida' },
-          {
+         
+        ]
+      },
+      {
+        xtype: 'container',
+        layout: {
+          type: 'hbox',
+        },
+        defaultType: 'combo',
+        defaults: {
+          labelAlign: 'right'
+        },
+        padding: '0 0 0 0',
+        items: [
+           {
             fieldLabel: 'Presentación',
-            labelAlign: 'right',
+            labelAlign: 'left',
             name: 'idpresentacion',
             itemId: 'idpresentacion',
             flex: 1,

@@ -658,7 +658,7 @@ Ext.define('sisbotica_paulino.view.conf.Maestros', {
              obj = {
             xtype: 'panel',
             hidden: false,
-            title: 'Unidad Medida',
+            title: 'U.M / Catálogo de Sunat',
             layout: {
                 type: 'hbox',
                 align: 'stretch'
@@ -720,12 +720,14 @@ Ext.define('sisbotica_paulino.view.conf.Maestros', {
                             xtype: 'button',
                             text: 'Nuevo',
                             glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                            disabled:true,
                             handler: 'onClickNuevoUnidadMedida'
                         },
                         {
                             xtype: 'button',
                             text: 'Guardar',
                              glyph: sisbotica_paulino.util.Glyphs.getGlyph('guardar'),
+                             disabled:true,
                              handler: 'onClickGuardarUnidadMedida'
                         }
                     ]

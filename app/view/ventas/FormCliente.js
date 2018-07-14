@@ -92,30 +92,6 @@ Ext.define('sisbotica_paulino.view.ventas.FormCliente', {
             },
 
             {
-              xtype:'fieldcontainer',
-              layout:'hbox',
-                hidden:true,
-              items:[
-                {
-                    xtype: 'combo',
-                    name: 'iddocidentidad',
-                    store: storeTipoDoc,
-                    queryMode: 'local',
-                    displayField: 'descripcion',
-                    valueField: 'idtipdoc',
-                    value: 1,
-                    editable: false,
-                    flex: 1.5
-                },
-                {
-                    xtype: 'textfield',
-                    name: 'numdocper',
-                    flex:1
-                },
-              ]
-            },
-         
-            {
                 xtype: 'label',
                 text :'Nombres o Razon Social',
                 padding:0,
@@ -129,7 +105,6 @@ Ext.define('sisbotica_paulino.view.ventas.FormCliente', {
                   fontSize: '15px'
                 }
               },
-
             {
                 xtype: 'textfield',
                 name: 'nombreper',
@@ -138,29 +113,33 @@ Ext.define('sisbotica_paulino.view.ventas.FormCliente', {
                 fieldStyle:'text-transform:uppercase;font-size:20px;',
                 //readOnly: true
             },
+
             {
-                xtype: 'label',
-                text: 'Número R.U.C'
-            },
-            {
-                xtype:'container',
+                xtype:'fieldcontainer',
                 layout:'hbox',
+                hidden:false,
                 items:[
                   {
-                      xtype: 'textfield',
-                      name: 'numrucper',
-                      reference :'numrucper',
-                      flex: 1
-                  }
-                  //{
-                  //  xtype:'button',
-                  //  glyph: sisbotica_paulino.util.Glyphs.getGlyph('buscar'),
-                  //  flex: 0.5,
-                  //  handler:'onClickBuscarRUCDatos'
-                  // }
+                      xtype: 'combo',
+                      name: 'iddocidentidad',
+                      store: storeTipoDoc,
+                      queryMode: 'local',
+                      displayField: 'descripcion',
+                      valueField: 'idtipdoc',
+                      value: 1,
+                      editable: false,
+                      flex: 1.5
+                  },
+                  {
+                    
+                        xtype: 'textfield',
+                        name: 'numrucper',
+                        reference :'numrucper',
+                        flex: 1
+                    
+                  },
                 ]
             },
-
             {
                 xtype: 'label',
                 text: 'Dirección'

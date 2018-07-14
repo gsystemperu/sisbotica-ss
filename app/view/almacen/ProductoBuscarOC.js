@@ -70,24 +70,7 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoBuscarOC', {
                   keyup:'onKeyUpBuscarProductoOC'
                 }
               }
-              /*, {
-                xtype: 'combo',
-                reference: 'cboBuscarTipoProducto',
-                fieldLabel: 'Tipo',
-                store: storeTipoProd,
-                queryMode: 'local',
-                labelAlign: 'right',
-                displayField: 'descripcion',
-                valueField: 'id',
-                editable: false,
-                emptyText: '---- Seleccionar -----',
-                flex: 1
-
-              }*/
-
             ]
-
-
           };
     },
     getGrilla:function(storeProducto,storeTipoProd){
@@ -100,13 +83,6 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoBuscarOC', {
             store: storeProducto,
             sortableColumns: false,
             columns: [
-
-              /*{
-                text: 'Codigo Barras',
-                dataIndex: 'codigobarras',
-                flex: 1,
-                align: 'left'
-              },*/
               {
                 text: 'Nombre',
                 dataIndex: 'nombre',
@@ -148,8 +124,6 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoBuscarOC', {
                 align: 'right',
                 hidden:true
               }
-
-
             ],
             tbar: [
                 me.getToolBar(storeTipoProd)

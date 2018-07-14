@@ -109,7 +109,6 @@ class EmpresaController extends Controller
              if($request->getPost('imagen') && $request->getPost('imagenguardar')==1){
                 $util->guardarImagen($request->getPost('imagen'),'logo');
              }
-             
              $jsonData = Empresa::actualizar($data);
              $response->setContentType('application/json', 'UTF-8');
              $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));

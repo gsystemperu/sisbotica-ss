@@ -124,7 +124,7 @@ class Cotizacion extends \Phalcon\Mvc\Model
 
           $obj     = new SQLHelpers();
           $param   = $data;
-          $sql     =  $obj->executarQuery('SELECT * FROM ventas.tipodocumento');
+          $sql     =  $obj->executarQuery("select id idtipdoc, descripcion from catalogos.documentoidentidad WHERE estado='1' order by 1");
           return $sql;
     }
     //public static function proveedorListar($vNumDoc,$vNumRuc,$vNmbres){

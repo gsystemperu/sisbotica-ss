@@ -8,7 +8,7 @@ Ext.define('sisbotica_paulino.store.tree.ControlVentas', {
              { text: 'Productos', leaf: true, itemId: "wContenedorProducto", titulo :'Productos',  glyph : 'xf022'},
              {
                text: 'Facturación',
-               expanded: false,
+               expanded: true,
                 children: [
                  {
                    text: 'Cotizacion a facturar',
@@ -16,7 +16,6 @@ Ext.define('sisbotica_paulino.store.tree.ControlVentas', {
                    itemId: "wContenedorCotizacionesFacturar",
                    titulo: "Proforma/Facturar",
                    glyph : 'xf022'
-
                  },
                  {
                   text: 'Crear Factura',

@@ -10,21 +10,23 @@ class FacturacionController extends Controller
       $response       = new \Phalcon\Http\Response();
       if($request->isPost() ==true)
       {
-           $vId           = $request->getPost('idfacturacion');
-           $vIdCoti       = $request->getPost('idcoti');
-           $vFecha        = $request->getPost('fechacoti');
-           $vIdCliente    = $request->getPost('idper');
-           $vUsuario      = 'desarrollo';   //$request->getPost('vusuario');
+           $vId           =  $request->getPost('idfacturacion');
+           $vIdCoti       =  $request->getPost('idcoti');
+           $vFecha        =  $request->getPost('fechacoti');
+           $vIdCliente    =  $request->getPost('idper');
+           $vUsuario      =  $request->getPost('vusuario');
            $vJsonDetalle  =  $request->getPost('vjsondetalle');
            $vFormaPago    =  $request->getPost('idfopag');
            $vModoEntrega  =  $request->getPost('idmodo');
            $vDocVenta     =  $request->getPost('documentoventa');
-           $vIncluyeIgv= ($request->getPost('incluyeigv')? 1:0);
+           $vIncluyeIgv   = ($request->getPost('incluyeigv')==1? 1:0);
            $vFechaValidoHasta  = ( $request->getPost('validohasta')==''? $request->getPost('fechavalidohasta') : $request->getPost('validohasta'));
            $vSerieDoc     = $request->getPost('seriedoc');
            $vNumeroDoc    = $request->getPost('numerodoc');
            $vPagoAcuenta  = $request->getPost('pagoacuenta');
-           $data = array($vId,$vIdCoti,$vFecha,$vIdCliente,$vUsuario,$vJsonDetalle, $vFormaPago,$vModoEntrega,$vDocVenta,$vIncluyeIgv,$vFechaValidoHasta,$vSerieDoc,$vNumeroDoc,$vPagoAcuenta);
+           $vIdmoneda     = $request->getPost('idmoneda');
+           $data = array($vId,$vIdCoti,$vFecha,$vIdCliente,$vUsuario,$vJsonDetalle, $vFormaPago,$vModoEntrega,$vDocVenta,$vIncluyeIgv,$vFechaValidoHasta,$vSerieDoc,$vNumeroDoc,$vPagoAcuenta,$vIdmoneda);
+          // print_r($data);die();
            $jsonData             = Facturacion::actualizar($data);
            $response->setContentType('application/json', 'UTF-8');
            $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));

@@ -55,6 +55,19 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
                                       itemId : 'idcoti',
                                       value: 0
                                   },
+                                  {
+                                    xtype: 'hiddenfield',
+                                    name: 'vusuario',
+                                    itemId : 'vusuario',
+                                    value: ''
+                                },
+                                {
+                                    xtype: 'hiddenfield',
+                                    name: 'incluyeigv',
+                                    itemId : 'incluyeigv',
+                                    value: 1
+                                },
+                                
                                 {
                                     xtype: 'fieldset',
                                     defaultType: 'textfield',
@@ -562,5 +575,7 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
         });
 
         me.callParent(arguments);
+        Ext.ComponentQuery.query('#vusuario')[0].setValue(sisbotica_paulino.util.Data.usuario);
+
     }
 });

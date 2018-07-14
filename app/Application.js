@@ -59,6 +59,7 @@ Ext.define('sisbotica_paulino.Application', {
         'ventas.VisualizarCotizacionFacturar',
         'ventas.RegistrarFacturaBoleta',
         'ventas.BuscarProductoFB',
+        'ventas.FormConfiguraciones',
         'puntoventa.ContenedorMain',
         'puntoventa.ListadoPdv',
         'puntoventa.PagosAcuentaPdv',
@@ -78,7 +79,7 @@ Ext.define('sisbotica_paulino.Application', {
         'seguridad.Usuarios',
         'seguridad.Permisos',
         'seguridad.Login'
-
+        
     ],
 
      models: [

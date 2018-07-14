@@ -77,7 +77,12 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
             return false;
         }
         _store.insert(0, _data);
-        me.onCalcularTotalOrdenCompra();
+        if(Ext.ComponentQuery.query('#myStore')[0].getValue()){
+            me.onCalcularTotalOrdenCompraEditar();
+         }else{
+            me.onCalcularTotalOrdenCompra();
+         }
+      
     },
 
 
@@ -110,18 +115,31 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
          if(store.data.items==''){
             store = Ext.ComponentQuery.query('#dgvDetalleOrdenCompraEditar')[0].getStore(); 
          }
-         _tot = 0;
-        store.each(function (record) {_tot = _tot + record.get('total');});
-        i   = _tot - (_tot / 1.18);
-        st = _tot / 1.18;
+         t = 0;
+        store.each(function (r) {t = t + r.get('total');});
+        igv = Ext.ComponentQuery.query('[name=flagestadoigv]')[0].getValue();
+        if(igv){
+            igv = Ext.ComponentQuery.query('[name=flagestadoigv]')[0].getValue();    
+        }else{
+            igv=Ext.ComponentQuery.query('#ckbAplicarIgvEditar')[0].getValue();
+        }
+        if(igv){    
+            i   = t - (t / 1.18);
+            st = t / 1.18;
+        }else{
+            st = t;
+            i  = t * 0.18;
+            t =st + (t * 1.18);
+        }
+
         Ext.ComponentQuery.query('#txtSubtotalOrdenCompra')[0].setValue(st.toFixed(2));
         Ext.ComponentQuery.query('#txtIgvOrdenCompra')[0].setValue(i.toFixed(2));
-        Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompra')[0].setValue(_tot.toFixed(2));
+        Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompra')[0].setValue(t.toFixed(2));
         
         if(Ext.ComponentQuery.query('#txtSubtotalOrdenCompraEditar')[0]){
             Ext.ComponentQuery.query('#txtSubtotalOrdenCompraEditar')[0].setValue(st.toFixed(2));
             Ext.ComponentQuery.query('#txtIgvOrdenCompraEditar')[0].setValue(i.toFixed(2));
-            Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompraEditar')[0].setValue(_tot.toFixed(2));
+            Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompraEditar')[0].setValue(t.toFixed(2));
         }
         try {Ext.ComponentQuery.query('#txtBuscarCodigoProd')[0].focus();} catch (e) {}
 
@@ -175,8 +193,8 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
                         "idprod": record.get('idprod'),
                         "cantidad": record.get('cantidad'),
                         "precio": record.get("precio"),
-                        "total": record.get("total")
-
+                        "total": record.get("total"),
+                        "precioventa":record.get("precioventa")
                     };
                     _dataDetalle.push(_reg);
                 }
@@ -184,6 +202,7 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
             });
             _txt1 = Ext.ComponentQuery.query('#txtJsonDetalleOC');
             _txt1[0].setValue(JSON.stringify(_dataDetalle));
+            Ext.ComponentQuery.query('[name=usuario]')[0].setValue(sisbotica_paulino.util.Data.usuario);
              _view = this.getView();
             _form.submit({
                 waitMsg: 'Guardando informacion...',
@@ -292,8 +311,8 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
                           total    : record.total
                       };
                       _store.insert(0, _data);
-                      _me.onCalcularTotalOrdenCompraEditar();
                     });
+                    _me.onCalcularTotalOrdenCompraEditar();
                 }
             });
             if(rec.get('idestado')==3){
@@ -337,18 +356,33 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
     },
 
     onCalcularTotalOrdenCompraEditar: function () {
-         me = this;
-         store = Ext.ComponentQuery.query('#dgvDetalleOrdenCompraEditar')[0].getStore();
-         _tot = 0;
-        store.each(function (record) {_tot = _tot + record.get('total');});
-        i  =_tot - ( _tot / 1.18);
-        st = _tot / 1.18; 
-        Ext.ComponentQuery.query('#txtSubtotalOrdenCompraEditar')[0].setValue(st.toFixed(2));
-        Ext.ComponentQuery.query('#txtIgvOrdenCompraEditar')[0].setValue(i.toFixed(2));
-        Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompraEditar')[0].setValue(
-            _tot.toFixed(2)
-        );
-        try {Ext.ComponentQuery.query('#txtBuscarCodigoProd')[0].focus();} catch (e) {}
+        me = this;
+        store = Ext.ComponentQuery.query('#dgvDetalleOrdenCompraEditar')[0].getStore();
+        t = 0;
+        s = Ext.ComponentQuery.query('#ckbAplicarIgvEditar')[0].getValue();
+        store.each(function (r) {t += r.get('total');});
+        if(s){
+            st = t / 1.18;
+            i  = t - st;
+            Ext.ComponentQuery.query('#txtSubtotalOrdenCompraEditar')[0].setValue(st.toFixed(2));
+            Ext.ComponentQuery.query('#txtIgvOrdenCompraEditar')[0].setValue(i.toFixed(2));
+            Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompraEditar')[0].setValue(
+                t.toFixed(2)
+            );
+        }else{
+        
+            st = t;
+            i  = t * 0.18;
+            t  = st + i;
+            Ext.ComponentQuery.query('#txtSubtotalOrdenCompraEditar')[0].setValue(st.toFixed(2));
+            Ext.ComponentQuery.query('#txtIgvOrdenCompraEditar')[0].setValue(i.toFixed(2));
+            Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompraEditar')[0].setValue(
+                t.toFixed(2)
+            );
+       }
+       try {Ext.ComponentQuery.query('#txtBuscarCodigoProd')[0].focus();} catch (e) {}
+
+
 
     },
     onClickIngresarPagoAcuenta:function(btn){
@@ -361,5 +395,33 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
     },
     onClickRefrescarProveedor:function(){
         Ext.ComponentQuery.query('#cboProveedoresf')[0].getStore().load();
-    }
+    },
+    onChangeInIgv: function ( o, nv, ov, opt) {
+        me = this;
+        s = Ext.ComponentQuery.query('#dgvDetalleOrdenCompra')[0].getStore();
+        t = 0;
+        s.each(function (r) {t += r.get('total');});
+       if(nv){
+            st = t / 1.18;
+            i  = t - st;
+            Ext.ComponentQuery.query('#txtSubtotalOrdenCompra')[0].setValue(st.toFixed(2));
+            Ext.ComponentQuery.query('#txtIgvOrdenCompra')[0].setValue(i.toFixed(2));
+            Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompra')[0].setValue(
+                t.toFixed(2)
+            );
+       }else{
+
+            st = t;
+            i  = t * 0.18;
+            t  = st + i;
+            Ext.ComponentQuery.query('#txtSubtotalOrdenCompra')[0].setValue(st.toFixed(2));
+            Ext.ComponentQuery.query('#txtIgvOrdenCompra')[0].setValue(i.toFixed(2));
+            Ext.ComponentQuery.query('#txtTotalGeneralOrdenCompra')[0].setValue(
+                t.toFixed(2)
+            );
+       }
+     
+      // try {Ext.ComponentQuery.query('#txtBuscarCodigoProd')[0].focus();} catch (e) {}
+
+   },
 });
