@@ -60,64 +60,8 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoExistencias', {
               fontWeight: 'bold',
               fontSize: '15px'
             }
-          },
-         /* {
-            xtype: 'label',
-            text: 'Codigo',
-            padding: '5px 0 0 0',
-            border: false,
-            width: 60,
-            height: 25,
-            style: {
-              background: '#775c80',
-              color: 'white',
-              textAlign: 'center',
-              fontWeight: 'bold',
-              fontSize: '13px'
-            }
-          },
-         {
-          xtype: 'textfield',
-          reference: 'txtCodigoProducto',
-          flex: 1,
-          enablekeyevent : true,
-          listeners:{
-            keyup: 'onKeyUpBuscarCodigoSerie'
           }
-        },
-        {
-          xtype: 'button',
-          glyph: sisbotica_paulino.util.Glyphs.getGlyph('buscar'),
-          tooltip: 'Busca el producto por codigo de serie',
-          //handler: 'onClickBuscarOrdenCompraPorFechas'
-        },*/
-        /*{
-          xtype: 'label',
-          text: 'Lote',
-          padding: '5px 0 0 0',
-          border: false,
-          width: 60,
-          height: 25,
-          style: {
-            background: '#775c80',
-            color: 'white',
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontSize: '13px'
-          }
-        }, {
-          xtype: 'textfield',
-          itemId: 'txtNumerolote',
-          flex: 0.5,
-        },
-        {
-          xtype: 'button',
-          glyph: sisbotica_paulino.util.Glyphs.getGlyph('buscar'),
-          tooltip: 'Buscador al producto por su numero lote',
-          //handler: 'onClickBuscarOrdenCompraPorFechas'
-        }*/
-
-
+         
       ]
     };
   },
@@ -141,13 +85,21 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoExistencias', {
         columnLines: true,
         sortableColumns: false,
         selModel: 'rowmodel',
-        plugins: [rowEditing],
+        /*plugins: [rowEditing],
         plugins: {
           ptype: 'cellediting',
           clicksToEdit: 1
-        },
+        },*/
+        features: [{
+          id: 'group',
+          ftype: 'groupingsummary',
+          groupHeaderTpl: 'Fecha Vencimiento : {name} ,   Stock a mano: ( {rows.length} )',
+          hideGroupedHeader: true,
+          enableGroupingMenu: true,
+          startCollapsed: true
+
+        }],
         columns: [
-             {xtype: 'rownumberer'},
           {
             text: 'Fecha Ingreso',
             dataIndex: 'fechaingreso',
@@ -162,13 +114,6 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoExistencias', {
             align: 'left',
             //locked   : true,
           },
-          /*{
-            text: 'Codigo',
-            dataIndex: 'codigobarras',
-            flex: 1,
-            align: 'left',
-           // locked   : true,
-          },*/
           {
             text: 'Estado',
             dataIndex: 'estado',
@@ -200,22 +145,6 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoExistencias', {
             flex: 0.5,
             align: 'right'
           },
-          /*{
-            text : 'Seccion Almacen',
-            dataIndex :'seccionalmacen',
-            flex: 1
-          },
-          {
-            text : 'Ubicacion',
-            dataIndex :'ubicacion',
-            flex: 1
-          },*/
-          /*{
-            text: 'Codigo Interno',
-            dataIndex: 'codigobarras',
-            flex: 0.7,
-            align: 'center'
-          },*/
           {
             text: 'Vencimiento',
             dataIndex: 'vencimiento',
@@ -238,9 +167,6 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoExistencias', {
             hidden:true,
             renderer: function (value, metaData, record)
             {metaData.style = "background-color:#F7F8E0;fontSize:13px;";return value;}
-            /*renderer :function(value,style){
-              return '<span style="color:red;font-size:13px;">'+ value.toString() +'</span>';
-            }*/
           },
           {
             xtype:'numbercolumn',

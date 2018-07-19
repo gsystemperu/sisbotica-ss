@@ -57,14 +57,13 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
                 text: 'Presentacion',
                 dataIndex: 'presentacion',
                 flex: 1,
-                align: 'left'
-              },
-              {
-                xtype: 'numbercolumn',
-                text: 'Presentacion por',
-                dataIndex: 'cantidadunidadmedida',
-                flex: 1,
-                align: 'right'
+                align: 'left',
+                renderer: function (value, metaData, record) {
+                  if(record.data.cantidadunidadmedida>1)
+                    return record.data.presentacion + ' DE ' +record.data.cantidadunidadmedida.toString();
+                  else
+                    return record.data.presentacion.toString();
+                }
               },
               {
                 text: 'Forma',
@@ -81,15 +80,18 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
               {
                 text: 'A Mano',
                 dataIndex: 'existencias',
-                flex: 0.5,
+                flex: 1,
                 align: 'right',
                 renderer: function (value, metaData, record) {
-                  if (value <= 0)
+                  if (record.data._cajas<=0)
                     metaData.style = "color:red;font-Size:15px";
                   else
                     metaData.style = "font-Size:15px";
-  
-                  return value;
+                  if(record.data.ventaunidad==true && record.data.ventablister==true){
+                    return '<div style="width:100%">'+ record.data._cajas.toString() + ' cajas y ' +record.data._unidades.toString() +' unidades' +'</div>';
+                  }else{
+                    return '<div style="width:100%">'+record.data._cajas + ' cajas '+'</div>';
+                  }
                 }
               },
               {

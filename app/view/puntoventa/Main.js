@@ -94,7 +94,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.Main', {
                                 },
                                 {
                                     dataIndex: 'dosis',
-                                    text: 'Unidad',
+                                    text: 'Pastilla',
                                     flex: 0.7,
                                     hidden: false,
                                     align: 'center',

@@ -89,7 +89,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
           } else {
             _swBlister = false;
           }
-
           _reg = {
             "idprod": record.get('idprod'),
             "cantidad": record.get('cantidad'),
@@ -109,7 +108,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
 
       });
       __jsondetalle = JSON.stringify(dt);
-      
       __radios = Ext.ComponentQuery.query('radio');
       if (__radios[0].value) {
         __tipodoc = 3;
@@ -133,28 +131,28 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
           documentoventa: __tipodoc,
           serie: Ext.ComponentQuery.query('#txtSerieDoc')[0].getValue(),
           numerodoc: Ext.ComponentQuery.query('#txtNumeroDoc')[0].getValue(),
-          acuenta: Ext.ComponentQuery.query('#txtAcuentaVentaCajaValidar')[0].getValue()
+          acuenta: Ext.ComponentQuery.query('#txtAcuentaVentaCajaValidar')[0].getValue(),
+          vusuario :sisbotica_paulino.util.Data.usuario
         },
         success: function (response) {
           __data = Ext.JSON.decode(response.responseText);
           if (__data.error != 0) {
             Ext.ComponentQuery.query('#wPuntoVentaPago')[0].reset();
             Ext.ComponentQuery.query('#dgvDetalleCaja')[0].getStore().removeAll();
-            sisbotica_paulino.util.Util.showToast("GUARDADO");
-            Ext.ComponentQuery.query('#dvListaProductos')[0].getStore().load();
+            Ext.ComponentQuery.query('#dvListaProductos')[0].getStore().reload();
             me = Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
             l = me.getLayout();
             l.setActiveItem(0);
             Ext.ComponentQuery.query('#txtTotalVentaCaja')[0].setValue('0');
 
-            switch (__tipodoc) {
-              case 3:objrpt = window.open(sisbotica_paulino.util.Rutas.imprimirTicket + 'id=' + __data.error, "", "width=700,height=900");break; //Ticketera Nota Pedido
-              case 2:objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ __data.error, "", "width=700,height=900");  break; //Boleta
-              case 1:objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ __data.error, "", "width=700,height=900");break; //Factura
-            }
-          
+            //switch (__tipodoc) {
+              //case 3:objrpt = window.open(sisbotica_paulino.util.Rutas.imprimirTicket + 'id=' + __data.error, "", "width=700,height=900");break; //Ticketera Nota Pedido
+              //case 2:objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ __data.error, "", "width=700,height=900");  break; //Boleta
+              //case 1:objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ __data.error, "", "width=700,height=900");break; //Factura
+            //}
+            objrpt = window.open(sisbotica_paulino.util.Rutas.imprimirTicket + 'id=' + __data.error, "", "width=700,height=900")
             // Impresion Cerrar ventana
-            setTimeout(function(){ objrpt.close()}, 8000);
+           // setTimeout(function(){ objrpt.close()}, 8000);
 
           }
         }

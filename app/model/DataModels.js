@@ -340,9 +340,10 @@ Ext.define('sisbotica_paulino.model.Producto', {
         {name: "precioblister",type: 'float'},
         {name: "idalmacen",type: 'integer'},
         {name: "idalmacenseccion",type: 'integer'},
-        {name: "seccion",type: 'string'}
-         
-        
+        {name: "seccion",type: 'string'},
+        {name: "accionfarmacologica",type: 'string'},
+        {name: "_cajas",type: 'float'},
+        {name: "_unidades",type: 'float'}
     ]
 });
 

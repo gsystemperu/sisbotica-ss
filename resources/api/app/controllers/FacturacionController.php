@@ -84,11 +84,11 @@ class FacturacionController extends Controller
            $vId           = $request->getPost('id');
            $vIdCoti       = $request->getPost('idcoti');
            $vIdCliente    = $request->getPost('idper');
-           $vUsuario      = 'DESARROLLO';   //$request->getPost('vusuario');
-           $vJsonDetalle  =  $request->getPost('vjsondetalle');
-           $vFormaPago    =  $request->getPost('idfopag');
-           $vModoEntrega  =  $request->getPost('idmodo');
-           $vDocVenta     =  $request->getPost('documentoventa');
+           $vUsuario      = $request->getPost('vusuario');
+           $vJsonDetalle  = $request->getPost('vjsondetalle');
+           $vFormaPago    = $request->getPost('idfopag');
+           $vModoEntrega  = $request->getPost('idmodo');
+           $vDocVenta     = $request->getPost('documentoventa');
            $vIncluyeIgv   = true;
            $vSerieDoc     = $request->getPost('serie');
            $vNumeroDoc    = $request->getPost('numerodoc');

@@ -69,6 +69,7 @@ Ext.define('sisbotica_paulino.store.ProductoExistencias', {
     remoteSort: true,
     autoSync  : true,
     autoDestroy: true,
+    groupField: 'vencimiento',
     proxy: {
         type: 'ajax',
         api: {read: 'resources/api/producto_existencias'},

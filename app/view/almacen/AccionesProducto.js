@@ -32,6 +32,7 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProducto', {
              });
              _txt1 = Ext.ComponentQuery.query('#jsondetalle');
              _txt1[0].setValue(JSON.stringify(_dataDetalle));
+             Ext.ComponentQuery.query('[name=usuario]')[0].setValue(sisbotica_paulino.util.Data.usuario);
             _form.submit({
                 waitMsg: 'Guardando informacion...',
                 success: function (form, action) {
@@ -40,13 +41,7 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProducto', {
                           var me = Ext.ComponentQuery.query('#wContenedorProducto')[0];
                           var l  = me.getLayout();
                           l.setActiveItem(0);
-                          Ext.ComponentQuery.query('#dgvProductos')[0].getStore().load();
-                          /*Ext.ComponentQuery.query('#dgvProductos')[0].getStore().reload({
-                            params:{
-                              nombre : action.result.producto
-                            }
-                          });*/
-
+                          Ext.ComponentQuery.query('#dgvProductos')[0].getStore().reload();
                         } catch (e) {
                           console.log(e);return false;
 
@@ -67,10 +62,10 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProducto', {
     },
 
     onClickItemProductoERP : function( grid, record, index, eOpts ) {
-        Ext.ComponentQuery.query('#btnExistencias')[0].setText(Ext.String.format('Stock  : {0}',(record.get('existencias')==''?0:record.get('existencias'))      ));
+        Ext.ComponentQuery.query('#btnExistencias')[0].setText(Ext.String.format('Stock  : {0}',(record.get('_cajas')==''?0:record.get('_cajas'))      ));
     },
     onClickItemProducto : function( grid, record, index, eOpts ) {
-        Ext.ComponentQuery.query('#btnExistencias')[0].setText(Ext.String.format('Stock  : {0}',(record.get('existencias')==''?0:record.get('existencias'))      ));
+        Ext.ComponentQuery.query('#btnExistencias')[0].setText(Ext.String.format('Stock  : {0}',(record.get('_cajas')==''?0:record.get('_cajas'))      ));
         try {
             var me = Ext.ComponentQuery.query('#wContenedorProducto')[0];
             var l  = me.getLayout();
@@ -375,6 +370,23 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProducto', {
     },
     onClickCancelar:function(b){
        this.getView().close();
+    },
+    onChangeVentaUnidad:function(ob, nv, ov, op ){
+      if(nv){
+        Ext.ComponentQuery.query('[name=preciounidad]')[0].setDisabled(false);
+      }else{
+        Ext.ComponentQuery.query('[name=preciounidad]')[0].setDisabled(true).setValue(0);
+      }
+      
+    },
+    onChangeVentaBlister:function(ob, nv, ov, op ){
+      if(nv){
+        Ext.ComponentQuery.query('[name=cantidadblister]')[0].setDisabled(false);
+        Ext.ComponentQuery.query('[name=precioblister]')[0].setDisabled(false);
+      }else{
+        Ext.ComponentQuery.query('[name=cantidadblister]')[0].setDisabled(true).setValue(0);
+        Ext.ComponentQuery.query('[name=precioblister]')[0].setDisabled(true).setValue(0);
+      }
     }
 
 

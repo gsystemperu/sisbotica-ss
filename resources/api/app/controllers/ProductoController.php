@@ -139,9 +139,10 @@ class ProductoController extends Controller
               $ventarecetamed   = $request->getPost('ventaconreceta');
               $idseccion        = $request->getPost('idalmacenseccion');
               $cantblister      = $request->getPost('cantidadblister');
+              $accionfarma      = $request->getPost('accionfarmacologica');
 
               //echo "test";die();
-              $usuario = "BOTICA";
+              //$usuario = "BOTICA";
               $formato  = new FuncionesHelpers();
               $data = array(
                    $formato->esNumeroCero($idproducto),
@@ -193,7 +194,8 @@ class ProductoController extends Controller
                     $formato->esNumeroCero($precioblister) ,
                     $ventarecetamed,
                     $formato->esNumeroCero($idseccion),
-                    $formato->esNumeroCero($cantblister)
+                    $formato->esNumeroCero($cantblister),
+                    $accionfarma
                     
               );
 

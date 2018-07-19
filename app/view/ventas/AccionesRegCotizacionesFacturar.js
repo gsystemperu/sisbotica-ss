@@ -35,7 +35,8 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
            });
            _txt1 = Ext.ComponentQuery.query('#txtJsonDetalleFacturacion');
            _txt1[0].setValue(JSON.stringify(_dataDetalle));
-            _view = this.getView();
+           Ext.ComponentQuery.query('[name=usuario]')[0].setValue(sisbotica_paulino.util.Data.usuario);
+           _view = this.getView();
            _form.submit({
                waitMsg: 'Guardando informacion...',
                success: function (form, action) {

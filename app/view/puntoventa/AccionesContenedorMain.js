@@ -21,8 +21,10 @@ Ext.define('sisbotica_paulino.view.puntoventa.AccionesContenedorMain', {
         Ext.ComponentQuery.query('#cboCliente')[0].setHidden(false);
         Ext.ComponentQuery.query('#btnNuevoClientePdv')[0].setHidden(false);
         Ext.ComponentQuery.query('#btnVentasPdv')[0].setDisabled(false);
-        b=Ext.ComponentQuery.query('#btnGuardarCajaPago')[0];
-        b.fireEvent('click',b);
+        
+        //**** Descomentar para que la venta sea directa */
+        // b=Ext.ComponentQuery.query('#btnGuardarCajaPago')[0];
+        // b.fireEvent('click',b);
 
       } catch (e) {
         console.log('Ingresar Pago Punto venta');

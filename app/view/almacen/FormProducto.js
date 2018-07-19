@@ -95,6 +95,11 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
         value: 0
       },
       {
+        xtype: 'hiddenfield',
+        name: 'usuario',
+        value: ''
+      },
+      {
         xtype: 'container',
         layout: 'hbox',
         items: [
@@ -343,7 +348,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
             displayField: 'descripcion',
             valueField: 'id',
             queryMode: 'local',
-            editable: false,
+            editable: true,
             emptyText: '---- Seleccionar -----',
           },
           { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'), handler: 'onClickNuevoUnidadMedida' },
@@ -482,7 +487,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
       {
         xtype: 'tabpanel',
         itemId: 'tabDetalleProducto',
-        height: 300,
+        height: 350,
         items: [
           {
             title: '..: Venta :..',
@@ -597,13 +602,14 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                 ]
               },
               {
-                xtype: 'container',
+                xtype: 'fieldset',
+                title : 'PRESENTACIÓN CAJA',
                 layout: {
                   type: 'hbox',
                   align: 'stretch',
                   pack: 'start'
                 },
-                hidden: false,
+                padding: '5 0 5 0',
                 defaultType: 'numberfield',
                 defaults: {
                   labelAlign: 'right',
@@ -612,26 +618,31 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                 items: [
                   {
                     xtype: 'label',
-                    text: 'Venta por Unidad',
+                    text: 'Se Vende por Unidad',
                     padding: '5px 0 0 0',
                     border: true,
                     height: 25,
-                    flex: 1.18,
+                    flex: 1.95,
                     style: {
-                      background: '#6a4b5a',
-                      color: 'white',
-                      textAlign: 'center',
+                      //background: '#007C7B',
+                      color: '#bf0000',
+                      textAlign: 'left',
                       fontWeight: 'bold',
-                      fontSize: '13px'
-                    }
+                      fontSize: '13px',
+                      padding:'10px'
+                      
+                    },
+                    
                   },
                   {
                     xtype: 'checkbox',
-                    // boxLabel: 'Venta por Unidad',
                     name: 'ventaunidad',
                     boxLabelAlign: 'before',
                     bodyPadding: 5,
-                    flex: 0.5
+                    flex: 0.5,
+                    listeners : {
+                      change :'onChangeVentaUnidad'
+                    }
 
 
                   },
@@ -641,13 +652,15 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                     name: 'preciounidad',
                     labelWidth: 130,
                     labelAlign: 'right',
+                    disabled:true,
                     value: 0,
                     flex: 3
                   },
                 ]
               },
               {
-                xtype: 'container',
+                xtype: 'fieldset',
+                title : 'PRESENTACIÓN CAJA',
                 layout: {
                   type: 'hbox',
                   align: 'stretch',
@@ -663,28 +676,33 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                 items: [
                   {
                     xtype: 'label',
-                    text: 'Venta por Blister',
+                    text: 'Se vende por Blister (Capsulas, pastillas, comprimidos etc..)',
                     padding: '5px 0 0 0',
                     border: true,
                     height: 25,
-                    flex: 1.5,
+                    flex: 2.5,
                     style: {
-                      background: '#6a4b5a',
-                      color: 'white',
-                      textAlign: 'center',
+                     // background: '#007C7B',
+                      color: '#bf0000',
+                      textAlign: 'left',
                       fontWeight: 'bold',
-                      fontSize: '13px'
+                      fontSize: '13px',
+                      padding:'10px'
                     }
                   },
                   {
                     xtype: 'checkbox',
                     name: 'ventablister',
                     boxLabelAlign: 'before',
-                    flex: 0.5
+                    flex: 0.5,
+                    listeners : {
+                      change :'onChangeVentaBlister'
+                    }
                   },
                   {
                     fieldLabel: 'Cantidad x Blister',
                     name: 'cantidadblister',
+                    disabled:true,
                     labelWidth: 130,
                     labelAlign: 'right',
                     value: 0,
@@ -693,6 +711,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                   {
                     fieldLabel: 'Precio Blister',
                     name: 'precioblister',
+                    disabled:true,
                     labelWidth: 130,
                     labelAlign: 'right',
                     value: 0,
@@ -723,11 +742,12 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                     height: 25,
                     flex :1,
                     style: {
-                      background: '#6a4b5a',
-                      color: 'white',
-                      textAlign: 'center',
+                     // background: '#007C7B',
+                      color: '#bf0000',
+                      textAlign: 'left',
                       fontWeight: 'bold',
-                      fontSize: '13px'
+                      fontSize: '13px',
+                      padding:'10px'
                     }
                   },
                   {
@@ -785,7 +805,8 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                     step: '0.1',
                     labelWidth: 170,
                     value: 0,
-                    allowBlank: false
+                    allowBlank: false,
+                    fieldStyle: 'font-size:20px;text-transform: uppercase;background-color:#F9F7D8'
 
                   },
                   {
@@ -909,6 +930,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
 
               {
                 xtype: 'container',
+                hidden: true,
                 layout: {
                   type: 'hbox',
                 },
@@ -1059,7 +1081,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
             },
             bodyPadding: 10,
             items:[
-              {xtype:'textarea',name:'accionfarma'}
+              {xtype:'textarea',name:'accionfarmacologica'}
             ]
           }
 
