@@ -4,7 +4,9 @@ include __DIR__ .'/../library/funciones.php';
 include __DIR__ .'/../library/fpdf/fpdf.php';
 include __DIR__ .'/../library/fpdf/exfpdf.php';
 include __DIR__ .'/../library/fpdf/jspdf.php';
-
+//use Greenter\Ws\Services\SunatEndpoints;
+//$serializer = 
+use JMS\Serializer\SerializerBuilder; //::create()->build();
 class ImpresionController extends Controller
 {
   
@@ -630,145 +632,147 @@ class ImpresionController extends Controller
         
         public function imprimirticketeraAction()
         {
-    
-          $request    = new Phalcon\Http\Request();
-          $idfactura = array($request->get("id"));
-          $dataEmpresa =  json_decode(Empresa::listar())->data[0];
-          $dataFacturacion =  json_decode(Facturacion::datosFacturacionCliente($idfactura))->data[0];
-          $dataDetalle =   json_decode(Facturacion::detalleFacturacion($idfactura))->data;
-          $dataTicketera = json_decode(DocumentoVenta::ticketeras())->data[0];
-        //  print_r($dataFacturacion);die();
-
           
+          #Ruta del Facturador Sunat
+          $rutaFacturadorSunat = "C:\\facturador\sunat_archivos\sfs\FIRMA";
+          $hp                  = new FuncionesHelpers();
+          $request             = new Phalcon\Http\Request();
+          $idfactura           = array($request->get("id"));
+          $dataEmpresa         = json_decode(Empresa::listar())->data[0];
+          $dataFacturacion     = json_decode(Facturacion::datosFacturacionCliente($idfactura))->data[0];
+          $dataDetalle         = json_decode(Facturacion::detalleFacturacion($idfactura))->data;
+          $dataTicketera       = json_decode(DocumentoVenta::ticketeras())->data[0];
+          $totalGrabado        = 0;
+          $igv                 = 0;
+          $totalVenta          = 0;
+          
+          $file = simplexml_load_file($rutaFacturadorSunat.'\\'. $dataFacturacion->nombrearchivo. '.xml');
+          $arrayData = $hp->xmlToArray($file);
+          $umlExt    = $arrayData["Invoice"]["ext:UBLExtensions"]["ext:UBLExtension"]["ext:ExtensionContent"];
+          $umlFirmas = $umlExt["ds:Signature"]["ds:SignedInfo"];
+          $firmaDoc  = $umlFirmas["ds:Reference"]["ds:DigestValue"];
+
           $pdf = new jsPDF('P','mm',array(100,250));
-          //$pdf = new jsPDF('P','mm');
           $borde = 0;
-          //$pdf->SetMargins(0,0,0,0);
-        #Establecemos los márgenes izquierda, arriba y derecha: 
+          #Establecemos los márgenes izquierda, arriba y derecha: 
           $pdf->SetMargins(1, 0 , 1); 
-
-          #Establecemos el margen inferior: 
-          //$pdf->SetAutoPageBreak(true,1);  
           $pdf->AddPage();
-          
-           // $pdf->Image('../../images/logo.jpg', 10, -10, 60);
-          //$pdf->Ln();
-          $pdf->setX(10);
+          $pdf->setX(4);
           $pdf->setFont("Arial", "B", 11);
-          $pdf->MultiCell(73, 4,"*** $dataEmpresa->razonsocial ***",0, "C");
-          $pdf->setX(10);
-          $pdf->Cell(80, 4,"-- R.U.C : $dataEmpresa->ruc --", $borde, 1, "C");
-          $pdf->setFont("Arial", "", 10);
-          $pdf->Ln(1);
-          $pdf->setX(10);
-          $pdf->MultiCell(65, 4, trim($dataEmpresa->direccion),0, "J");
-          $pdf->setX(10);
-          $pdf->Cell(20,4,"TELEFONOS :",0,0,"L");
-          $pdf->Cell(50,4,$dataEmpresa->telefono,0,1,"L");
-          $pdf->setX(10);
-          $pdf->setFont("Arial","",10);
-          $pdf->Cell(35, 5, "MAQUINA :". $dataTicketera->serie, $borde, 1, "L");
-          $pdf->setX(10);
-          $pdf->setFont("Arial","",10);
-          $pdf->Cell(35, 5, "AUTORIZACION SUNAT :" . $dataTicketera->autorizacionsunat , $borde, 1, "L");
-          
-          $pdf->setX(10);
-          $pdf->Cell(35, 5, "FECHA   :  ".$dataFacturacion->fecha, $borde, 1, "L");
-          //$pdf->setX(10);
-          //$pdf->Cell(35, 5, "HORA    :  ".$dataFacturacion->hora, $borde, 1, "L");
-          
-          $pdf->setX(10);
-          $pdf->setFont("Arial", "", 10);
+          $pdf->MultiCell(93, 5,utf8_decode( $dataEmpresa->razonsocial) ,$borde, "C");
+          $pdf->setX(4);
+          $pdf->setFont("Arial", "", 9.5);
+          $pdf->MultiCell(93, 4,"R.U.C : ". $dataEmpresa->ruc ,$borde, "C");
+          $pdf->setX(4);
+          $pdf->MultiCell(93, 4, trim($dataEmpresa->direccion),0, "C");
+          $pdf->setX(4);
+          $pdf->Cell(93,4,"Tef: ".$dataEmpresa->telefono,0,1,"C");
+          $pdf->setX(4);
+          $pdf->setFont("Arial", "B", 9.5);
           if(substr($dataFacturacion->documento,0,1)=='B'){
-            $pdf->Cell(65, 5,'** BOLETA ELECTRONICA :  '. $dataFacturacion->seriedoc.'-'.$dataFacturacion->numerodoc .' **' , 0, 2, "C");
+            $pdf->Cell(93, 5,'BOLETA ELECTRONICA ', 0, 2, "C");
+            $pdf->Cell(93, 3,$dataFacturacion->seriedoc.'-'. str_pad( $dataFacturacion->numerodoc,8,'0',STR_PAD_LEFT) , 0, 2, "C");
           }else{
                 if( substr($dataFacturacion->documento,0,1)=='N')
                 {
-                  $pdf->Cell(65, 5,'** NOTA PEDIDO :  '. $dataFacturacion->seriedoc.'-'.$dataFacturacion->numerodoc .' **', 0, 2, "C");  
+                  $pdf->Cell(93, 5,'** NOTA PEDIDO :  '. $dataFacturacion->seriedoc.'-'.$dataFacturacion->numerodoc .' **', 0, 2, "C");  
                 }
                 else{
-                  $pdf->Cell(65, 5,'** FACTURA ELECTRONICA :  '. $dataFacturacion->seriedoc.'-'.$dataFacturacion->numerodoc .' **', 0, 2, "C");
+                  $pdf->Cell(93, 5,'FACTURA ELECTRONICA ', 0, 2, "C");
+                  $pdf->Cell(93, 3,$dataFacturacion->seriedoc.'-'.str_pad( $dataFacturacion->numerodoc,8,'0',STR_PAD_LEFT) , 0, 2, "C");
                 }
           }
-
+        $pdf->setFont("Arial", "", 9.5);
+          //$pdf->setX(4);
+          //$pdf->Cell(35, 5, "MAQUINA :". $dataTicketera->serie, $borde, 1, "L");
+          //$pdf->setX(4);
+          //$pdf->Cell(35, 5, "AUTORIZACION SUNAT :" . $dataTicketera->autorizacionsunat , $borde, 1, "L");
         $pdf->Ln(1);
-        $pdf->setX(10);
-    
+        $pdf->setX(4);
+        $pdf->Cell(35, 5, utf8_decode("FECHA EMISIÓN   :  ").$dataFacturacion->fecha, $borde, 1, "L");
+          //$pdf->setX(10);
+          //$pdf->Cell(35, 5, "HORA    :  ".$dataFacturacion->hora, $borde, 1, "L");
+        $pdf->Ln(1);
+        $pdf->setX(4);
+        $borde = 'B';
         $pdf->setFont("Arial", "", 9);
-        $pdf->Cell(32, 5, "DESCRIPCION", $borde, 0, "L");
-        $pdf->Cell(10, 5, "CANT", $borde, 0, "L");
-        $pdf->Cell(10, 5, "P.UNI.", $borde, 0, "R");
-    
-        $pdf->Cell(10, 5, "IMP.", $borde, 2, "R");
-        $pdf->setX(10);
-        $pdf->Cell(80, 5,'===================================================', $borde, 2, "L");
-        //$pdf->Ln(5);
+        $pdf->Cell(45, 5, "DESCRIPCION", $borde, 0, "L");
+        $pdf->Cell(15, 5, "CANT", $borde, 0, "L");
+        $pdf->Cell(14, 5, "P.UNI.", $borde, 0, "R");
+        $pdf->Cell(15, 5, "IMP.", $borde, 2, "R");
+        $pdf->Ln(1);
+        $borde = 0;
         $totalventa = 0;
         foreach ($dataDetalle as $row) {
-          $pdf->setX(10);
+            $pdf->setX(4);
             $pdf->setFont("Arial", "", 9);
-            $pdf->MultiCell(65, 4, $row->producto, $borde, "L");
-            
+            $pdf->MultiCell(89, 4, $row->producto, $borde, "L");
             $pdf->setFont("Arial", "", 10);
             if($row->cantidad == 1 && $row->unidadcantidad >0){
-              $pdf->setX(36);
-              $pdf->Cell(7, 5, $row->unidadcantidad .' und', $borde, 0, "R");
+              $pdf->setX(50);
+              $pdf->Cell(10, 5, $row->unidadcantidad .' und', $borde, 0, "R");
             }else{
-              $pdf->setX(40);
-              $pdf->Cell(7, 5, $row->cantidad, $borde, 0, "R");
+              $pdf->setX(50);
+              $pdf->Cell(10, 5, $row->cantidad, $borde, 0, "R");
             }
-            $pdf->Cell(14, 5, number_format($row->precio, 2, ".", ","), $borde, 0, "R");
-            $pdf->Cell(14, 5, number_format($row->total , 2, ".", ","), $borde, 1, "R");
+            $pdf->Cell(15, 5, number_format($row->precio, 2, ".", ","), $borde, 0, "R");
+            $pdf->Cell(18, 5, number_format($row->total , 2, ".", ","), $borde, 1, "R");
             $totalventa = $totalventa + $row->total;
         }
-    
-        $pdf->Ln(5);
-          $pdf->setX(42);
-        if($dataFacturacion->iddocumento == 1){
-          $pdf->setFont("Arial", "", 9);
-          $pdf->Cell(15, 5, "SubTotal :", $borde, 0, "L");
-          $pdf->setFont("Arial", "", 10);
-          $pdf->Cell(14, 5, number_format($totalventa / 1.18 , 2, ".", ","), $borde, 2, "R");
-          $pdf->setX(42);
-          $pdf->setFont("Arial", "", 9);
-          $pdf->Cell(15, 5, "IGV :", $borde, 0, "L");
-          $pdf->setFont("Arial", "", 10);
-          $pdf->Cell(14, 5, number_format( $totalventa - ($totalventa / 1.18) , 2, ".", ","), $borde, 2, "R");
-          $pdf->setX(42);
-          $pdf->setFont("Arial", "", 9);
-          $pdf->Cell(15, 5, "Total :", $borde, 0, "L");
-          $pdf->setFont("Arial", "", 10);
-          $pdf->Cell(14, 5, number_format($totalventa , 2, ".", ","), $borde, 2, "R");
+        $pdf->setX(4);
+        $pdf->MultiCell(89, 1, ' ', 'B', "C");
+        $pdf->Ln(0.5);
+        $pdf->setX(36);
+        $borde= 0;
+        if($dataFacturacion->incluyeigv == 1){
+          $totalGrabado = $totalventa / 1.18 ;
+          $igv          = $totalventa - ($totalventa / 1.18);
+          $totalVenta   = $totalventa;
         }else{
-          $pdf->setFont("Arial", "", 9);
-          $pdf->setX(42);
-          $pdf->setFont("Arial", "", 9);
-          $pdf->Cell(15, 5, "Total :", $borde, 0, "L");
-          $pdf->setFont("Arial", "", 10);
-          $pdf->Cell(14, 5, number_format($totalventa, 2, ".", ","), $borde, 2, "R");
+          $totalGrabado = $totalventa  ;
+          $igv          = $totalventa * 0.18;
+          $totalGrabado = $totalventa  ;
+          $totalVenta   = $totalventa + ($totalventa * 0.18);
         }
+        $pdf->setFont("Arial", "", 9);
+        $pdf->Cell(27, 5, "OP.GRAVADA ", $borde, 0, "L");
+        $pdf->Cell(6, 5, "S/", $borde, 0, "L");
+        $pdf->setFont("Arial", "", 10);
+        $pdf->Cell(24, 5, number_format($totalGrabado , 2, ".", ","), $borde, 2, "R");
+        $pdf->setX(36);
+        $pdf->setFont("Arial", "", 9);
+        $pdf->Cell(27, 5, "I.G.V. ", $borde, 0, "L");
+        $pdf->Cell(6, 5, "S/", $borde, 0, "L");
+        $pdf->setFont("Arial", "", 10);
+        $pdf->Cell(24, 5, number_format( $igv, 2, ".", ","), $borde, 2, "R");
+        $pdf->setX(36);
+        $pdf->setFont("Arial", "", 9);
+        $pdf->Cell(27, 5, "IMPORTE TOTAL ", $borde, 0, "L");
+        $pdf->Cell(6, 5, "S/", $borde, 0, "L");
+        $pdf->setFont("Arial", "", 10);
+        $pdf->Cell(24, 5, number_format($totalVenta , 2, ".", ","), $borde, 2, "R");
+        $pdf->Ln();
+        $pdf->setX(4);
         $pdf->setFont("Arial", "", 7);
-        $pdf->setX(10);
-          $pdf->Cell(80, 5, '====================================================', $borde, 2, "L");
-          $pdf->setFont("Arial", "", 9);
-          $pdf->Cell(20, 5, "CLIENTE : ", $borde, 0, "L");
-          $pdf->setFont("Arial", "", 9);
-          $pdf->Cell(65, 5, $dataFacturacion->nomcompleto, $borde, 2, "L");
-          $pdf->setX(10);
-          $pdf->Cell(20, 5, "RUC/DNI : ", $borde, 0, "L");
-          $pdf->setFont("Arial", "", 9);
-          $pdf->Cell(65, 5, $dataFacturacion->ruc_dni, $borde, 2, "L");
-          $pdf->setX(10);
-          $pdf->Ln();
-          $pdf->setFont("Arial", "B", 8);
-          $pdf->setX(10);
-          $pdf->MultiCell(65, 5, "*** GRACIAS POR SU PREFERENCIA ***.",0, "C");
-          $pdf->Ln(3);
-          $pdf->AutoPrint();
-          $pdf->output(); 
-        }
-
-       
+        $pdf->Cell(20, 5, "SON : ", $borde, 0, "L");
+        $pdf->setFont("Arial", "", 7);
+        $pdf->Cell(65, 5, $dataFacturacion->totalletras, $borde, 2, "L");
+        $pdf->Ln(1);
+        $pdf->setX(4); 
+        $pdf->setFont("Arial", "", 9);
+        $pdf->Cell(20, 5, "CLIENTE : ", $borde, 0, "L");
+        $pdf->setFont("Arial", "", 9);
+        $pdf->Cell(65, 5, $dataFacturacion->nomcompleto, $borde, 2, "L");
+        $pdf->setX(4);
+        $pdf->Cell(20, 5, "RUC/DNI : ", $borde, 0, "L");
+        $pdf->setFont("Arial", "", 9);
+        $pdf->Cell(65, 5, $dataFacturacion->numdocper, $borde, 2, "L");
+        $pdf->Ln();
+        $pdf->setX(4);
+        $pdf->MultiCell(88, 5, $firmaDoc, $borde, "C"); #Firma Digital
+        // $pdf->AutoPrint();
+        $pdf->output(); 
+    }
 
     // @Grupo reportes de ventas
     // Muestra todos los reportes del esquema facturación

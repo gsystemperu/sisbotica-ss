@@ -23,15 +23,14 @@ Ext.define('sisbotica_paulino.view.puntoventa.AccionesListadoPdv', {
     },
     onClickImprimirComprobante:function(btn){
       r  = Ext.ComponentQuery.query('#dgvVentasFacturarPdv')[0].getSelectionModel().getSelection()[0];
-      console.log(r);
       if(r){
-        switch (r.get('tipodoc')) {
+        /*switch (r.get('tipodoc')) {
           case 'BOL':objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ r.get('idfacturacion'), "", "width=700,height=900");break;
           case 'FAC':objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ r.get('idfacturacion'), "", "width=700,height=900");break;
           case 'NOT':objrpt = window.open( sisbotica_paulino.util.Rutas.imprimirTicket+ 'id='+ r.get('idfacturacion'), "", "width=700,height=900");break;
-        }
-        
-        
+        }*/
+        window.open(sisbotica_paulino.util.Rutas.imprimirTicket+ 
+          'id='+ r.get('idfacturacion'), "", "width=700,height=900");
       }
     },
     onClickBuscarCotizacionesPorFechas:function(){

@@ -92,8 +92,8 @@ Ext.define('sisbotica_paulino.view.puntoventa.Pago',{
                 vertical: true,
                 flex: 1.5,
                 items:[
-                  {boxLabel:'NOTA / TICKET',name: 'dv',inputValue:'3',checked: true},
-                  {boxLabel:'BOLETA',name: 'dv',inputValue:'2'},
+                  {boxLabel:'NOTA / TICKET',name: 'dv',inputValue:'3',hidden:true},
+                  {boxLabel:'BOLETA',name: 'dv',inputValue:'2' , checked: true},
                   {boxLabel:'FACTURA',name: 'dv',inputValue:'1'}
                 ],
                 listeners:{
@@ -157,6 +157,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.Pago',{
             {
               xtype:'textfield',
               allowBlank :true,
+              readOnly:true,
               flex: 0.5,
               itemId : 'txtNumeroDoc',
               hidden:true

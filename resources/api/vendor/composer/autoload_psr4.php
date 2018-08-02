@@ -12,5 +12,5 @@ return array(
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Greenter\\XMLSecLibs\\' => array($vendorDir . '/greenter/xmldsig/src'),
     'Greenter\\Report\\' => array($vendorDir . '/greenter/report/src/Report'),
-    'Greenter\\' => array($vendorDir . '/greenter/core/src/Core', $vendorDir . '/greenter/data/src', $vendorDir . '/greenter/xml/src', $vendorDir . '/greenter/ws/src', $vendorDir . '/greenter/greenter/src/Greenter', $vendorDir . '/greenter/htmltopdf/src', $vendorDir . '/greenter/xcodes/src'),
+    'Greenter\\' => array($vendorDir . '/greenter/core/src/Core', $vendorDir . '/greenter/data/src', $vendorDir . '/greenter/greenter/src/Greenter', $vendorDir . '/greenter/htmltopdf/src', $vendorDir . '/greenter/ws/src', $vendorDir . '/greenter/xcodes/src', $vendorDir . '/greenter/xml/src'),
 );

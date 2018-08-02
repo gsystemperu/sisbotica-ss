@@ -54,11 +54,11 @@ class ComposerStaticInitff26d7adb1918ad788d621f42629d63d
         array (
             0 => __DIR__ . '/..' . '/greenter/core/src/Core',
             1 => __DIR__ . '/..' . '/greenter/data/src',
-            2 => __DIR__ . '/..' . '/greenter/xml/src',
-            3 => __DIR__ . '/..' . '/greenter/ws/src',
-            4 => __DIR__ . '/..' . '/greenter/greenter/src/Greenter',
-            5 => __DIR__ . '/..' . '/greenter/htmltopdf/src',
-            6 => __DIR__ . '/..' . '/greenter/xcodes/src',
+            2 => __DIR__ . '/..' . '/greenter/greenter/src/Greenter',
+            3 => __DIR__ . '/..' . '/greenter/htmltopdf/src',
+            4 => __DIR__ . '/..' . '/greenter/ws/src',
+            5 => __DIR__ . '/..' . '/greenter/xcodes/src',
+            6 => __DIR__ . '/..' . '/greenter/xml/src',
         ),
     );
 

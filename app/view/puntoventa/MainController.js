@@ -118,7 +118,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
       if (__radios[2].value) {
         __tipodoc = 1;
       }
-
+      me.getView().mask('..Imprimiendo');
       Ext.Ajax.request({
         url: sisbotica_paulino.util.Rutas.facturacionGuardarPagoPuntoVenta,
         params: {
@@ -140,25 +140,20 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
             Ext.ComponentQuery.query('#wPuntoVentaPago')[0].reset();
             Ext.ComponentQuery.query('#dgvDetalleCaja')[0].getStore().removeAll();
             Ext.ComponentQuery.query('#dvListaProductos')[0].getStore().reload();
-            me = Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
-            l = me.getLayout();
-            l.setActiveItem(0);
             Ext.ComponentQuery.query('#txtTotalVentaCaja')[0].setValue('0');
-
-            //switch (__tipodoc) {
-              //case 3:objrpt = window.open(sisbotica_paulino.util.Rutas.imprimirTicket + 'id=' + __data.error, "", "width=700,height=900");break; //Ticketera Nota Pedido
-              //case 2:objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ __data.error, "", "width=700,height=900");  break; //Boleta
-              //case 1:objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ __data.error, "", "width=700,height=900");break; //Factura
-            //}
-            objrpt = window.open(sisbotica_paulino.util.Rutas.imprimirTicket + 'id=' + __data.error, "", "width=700,height=900")
-            // Impresion Cerrar ventana
-           // setTimeout(function(){ objrpt.close()}, 8000);
-
+            // Timer de 10 segundos para que el facturador pueda firmar el XML digital para que se pueda imprimir
+             setTimeout(function(){ 
+                me.getView().unmask();
+                objrpt = window.open(sisbotica_paulino.util.Rutas.imprimirTicket + 'id=' + __data.error, "", "width=700,height=900")
+                me = Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
+                l = me.getLayout();
+                l.setActiveItem(0);
+                setTimeout(function(){ objrpt.close() },5000);
+              }, 2800);
           }
         }
       });
     }else{
-
       alert("ingresar datos de pago");
     }
 

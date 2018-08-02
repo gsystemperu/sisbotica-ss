@@ -89,7 +89,7 @@ class FacturacionController extends Controller
            $vFormaPago    = $request->getPost('idfopag');
            $vModoEntrega  = $request->getPost('idmodo');
            $vDocVenta     = $request->getPost('documentoventa');
-           $vIncluyeIgv   = true;
+           $vIncluyeIgv   = 1;
            $vSerieDoc     = $request->getPost('serie');
            $vNumeroDoc    = $request->getPost('numerodoc');
            $vAcuenta      = $request->getPost('acuenta');
