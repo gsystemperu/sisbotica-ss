@@ -1,9 +1,9 @@
-Ext.define('sisbotica_paulino.view.ventas.FormConfiguracionesController', {
+Ext.define('sisbotica_paulino.view.puntoventa.ConfigPuntoVentaController', {
     extend: 'Ext.app.ViewController',
-    alias: 'controller.ventas-formconfiguraciones',
+    alias: 'controller.confpuntoventa',
     onRender:function( w ){
         Ext.Ajax.request({
-            url :sisbotica_paulino.util.Rutas.confInventario,
+            url :sisbotica_paulino.util.Rutas.confPuntoVenta,
             method : 'POST',
             success:function(response){
                   rs =  Ext.JSON.decode(response.responseText);
@@ -33,12 +33,12 @@ Ext.define('sisbotica_paulino.view.ventas.FormConfiguracionesController', {
         });
     },
     onClickGuardar:function(b){
-        f= this.lookupReference('wFormConfiguraciones');
+       /* f= this.lookupReference('wFormConfiguraciones');
         if(f.isValid()){
             f.submit({
                 
             });
-        }
+        }*/
     }
 
 });

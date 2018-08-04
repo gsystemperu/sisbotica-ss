@@ -182,6 +182,7 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                     columnWidth: 0.5,
                                     defaults: {
                                         allowBlank: false
+                                       
                                     },
                                     items: [
                                         {
@@ -207,7 +208,8 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             flex: 1,
                                             editable: false,
                                             name: 'idalmacen',
-                                            allowBlank: false
+                                            allowBlank: false,
+                                            labelWidth : 150
                                         }
                                     ]
                                 },

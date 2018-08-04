@@ -25,7 +25,7 @@ class OrdenCompra extends \Phalcon\Mvc\Model
     {
         $obj     = new SQLHelpers();
         $param   = $data;
-        $sql     =  $obj->executar('compras','sp_orden_compra_actualizar',$param);
+        $sql     =  $obj->executar('compras','sp_orden_compra_actualizar_2',$param);
         return $sql;
     }
 

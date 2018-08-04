@@ -85,11 +85,6 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoExistencias', {
         columnLines: true,
         sortableColumns: false,
         selModel: 'rowmodel',
-        /*plugins: [rowEditing],
-        plugins: {
-          ptype: 'cellediting',
-          clicksToEdit: 1
-        },*/
         features: [{
           id: 'group',
           ftype: 'groupingsummary',
@@ -97,7 +92,6 @@ Ext.define('sisbotica_paulino.view.almacen.ProductoExistencias', {
           hideGroupedHeader: true,
           enableGroupingMenu: true,
           startCollapsed: true
-
         }],
         columns: [
           {

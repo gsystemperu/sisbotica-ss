@@ -70,6 +70,7 @@ Ext.define('sisbotica_paulino.Application', {
         'almacen.ListadoGenericos',
         'almacen.ProductoExistenciasEditar',
         'almacen.ReportesProducto',
+        'puntoventa.ConfigPuntoVenta',
 
         //@Conf views
         'conf.configEmpresa',

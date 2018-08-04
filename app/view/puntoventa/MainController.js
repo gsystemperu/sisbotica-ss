@@ -118,7 +118,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
       if (__radios[2].value) {
         __tipodoc = 1;
       }
-      me.getView().mask('..Imprimiendo');
+      me.getView().mask('.. Espere');
       Ext.Ajax.request({
         url: sisbotica_paulino.util.Rutas.facturacionGuardarPagoPuntoVenta,
         params: {
@@ -141,15 +141,37 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
             Ext.ComponentQuery.query('#dgvDetalleCaja')[0].getStore().removeAll();
             Ext.ComponentQuery.query('#dvListaProductos')[0].getStore().reload();
             Ext.ComponentQuery.query('#txtTotalVentaCaja')[0].setValue('0');
-            // Timer de 10 segundos para que el facturador pueda firmar el XML digital para que se pueda imprimir
-             setTimeout(function(){ 
-                me.getView().unmask();
-                objrpt = window.open(sisbotica_paulino.util.Rutas.imprimirTicket + 'id=' + __data.error, "", "width=700,height=900")
-                me = Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
-                l = me.getLayout();
-                l.setActiveItem(0);
-                setTimeout(function(){ objrpt.close() },5000);
-              }, 2800);
+
+            if(__data.conf ==1){
+              // Timer de 10 segundos para que el facturador pueda firmar el XML digital para que se pueda imprimir
+                setTimeout(function(){ 
+                  me.getView().unmask();
+                  if(__data.confimpre){  // 1=> ticketera : 0=> A4
+                    objrpt = window.open(sisbotica_paulino.util.Rutas.imprimirTicket + 'id=' + __data.error, "", "width=700,height=900")
+                  }else{
+                    objrpt = window.open(sisbotica_paulino.util.Rutas.rptImprimirNota + 'id=' + __data.error, "", "width=700,height=900")
+                  }
+                  me = Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
+                  l = me.getLayout();
+                  l.setActiveItem(0);
+                  setTimeout(function(){ objrpt.close() },5000);
+                }, 2800);
+            }else{
+              me.getView().unmask();
+              me = Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
+              l = me.getLayout();
+              l.setActiveItem(0);
+              Ext.Msg.show({
+                title : 'Venta',
+                msg : '<H1> Código de la Venta  :: '+ __data.error.toString()  +'</H1>',
+                width : 500,
+                closable : false,
+                icon : Ext.Msg.QUESTION,
+                buttons : Ext.Msg.YES
+            });
+            }
+
+            
           }
         }
       });

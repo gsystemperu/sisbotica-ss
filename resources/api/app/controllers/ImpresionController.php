@@ -20,8 +20,7 @@ class ImpresionController extends Controller
       $this->view->cliente = $cliente;
       $this->view->detalle = $detalle;
     }
-   public function impresionguiaremisionAction()
-   {
+    public function impresionguiaremisionAction(){
      
           $request  = new Phalcon\Http\Request();
           $id       =  $request->get("id");
@@ -98,18 +97,16 @@ class ImpresionController extends Controller
           $pdf->Output();
 
       
-   }
-      
-   public function visualizarnotaAction(){
-    $request  = new Phalcon\Http\Request();
-    $id   =  $request->get("id");
-    $data     = array($id);
-    $cliente  =  json_decode(Facturacion::datosFacturacionCliente($data));       
-    $detalle  =  json_decode(Facturacion::detalleFacturacion($data));
-    $this->view->cliente = $cliente;
-    $this->view->detalle = $detalle;   
-   }
-    
+    }
+    public function visualizarnotaAction(){
+      $request  = new Phalcon\Http\Request();
+      $id   =  $request->get("id");
+      $data     = array($id);
+      $cliente  =  json_decode(Facturacion::datosFacturacionCliente($data));       
+      $detalle  =  json_decode(Facturacion::detalleFacturacion($data));
+      $this->view->cliente = $cliente;
+      $this->view->detalle = $detalle;   
+    }
     public function enviarCotizacionAction(){
 
       $request    = new Phalcon\Http\Request();
@@ -261,8 +258,6 @@ class ImpresionController extends Controller
       $pdf->cell(0,5,pinta($tot),'T',1,'C');
       $pdf->Output();
     }
-
-
     public function reporteVentasAction(){
       
       $request        = new Phalcon\Http\Request();
@@ -324,9 +319,7 @@ class ImpresionController extends Controller
       //-----------------------------------
 
       $pdf->Output();
-
     }
-
     public function reportecuentacorrienteclienteAction(){
       
       $request        = new Phalcon\Http\Request();
@@ -385,7 +378,6 @@ class ImpresionController extends Controller
       $pdf->Output();
 
     }
-
     public function reporteventapagosclienteAction(){
      
       $request        = new Phalcon\Http\Request();
@@ -469,11 +461,6 @@ class ImpresionController extends Controller
       $pdf->Output();
 
     }
-
-    /*
-      Impresion de Proforma
-    */
-
     public function imprimirproformaAction(){
       
             $request    = new Phalcon\Http\Request();
@@ -497,7 +484,8 @@ class ImpresionController extends Controller
             $pdf->AddPage();
             $pdf->SetFont($font,'',$tam);
             $pdf->Ln(1);
-            $pdf->Image('../public/img/logo.jpg', 10, 3, 28);
+            $pdf->Image('../public/img/logo.jpg', 10, 5, 28);
+            $pdf->setY(5);
             $pdf->setX(100);
             $pdf->MultiCell($wg,$in, pinta($dataEmpresa->razonsocial),'T','L');
             $pdf->setX(100);
@@ -596,9 +584,8 @@ class ImpresionController extends Controller
           $pdf->Output();
       
       
-          }
-
-          public function imprimirstockinventarioAction(){  
+    }
+    public function imprimirstockinventarioAction(){  
             $this->view->disable();      
             $pdf = new fpdf('P','mm','A4');
             $request    = new Phalcon\Http\Request();
@@ -628,12 +615,10 @@ class ImpresionController extends Controller
             }
       
             $pdf->Output();
-        }  
-        
-        public function imprimirticketeraAction()
-        {
+    }  
+    public function imprimirticketeraAction(){
           
-          #Ruta del Facturador Sunat
+          //#Ruta del Facturador Sunat
           $rutaFacturadorSunat = "C:\\facturador\sunat_archivos\sfs\FIRMA";
           $hp                  = new FuncionesHelpers();
           $request             = new Phalcon\Http\Request();
@@ -683,15 +668,9 @@ class ImpresionController extends Controller
                 }
           }
         $pdf->setFont("Arial", "", 9.5);
-          //$pdf->setX(4);
-          //$pdf->Cell(35, 5, "MAQUINA :". $dataTicketera->serie, $borde, 1, "L");
-          //$pdf->setX(4);
-          //$pdf->Cell(35, 5, "AUTORIZACION SUNAT :" . $dataTicketera->autorizacionsunat , $borde, 1, "L");
         $pdf->Ln(1);
         $pdf->setX(4);
         $pdf->Cell(35, 5, utf8_decode("FECHA EMISIÓN   :  ").$dataFacturacion->fecha, $borde, 1, "L");
-          //$pdf->setX(10);
-          //$pdf->Cell(35, 5, "HORA    :  ".$dataFacturacion->hora, $borde, 1, "L");
         $pdf->Ln(1);
         $pdf->setX(4);
         $borde = 'B';
@@ -741,7 +720,7 @@ class ImpresionController extends Controller
         $pdf->Cell(24, 5, number_format($totalGrabado , 2, ".", ","), $borde, 2, "R");
         $pdf->setX(36);
         $pdf->setFont("Arial", "", 9);
-        $pdf->Cell(27, 5, "I.G.V. ", $borde, 0, "L");
+        $pdf->Cell(27, 5, "I.G.V. 18% ", $borde, 0, "L");
         $pdf->Cell(6, 5, "S/", $borde, 0, "L");
         $pdf->setFont("Arial", "", 10);
         $pdf->Cell(24, 5, number_format( $igv, 2, ".", ","), $borde, 2, "R");
@@ -766,14 +745,13 @@ class ImpresionController extends Controller
         $pdf->setX(4);
         $pdf->Cell(20, 5, "RUC/DNI : ", $borde, 0, "L");
         $pdf->setFont("Arial", "", 9);
-        $pdf->Cell(65, 5, $dataFacturacion->numdocper, $borde, 2, "L");
+        $pdf->Cell(65, 5, ($dataFacturacion->numdocper!=''?$dataFacturacion->numdocper:$dataFacturacion->numrucper), $borde, 2, "L");
         $pdf->Ln();
         $pdf->setX(4);
         $pdf->MultiCell(88, 5, $firmaDoc, $borde, "C"); #Firma Digital
-        // $pdf->AutoPrint();
+        $pdf->AutoPrint();
         $pdf->output(); 
     }
-
     // @Grupo reportes de ventas
     // Muestra todos los reportes del esquema facturación
     public function impresiondeventasAction(){
@@ -991,9 +969,7 @@ class ImpresionController extends Controller
       $pdf->Cell(38,5,pinta(number_format($ttg, 2, '.',' ')),$borde,1,'R');
       $pdf->output();
     }
-
-    public function imprimirresumenventaticketeraAction()
-    {
+    public function imprimirresumenventaticketeraAction() {
 
       $request    = new Phalcon\Http\Request();
       $u = array($request->get("usuario"));
@@ -1043,5 +1019,210 @@ class ImpresionController extends Controller
       $pdf->setX(38);
       $pdf->Cell(5,$textypos,number_format($total,2,".",","),0,0,"R");
       $pdf->output();
-  }
+    }
+    public function imprimirfacturaelectronicaAction(){
+      
+       //#Ruta del Facturador Sunat
+       $rutaFacturadorSunat = "C:\\facturador\sunat_archivos\sfs\FIRMA";
+       $hp                  = new FuncionesHelpers();
+       $request             = new Phalcon\Http\Request();
+       $idfactura           = array($request->get("id"));
+       $dataEmpresa         = json_decode(Empresa::listar())->data[0];
+       $dataFacturacion     = json_decode(Facturacion::datosFacturacionCliente($idfactura))->data[0];
+       $dataDetalle         = json_decode(Facturacion::detalleFacturacion($idfactura))->data;
+       $dataTicketera       = json_decode(DocumentoVenta::ticketeras())->data[0];
+       $totalGrabado        = 0;
+       $igv                 = 0;
+       $totalVenta          = 0;
+       
+       $file = simplexml_load_file($rutaFacturadorSunat.'\\'. $dataFacturacion->nombrearchivo. '.xml');
+       $arrayData = $hp->xmlToArray($file);
+       $umlExt    = $arrayData["Invoice"]["ext:UBLExtensions"]["ext:UBLExtension"]["ext:ExtensionContent"];
+       $umlFirmas = $umlExt["ds:Signature"]["ds:SignedInfo"];
+       $firmaDoc  = $umlFirmas["ds:Reference"]["ds:DigestValue"];
+
+
+      // ========== FPDF ==========  //
+      $pdf = new jsPDF('P','mm','A4');
+      $wg = 120 ;//Ancho total
+      $in = 5; //Interlineado
+      $font = 'Arial';
+      $tam = 12;
+
+      $pdf->AddPage();
+      $pdf->SetFont($font,'B',$tam);
+      $pdf->Ln(1);
+      $pdf->Image('../public/img/logo.jpg', 10, 5, 28);
+      $pdf->setY(35);
+      $pdf->MultiCell($wg,$in, pinta($dataEmpresa->razonsocial),0,'L');
+      $tam = 8;
+      $pdf->SetFont($font,'',$tam);
+      $pdf->Ln(1);
+      $pdf->MultiCell($wg,4, pinta(strtoupper($dataEmpresa->direccion)),0,'L');
+      $pdf->MultiCell($wg,$in,"CORREO: ".pinta($dataEmpresa->correo),0,'L');
+      $pdf->MultiCell($wg,$in,pinta("TELÉFONO: ".$dataEmpresa->telefono),0,'L');
+      $fila = $pdf->getY();
+      $pdf->setXY(130,20);
+      $pdf->SetFont($font,'B',13);
+      $pdf->MultiCell(0,10,'RUC :' . pinta(strtoupper($dataEmpresa->ruc)),'LRT','C');
+    
+      if(substr($dataFacturacion->documento,0,1)=='B'){
+        $pdf->setXY(130,30);
+        $pdf->MultiCell(0,10,'BOLETA ELECTRONICA ','LR','C');
+        $pdf->setXY(130,40);
+        $pdf->MultiCell(0,10,$dataFacturacion->seriedoc.'-'. str_pad( $dataFacturacion->numerodoc,8,'0',STR_PAD_LEFT),'LRB','C');
+      }else{
+            if( substr($dataFacturacion->documento,0,1)=='F')
+            {
+              $pdf->setXY(130,30);
+              $pdf->MultiCell(0,10,'FACTURA ELECTRONICA ','LR','C');
+              $pdf->setXY(130,40);
+              $pdf->MultiCell(0,10,$dataFacturacion->seriedoc.'-'. str_pad( $dataFacturacion->numerodoc,8,'0',STR_PAD_LEFT),'LRB','C');
+            }
+      }
+      $pdf->setY($fila+5);
+      $tam = 9;
+      $pdf->SetFont($font,'B',$tam);
+      $pdf->Cell(23,$in,pinta("SEÑOR (es)   : "),0,0,'L');  
+      $pdf->SetFont($font,'',$tam);
+      $pdf->Cell(0,$in,pinta($dataFacturacion->nomcompleto),0,1,'L');
+      $pdf->SetFont($font,'B',$tam);
+      $pdf->Cell(23,$in,pinta("RUC Nro        : "),0,0,'L');  
+      $pdf->SetFont($font,'',$tam);
+      $pdf->Cell(0,$in,pinta($dataFacturacion->numrucper),0,1,'L');
+      $pdf->SetFont($font,'B',$tam);
+      $pdf->Cell(23,$in,pinta("Dirección      : "),0,0,'L');  
+      $pdf->SetFont($font,'',$tam);
+      $pdf->Cell(0,$in,pinta($dataFacturacion->domiciper),0,1,'L');
+      $pdf->Ln();
+      //print_r($dataFacturacion);die();
+      $pdf->Cell(45,7,pinta('FECHA EMISIÓN'),1,0,'C');
+      $pdf->Cell(45,7,pinta('FECHA VESIÓN'),1,0,'C');
+      $pdf->Cell(45,7,pinta('CONDICIONES'),1,0,'C');
+      $pdf->Cell(45,7,pinta('GUIA REMISIÓN'),1,1,'C');
+      $pdf->Cell(45,7,pinta($dataFacturacion->fecha),1,0,'C');
+      $pdf->Cell(45,7,pinta($dataFacturacion->fecha),1,0,'C');
+      $pdf->Cell(45,7,pinta($dataFacturacion->formapago),1,0,'C');
+      $pdf->Cell(45,7,pinta(''),1,1,'C');
+      $pdf->Ln();
+      $pdf->Cell(15,7,pinta('Cant.'),'B',0,'C');
+      $pdf->Cell(20,7,pinta('Codigo'),'B',0,'C');
+      $pdf->Cell(110,7,pinta('Descripcion'),'B',0,'L');
+      $pdf->Cell(20,7,pinta('Pre.Unit.'),'B',0,'R');
+      $pdf->Cell(0,7,pinta('Total'),'B',1,'R');
+      $totalventa = 0;
+      foreach ($dataDetalle as $row) {
+        $pdf->Cell(15,5,pinta($row->cantidad),'',0,'C');
+        $pdf->Cell(20,5,pinta($row->idprod),'',0,'C');
+        $pdf->Cell(110,5,pinta($row->producto),'',0,'L');
+        $pdf->Cell(20,5,pinta(number_format($row->precio,2, ".", ",")),'',0,'R');
+        $pdf->Cell(0,5,pinta(number_format($row->total,2, ".", ",")),'',1,'R');
+        $totalventa  += $row->total;
+      }
+      $tam = 9.5;
+      if($dataFacturacion->incluyeigv == 1){
+        $totalGrabado = $totalventa / 1.18 ;
+        $igv          = $totalventa - ($totalventa / 1.18);
+        $totalVenta   = $totalventa;
+      }else{
+        $totalGrabado = $totalventa  ;
+        $igv          = $totalventa * 0.18;
+        $totalVenta   = $totalventa + ($totalventa * 0.18);
+      }
+      $pdf->SetFont($font,'',$tam);
+      $pdf->Cell(0,1,pinta(''),'B',1,'R');
+      $pdf->Ln(1);
+      $pdf->setX(140);
+      $fila = $pdf->getY();
+      $pdf->Cell(25,7,pinta('OP. GRAVADA'),0,0,'L');
+      $pdf->Cell(10,7,pinta('S/.'),0,0,'R');
+      $pdf->Cell(0,7,pinta(number_format($totalGrabado , 2, ".", ",")),0,1,'R');
+      $pdf->setX(140);
+      $pdf->Cell(25,7,pinta('I.G.V. 18%'),0,0,'L');
+      $pdf->Cell(10,7,pinta('S/.'),0,0,'R');
+      $pdf->Cell(0,7,pinta(number_format($igv , 2, ".", ",")),0,1,'R');
+      $pdf->setX(140);
+      $pdf->Cell(25,7,pinta('TOTAL VENTA'),0,0,'L');
+      $pdf->Cell(10,7,pinta('S/.'),0,0,'R');
+      $pdf->Cell(0,7,pinta(number_format($totalVenta , 2, ".", ",")),0,1,'R');
+      $pdf->setY($fila);
+      $pdf->MultiCell(130,7,pinta('SON : '.$dataFacturacion->totalletras),0,'L');
+      $tam = 9;
+      $pdf->Ln(7);
+
+      /*$pdf->SetFont($font,'B',20);
+      $pdf->MultiCell(186,$in,pinta("COTIZACIÓN: ".$dataCotizacion->ctcodigo),0,'C');
+      $pdf->Ln(5);
+
+      $fila = $pdf->GetY();
+      $pdf->SetFont($font,'B',$tam);
+      //$pdf->Cell(40,$in,pinta("FECHA DE COTIZACIÓN: "),0,0,'L');
+      $pdf->Cell(0,$in,pinta($dataCotizacion->fechacoti),0,1,'R');
+      $pdf->Cell(20,$in,"CLIENTE: ",0,0,'L');
+      $pdf->Cell(0,$in,pinta($dataCotizacion->nomcompleto),0,1,'L');
+      $pdf->Cell(20,$in,"DIRECCION: ",0,0,'L');
+      $pdf->Cell(0,$in,pinta($dataCotizacion->domiciper),0,1,'L');
+      $pdf->Cell(20,$in,"RUC: ",0,0,'L');
+      $pdf->Cell(0,$in,pinta($dataCotizacion->numrucper),0,1,'L');
+      $pdf->Cell(20,$in,"TELEFONO: ",0,0,'L');
+      $pdf->Cell(108,$in,pinta($dataCotizacion->telefper),0,0,'L');
+
+      $pdf->Cell(47,6,pinta('COTIZACIÓN VALIDA HASTA : '),0,0,'L');
+      $pdf->Cell(0,6,pinta($dataCotizacion->validohasta),0,1,'L');
+      $pdf->Ln(4);
+        $pdf->Cell(10,5,pinta('Item'),1,0,'C');
+        $pdf->Cell(110,5,pinta('Descripción'),1,0,'C');
+        $pdf->Cell(10,5,pinta('Cant.'),1,0,'C');
+        $pdf->Cell(15,5,pinta('Unidad'),1,0,'C');
+        //$pdf->Cell(16,5,pinta('P. sin igv'),1,0,'C');
+        $pdf->Cell(16,5,pinta('P. con igv'),1,0,'C');
+        $pdf->Cell(32,5,pinta('Total'),1,1,'C');
+          $item = 1;
+           foreach($dataDetalle as $row){
+            $pdf->SetFont($font,'',7);
+            $pdf->Cell(10,5,pinta($item++),1,0,'C'); 
+            $pdf->Cell(110,5,pinta($row->descripcion),1,0,'L');
+            
+            $pdf->Cell(10,5,pinta($row->cantidad),1,0,'C');
+            $pdf->Cell(15,5,pinta($row->um),1,0,'C');
+            //$pdf->Cell(16,5,pinta(number_format($row->precio / 1.18 , 2, '.',' ')),1,0,'R');
+            $pdf->Cell(16,5,pinta(number_format($row->precio, 2, '.',' ')),1,0,'R');
+            $pdf->Cell(32,5,pinta(number_format($row->total , 2, '.',' ')),1,1,'R');
+            $total_sin_imp += $row->total;
+           }
+
+        $pdf->Ln(4);
+        //$impuestos = $total_sin_imp * $impuestos;
+        $total_cotizacion = $total_sin_imp; // $total_sin_imp + $impuestos;
+     
+      $pdf->SetFont($font,'',$tam);       
+      if($dataCotizacion->incluyeigv == 1){
+            $pdf->Cell(165,5,pinta('TOTAL'),0,0,'R');
+            $pdf->Cell(22,5,pinta(number_format($total_cotizacion, 2, '.',' ')),'T',1,'R');
+          }else{
+            $pdf->Cell(168,5,pinta('SUB TOTAL'),0,0,'R');
+            $pdf->Cell(22,5,pinta(number_format($total_cotizacion / 1.18 , 2, '.',' ')),'T',1,'R');
+            $pdf->Cell(168,5,pinta('IGV'),0,0,'R');
+            $pdf->Cell(22,5,pinta(number_format($total_cotizacion - ($total_cotizacion / 1.18 ) , 2, '.',' ')),'T',1,'R');
+            $pdf->Cell(168,5,pinta('TOTAL'),0,0,'R');
+            $pdf->Cell(22,5,pinta(number_format($total_cotizacion, 2, '.',' ')),'T',1,'R');
+          }
+
+      //$pdf->Ln();      
+      //- Observaciones
+      $pdf->SetFont($font,'',$tam);
+      $pdf->Cell(0,6,pinta(''),'B',1,'L');
+      $pdf->Cell(35,6,'LUGAR DE ENTREGA :',0,0,'L');
+      $pdf->Cell(0,6,pinta($dataCotizacion->lugarentrega),0,1,'L');
+      $pdf->MultiCell($wg,6,'OBSERVACIONES :',0,'L');
+      $pdf->SetFont($font,'',$tam);
+      $pdf->MultiCell($wg,6,pinta($dataCotizacion->comentario),0,'L');
+      
+      $pdf->Cell(35,6,pinta('CREDITOS Y COBRANZAS : '),0,1,'L');
+      $pdf->MultiCell(0,4,pinta($dataCotizacion->creditoscobranzas),0,'J');
+
+      $pdf->AutoPrint();*/
+      $pdf->Output();
+    }
+  
 }

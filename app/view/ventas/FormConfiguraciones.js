@@ -6,7 +6,6 @@ Ext.define('sisbotica_paulino.view.ventas.FormConfiguraciones', {
     reference: 'wFormConfiguraciones',
     requires: [
         'sisbotica_paulino.view.ventas.FormConfiguracionesController'
-
     ],
     controller: 'ventas-formconfiguraciones',
     layout: {
@@ -16,11 +15,13 @@ Ext.define('sisbotica_paulino.view.ventas.FormConfiguraciones', {
     },
     padding: 20,
     url : '',
+    listeners : {
+        render : 'onRender'
+      },
     initComponent:function(){
         me = this;
         Ext.apply(me,
             {
-              items :me.getConfiguraciones(),
               bbar: ['->',
                   {
                       xtype: 'button',
@@ -31,50 +32,5 @@ Ext.define('sisbotica_paulino.view.ventas.FormConfiguraciones', {
               ]
             });
         me.callParent(arguments);
-    },
-    getConfiguraciones:function(){
-        return   [
-            {
-                xtype: 'fieldset',
-                columnWidth: 0.5,
-                title: 'INGRESO DE MERCADERIA',
-                defaultType: 'checkboxfield',
-                items: [
-                    {
-                        boxLabel: '<h3>Ingreso de mercaderia mediante orden de compra confirmada</h3>',
-                        name: 'IIDN_1',
-                        checked: true,
-    
-                    }, {
-                        boxLabel: '<h3>Ingreso de mercaderia desde la orden de compra</h3>',
-                        name: 'IIDN_2',
-                    }
-                ]
-            },
-            {
-                xtype: 'fieldset',
-                columnWidth: 0.5,
-                title: 'PRODUCTO',
-                defaultType: 'checkboxfield',
-                items: [
-                    {
-                        boxLabel: '<h3>Precios de producto (caja, blister, unidad) ingreso manual</h3>',
-                        name: 'IPROD_3',
-                        checked: true,
-    
-                    }, {
-                        boxLabel: '<h3>Precio de producto ingresado desde la orden de compra</h3>',
-                        name: 'IPROD_4',
-                    },
-                    {
-                        boxLabel: '<h3>Precios de producto (caja, blister, unidad) según porcentaje ingresado por usuario</h3>',
-                        name: 'precioprodingresadousuario',
-                        name: 'IPROD_5'
-                    }
-                ]
-            }
-        ];
     }
-   
-
 });

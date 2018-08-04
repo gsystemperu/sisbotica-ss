@@ -143,6 +143,9 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
               pack: 'start',
               align: 'stretch'
             },
+            defaults :{ 
+              labelWidth : 120
+            },
             padding: '10 10 10 10',
             items: [
               {

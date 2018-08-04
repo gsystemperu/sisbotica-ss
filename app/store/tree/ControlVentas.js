@@ -11,17 +11,17 @@ Ext.define('sisbotica_paulino.store.tree.ControlVentas', {
                expanded: true,
                 children: [
                  {
-                   text: 'Cotizacion a facturar',
+                   text: 'Reg.Boletas-Facturas',
                    leaf: true,
                    itemId: "wContenedorCotizacionesFacturar",
                    titulo: "Proforma/Facturar",
                    glyph : 'xf022'
                  },
                  {
-                  text: 'Crear Factura',
+                  text: 'Crear Documento',
                   leaf: true,
                   itemId: "wRegistrarFacturaBoleta",
-                  titulo: 'Factura / Bolera',
+                  titulo: 'Documento de venta',
                   glyph : 'xf022'
 
                 },
@@ -39,8 +39,16 @@ Ext.define('sisbotica_paulino.store.tree.ControlVentas', {
                    titulo: ".:. Botica .:. ",
                    glyph : 'xf0fa' 
                  }
+                 
                ]
-             }
+             },
+             {
+              text: 'Configuracion',
+              leaf: true,
+              itemId: "wconfigpuntoventa",
+              titulo: ".:. Configuracón .:. ",
+              glyph : 'xf013' 
+            }
         ]
     }
 });

@@ -342,6 +342,7 @@ $di->set('router',function() {
     $router->add('/imprimirticket', array('controller'=>'impresion','action'=>'imprimirticketera'));
     $router->add('/imprimirguiaremision', array('controller'=>'impresion','action'=>'impresionguiaremision'));
     $router->add('/imprimirresumenticketera', array('controller'=>'impresion','action'=>'imprimirresumenventaticketera'));
+    $router->add('/imprimirfacturaelectronica', array('controller'=>'impresion','action'=>'imprimirfacturaelectronica'));
 
     
     //@ Manufactura  (MRP)
@@ -356,6 +357,9 @@ $di->set('router',function() {
     $router->add('/perfil_actualizar'  , array('controller'=>'seguridad','action'=>'perfilactualizar'));
     $router->add('/usuario_login'  , array('controller'=>'seguridad','action'=>'loginusuario'));
     $router->add('/usuario_eliminar'  , array('controller'=>'seguridad','action'=>'usuarioeliminar'));
+
+    $router->add('/conf_inventario'  , array('controller'=>'seguridad','action'=>'confinventario'));
+    $router->add('/conf_punto_venta'  , array('controller'=>'seguridad','action'=>'confpuntoventa'));
     
     
 

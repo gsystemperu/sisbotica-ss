@@ -83,8 +83,8 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoPdv', {
                         align: 'center'
                 },
                 {
-                        text: 'Tipo',
-                        dataIndex: 'tipodoc',
+                        text: 'Cod.Venta',
+                        dataIndex: 'idfacturacion',
                         flex: 0.5,
                         align: 'center'
                 },

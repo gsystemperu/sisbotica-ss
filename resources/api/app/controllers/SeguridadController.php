@@ -96,7 +96,7 @@ class SeguridadController extends Controller
          }
     }
     public function loginusuarioAction(){
-        $request        = new Phalcon\Http\Request();
+         $request        = new Phalcon\Http\Request();
          $response       = new \Phalcon\Http\Response();
          if($request->isPost() ==true)
          {
@@ -124,7 +124,30 @@ class SeguridadController extends Controller
               return $response;
          }
     }
-    
+    public function confinventarioAction(){
+        $request        = new Phalcon\Http\Request();
+        $response       = new \Phalcon\Http\Response();
+        if($request->isPost() ==true)
+        {
+             $data = array();
+             $jsonData = Configuracion::confInventario($data);
+             $response->setContentType('application/json', 'UTF-8');
+             $response->setContent($jsonData);
+             return $response;
+        }
+   }
+   public function confpuntoventaAction(){
+    $request        = new Phalcon\Http\Request();
+    $response       = new \Phalcon\Http\Response();
+    if($request->isPost() ==true)
+    {
+         $data = array();
+         $jsonData = Configuracion::confPuntoVenta($data);
+         $response->setContentType('application/json', 'UTF-8');
+         $response->setContent($jsonData);
+         return $response;
+    }
+}
 
     
     
