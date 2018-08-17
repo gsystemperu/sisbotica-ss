@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "12dd6f4553d59fbcc1d00471cff06316",
+    "content-hash": "08c62c78b685de43481bf5b755b79ac9",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -101,16 +101,16 @@
         },
         {
             "name": "greenter/core",
-            "version": "v1.3.1",
+            "version": "v1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/giansalex/greenter-core.git",
-                "reference": "21b00efc6d6d640c0f90868b1d655ad9c18b8de1"
+                "reference": "8d6ff9b6ad81ab1d7ceb0ce27a4f7f6dd13d5bdb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/giansalex/greenter-core/zipball/21b00efc6d6d640c0f90868b1d655ad9c18b8de1",
-                "reference": "21b00efc6d6d640c0f90868b1d655ad9c18b8de1",
+                "url": "https://api.github.com/repos/giansalex/greenter-core/zipball/8d6ff9b6ad81ab1d7ceb0ce27a4f7f6dd13d5bdb",
+                "reference": "8d6ff9b6ad81ab1d7ceb0ce27a4f7f6dd13d5bdb",
                 "shasum": ""
             },
             "require": {
@@ -139,7 +139,7 @@
                 "greenter",
                 "sunat"
             ],
-            "time": "2018-03-27T14:22:32+00:00"
+            "time": "2018-08-04T16:53:00+00:00"
         },
         {
             "name": "greenter/data",
@@ -180,55 +180,6 @@
                 "greenter"
             ],
             "time": "2018-01-29T00:29:48+00:00"
-        },
-        {
-            "name": "greenter/greenter",
-            "version": "v2.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/giansalex/greenter.git",
-                "reference": "2f562525f68ce04f85f9efb4106b57afbea15c2e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/giansalex/greenter/zipball/2f562525f68ce04f85f9efb4106b57afbea15c2e",
-                "reference": "2f562525f68ce04f85f9efb4106b57afbea15c2e",
-                "shasum": ""
-            },
-            "require": {
-                "greenter/core": "^1.2",
-                "greenter/ws": "^1.2",
-                "greenter/xml": "^1.2",
-                "greenter/xmldsig": "^1.0",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=4.8 < 6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Greenter\\": "src/Greenter/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Giancarlos Salas",
-                    "email": "giansalex@gmail.com"
-                }
-            ],
-            "description": "Implementación de la Facturacion Electrónica SUNAT - Perú",
-            "homepage": "https://github.com/giansalex/greenter",
-            "keywords": [
-                "facturación electrónica",
-                "sunat",
-                "xml"
-            ],
-            "time": "2018-01-28T04:08:35+00:00"
         },
         {
             "name": "greenter/htmltopdf",
@@ -332,56 +283,6 @@
             "time": "2018-01-29T16:07:27+00:00"
         },
         {
-            "name": "greenter/ws",
-            "version": "v1.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/giansalex/greenter-ws.git",
-                "reference": "55c0bee71cd504eea6912be2a18273348ba51386"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/giansalex/greenter-ws/zipball/55c0bee71cd504eea6912be2a18273348ba51386",
-                "reference": "55c0bee71cd504eea6912be2a18273348ba51386",
-                "shasum": ""
-            },
-            "require": {
-                "ext-soap": "*",
-                "ext-zlib": "*",
-                "greenter/core": "^1.2",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "phpunit/phpunit": ">=4.8 < 6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Greenter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Giancarlos Salas",
-                    "email": "giansalex@gmail.com"
-                }
-            ],
-            "description": "WebServices Sunat Facturación Electrónica - Perú",
-            "homepage": "https://github.com/giansalex/greenter-ws",
-            "keywords": [
-                "facturación electrónica",
-                "greenter",
-                "soap",
-                "sunat",
-                "webservices"
-            ],
-            "time": "2018-04-03T17:38:05+00:00"
-        },
-        {
             "name": "greenter/xcodes",
             "version": "v1.1.0",
             "source": {
@@ -427,96 +328,6 @@
                 "sunat"
             ],
             "time": "2018-01-30T01:58:03+00:00"
-        },
-        {
-            "name": "greenter/xml",
-            "version": "v1.2.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/giansalex/greenter-xml.git",
-                "reference": "86893ac9ad71c925d7a8326daad510fa1fe4c81c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/giansalex/greenter-xml/zipball/86893ac9ad71c925d7a8326daad510fa1fe4c81c",
-                "reference": "86893ac9ad71c925d7a8326daad510fa1fe4c81c",
-                "shasum": ""
-            },
-            "require": {
-                "greenter/core": "^1.3",
-                "php": ">=5.5.9",
-                "twig/twig": "~1.0"
-            },
-            "require-dev": {
-                "greenter/data": "^1.1",
-                "greenter/ubl-validator": "^1.0",
-                "phpunit/phpunit": ">=4.8 < 6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Greenter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Giancarlos Salas",
-                    "email": "giansalex@gmail.com"
-                }
-            ],
-            "description": "XML generación de documentos electrónicos, Facturacion Electrónica SUNAT - Perú",
-            "homepage": "https://github.com/giansalex/greenter-xml",
-            "keywords": [
-                "facturación electrónica",
-                "greenter",
-                "xml"
-            ],
-            "time": "2018-03-27T15:03:05+00:00"
-        },
-        {
-            "name": "greenter/xmldsig",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/giansalex/xmldsig.git",
-                "reference": "a772bac3d78d78aa006e90c6815eb485efa46330"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/giansalex/xmldsig/zipball/a772bac3d78d78aa006e90c6815eb485efa46330",
-                "reference": "a772bac3d78d78aa006e90c6815eb485efa46330",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5.9"
-            },
-            "suggest": {
-                "ext-openssl": "The OpenSsl Extension"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Greenter\\XMLSecLibs\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "description": "Libreria para firmar XML según normativa de SUNAT en Facturación Electrónica",
-            "homepage": "https://github.com/giansalex/xmldsig",
-            "keywords": [
-                "security",
-                "signature",
-                "sunat",
-                "xml",
-                "xmldsig"
-            ],
-            "time": "2018-01-22T16:08:43+00:00"
         },
         {
             "name": "mikehaertl/php-shellcommand",
@@ -640,21 +451,80 @@
             "time": "2018-02-18T10:54:00+00:00"
         },
         {
-            "name": "twig/twig",
-            "version": "v1.35.3",
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/twigphp/Twig.git",
-                "reference": "b48680b6eb7d16b5025b9bfc4108d86f6b8af86f"
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b48680b6eb7d16b5025b9bfc4108d86f6b8af86f",
-                "reference": "b48680b6eb7d16b5025b9bfc4108d86f6b8af86f",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/e3d826245268269cd66f8326bd8bc066687b4a19",
+                "reference": "e3d826245268269cd66f8326bd8bc066687b4a19",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-ctype": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "time": "2018-08-06T14:22:27+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v1.35.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "7e081e98378a1e78c29cc9eba4aefa5d78a05d2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7e081e98378a1e78c29cc9eba4aefa5d78a05d2a",
+                "reference": "7e081e98378a1e78c29cc9eba4aefa5d78a05d2a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/polyfill-ctype": "^1.8"
             },
             "require-dev": {
                 "psr/container": "^1.0",
@@ -693,16 +563,16 @@
                 },
                 {
                     "name": "Twig Team",
-                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "homepage": "https://twig.symfony.com/contributors",
                     "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
-            "homepage": "http://twig.sensiolabs.org",
+            "homepage": "https://twig.symfony.com",
             "keywords": [
                 "templating"
             ],
-            "time": "2018-03-20T04:25:58+00:00"
+            "time": "2018-07-13T07:12:17+00:00"
         }
     ],
     "packages-dev": [],

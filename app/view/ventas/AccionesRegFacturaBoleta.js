@@ -385,7 +385,11 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
                             __combo = Ext.ComponentQuery.query('window')[1].objeto;
                             __combo = Ext.ComponentQuery.query('#'+__combo)[0].getStore();
                             __combo.load();
+                            c = Ext.ComponentQuery.query('#cboCliente')[0];
+                            c.setValue(action.result.error);
+                            c.setRawValue(action.result.persona);
                             Ext.ComponentQuery.query('window')[1].close();
+                           
                         },
                         failure: function () {
                             sisbotica_paulino.util.Util.showErrorMsg("Error al momento de grabar la informacion");

@@ -10,7 +10,7 @@ return array(
     'mikehaertl\\tmp\\' => array($vendorDir . '/mikehaertl/php-tmpfile/src'),
     'mikehaertl\\shellcommand\\' => array($vendorDir . '/mikehaertl/php-shellcommand/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
-    'Greenter\\XMLSecLibs\\' => array($vendorDir . '/greenter/xmldsig/src'),
+    'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Greenter\\Report\\' => array($vendorDir . '/greenter/report/src/Report'),
-    'Greenter\\' => array($vendorDir . '/greenter/core/src/Core', $vendorDir . '/greenter/data/src', $vendorDir . '/greenter/greenter/src/Greenter', $vendorDir . '/greenter/htmltopdf/src', $vendorDir . '/greenter/ws/src', $vendorDir . '/greenter/xcodes/src', $vendorDir . '/greenter/xml/src'),
+    'Greenter\\' => array($vendorDir . '/greenter/core/src/Core', $vendorDir . '/greenter/data/src', $vendorDir . '/greenter/htmltopdf/src', $vendorDir . '/greenter/xcodes/src'),
 );

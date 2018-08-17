@@ -43,15 +43,15 @@ Ext.define('sisbotica_paulino.view.ventas.ContenedorCotizacionesFacturar', {
   },
   getBotonesERP:function(){
     return obj = [
-          {
+          /*{
               text: 'CREAR FACTURA',
               handler: "onClickCrearCotizacionFactura",
-          },
+          },*/
           {
-            text :'IMPRIMIR FACTURA',
+            text :'IMPRIMIR DOCUMENTO',
             handler : 'onClickDocumentoImprimir'
           },
-          {
+         /* {
             text :'CREAR GUIA DE REMISIÓN',
             handler:'onClickGuiasRemision'
           },
@@ -62,7 +62,7 @@ Ext.define('sisbotica_paulino.view.ventas.ContenedorCotizacionesFacturar', {
           {
             text :'ENVIAR A SUNAT',
             handler:'onClickEnviarSunatFacturas'
-          },
+          },*/
          /* '->',
           {
             text :'IMPRIMIR LISTADO',

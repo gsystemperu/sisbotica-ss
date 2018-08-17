@@ -98,12 +98,31 @@ Ext.define('sisbotica_paulino.Application', {
        Ext.util.Format.currencyPrecision = 5;
 
        Ext.getBody().on('keydown', function(ev){
-        console.log(ev.ctrlKey);
-
              if(ev.getKey() == ev.self.F4)
              { sisbotica_paulino.util.Util.focusControl('txtBuscarCodigoBarrasProd');}
              if(ev.ctrlKey == true && ev.getKey() == 112){ //Ctrb + f1
-               // sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
+                sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
+             }
+             if(ev.ctrlKey == true && ev.getKey() == 66 || ev.getKey() == 98 ){ //Ctrb + f1
+                Ext.Msg.prompt('Facturación', 'Ingresar el número (id) de la venta',function(b,t){ 
+                    if(b=='ok'){ 
+                        Ext.Ajax.request({
+                            url: sisbotica_paulino.util.Rutas.ingresarPagoPorTicket, 
+                            params: { id          :  t   },
+                            success: function(response){
+                                var _error = Ext.JSON.decode(response.responseText);
+                                if(_error[0].error>0){
+                                    window.open(sisbotica_paulino.util.Rutas.imprimirTicket+ 
+                                        'id='+ _error[0].error, "", "width=700,height=900"); 
+                                        Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getStore().load();   
+                                }else{
+                                    Ext.Msg.alert("Error","El codigo no existe");
+                                } 
+                            }
+                         });
+                    }
+                });
+                //sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
              }
         });
        //Ext.create('wMain');

@@ -4,6 +4,8 @@ include __DIR__ .'/../library/funciones.php';
 include __DIR__ .'/../library/fpdf/fpdf.php';
 include __DIR__ .'/../library/fpdf/exfpdf.php';
 include __DIR__ .'/../library/fpdf/jspdf.php';
+include __DIR__ .'/../library/phpqrcode/qrlib.php';
+
 //use Greenter\Ws\Services\SunatEndpoints;
 //$serializer = 
 use JMS\Serializer\SerializerBuilder; //::create()->build();
@@ -746,11 +748,23 @@ class ImpresionController extends Controller
         $pdf->Cell(20, 5, "RUC/DNI : ", $borde, 0, "L");
         $pdf->setFont("Arial", "", 9);
         $pdf->Cell(65, 5, ($dataFacturacion->numdocper!=''?$dataFacturacion->numdocper:$dataFacturacion->numrucper), $borde, 2, "L");
-        $pdf->Ln();
         $pdf->setX(4);
-        $pdf->MultiCell(88, 5, $firmaDoc, $borde, "C"); #Firma Digital
-        $pdf->AutoPrint();
-        $pdf->output(); 
+        $filaqr = $pdf->getY();
+       $tempDir = '../public/img/';
+       $codeContents = $dataFacturacion->codigogr.$firmaDoc; 
+       $fileName = 'qr'.md5($codeContents).'.png'; 
+       $pngAbsoluteFilePath = $tempDir.$fileName; 
+       if (!file_exists($pngAbsoluteFilePath)) { 
+           QRcode::png($codeContents, $pngAbsoluteFilePath,QR_ECLEVEL_M); 
+           $pdf->Image($pngAbsoluteFilePath, 38, $filaqr + 2, 25,25);
+           unlink($pngAbsoluteFilePath);
+       }else{
+            unlink($pngAbsoluteFilePath);
+       }
+       $pdf->setY($filaqr + 30);
+       $pdf->MultiCell(0,5,pinta('Ha sido aceptada con el Hash   ' . $firmaDoc),0,'C');
+       $pdf->AutoPrint();
+       $pdf->output(); 
     }
     // @Grupo reportes de ventas
     // Muestra todos los reportes del esquema facturación

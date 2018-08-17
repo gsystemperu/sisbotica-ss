@@ -215,7 +215,6 @@ Ext.define('sisbotica_paulino.model.EstProducto', {
 
 
 // @Model Listado de Cotizaciones a Facturar
-
 Ext.define('sisbotica_paulino.model.CotizacionesFacturar', {
     extend: 'Ext.data.Model',
     fields: [
@@ -262,12 +261,10 @@ Ext.define('sisbotica_paulino.model.CotizacionesFacturar', {
         { name: 'idmotivotranslado', type: 'integer' },
         { name: 'serieguia', type: 'string' },
         { name: 'numeroguia', type: 'string' },
-        { name: 'enviarsunat', type: 'boolean' },
-        { name: 'estadosunat', type: 'string' },
         { name: 'totalcotianulado', type: 'float' },
-        { name: 'cierrecaja', type: 'int' }
-
-
+        { name: 'cierrecaja', type: 'int' },
+        { name: 'enviadosunat', type: 'int' },
+        { name: 'estadosunat', type: 'string' }
     ]
 });
 

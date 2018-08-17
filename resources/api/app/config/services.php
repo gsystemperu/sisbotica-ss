@@ -296,7 +296,7 @@ $di->set('router',function() {
      $router->add('/buscar_pago_acuenta', array('controller'=>'facturacion','action'=>'buscarpagoacuenta'));
      $router->add('/agregar_punto_venta_pago', array('controller'=>'facturacion','action'=>'actualizarpuntoventapago'));
      $router->add('/buscar_punto_venta_pagos', array('controller'=>'facturacion','action'=>'buscarventaspdv'));
-     $router->add('/anular_facturacion', array('controller'=>'facturacion','action'=>'anularfactura'));
+     $router->add('/anular_facturacion', array('controller'=>'facturacion','action'=>'  '));
      $router->add('/actualizar_guia_remision', array('controller'=>'facturacion','action'=>'actualizarguiaremision'));
      $router->add('/listar_moneda', array('controller'=>'facturacion','action'=>'listarmoneda'));
      $router->add('/listar_nombre_moneda', array('controller'=>'facturacion','action'=>'listarnombremoneda'));
@@ -308,7 +308,8 @@ $di->set('router',function() {
      $router->add('/listado_ventas', array('controller'=>'impresion','action'=>'impresiondeventas'));
      $router->add('/cerrar_caja', array('controller'=>'facturacion','action'=>'cerrarcaja'));
      $router->add('/reporte_ventas_admin', array('controller'=>'impresion','action'=>'impresiondeventasfacturacion'));
-    
+     $router->add('/generar_txt_facturador', array('controller'=>'facturacion','action'=>'generartxtfacturador'));
+     $router->add('/ingresar_pago_por_ticket', array('controller'=>'facturacion','action'=>'ingresarPagoPorNumeroTicket'));
      
 
      //@Mantenimientos : Tablas Principales

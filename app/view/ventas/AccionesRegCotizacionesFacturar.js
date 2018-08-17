@@ -63,25 +63,30 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
       {
         sisbotica_paulino.util.Util.showErrorMsg('No se puede eliminar, está con la marca de cierre de caja!'); return false; 
       }
-      Ext.MessageBox.confirm('Aviso','Desea eliminar el producto ?',function(btn){
+      Ext.MessageBox.confirm('Aviso','Desea anular el documento seleccionado ?',function(btn){
         if(btn=='yes'){
-          if (rec) {
-              Ext.Ajax.request({
-                 url :sisbotica_paulino.util.Rutas.facturacionAnular,
-                 params:{
-                   idfacturacion : rec.get('idfacturacion'),
-                   idcotizacion   : rec.get('idcoti')
-                 },
-                 success:function(response){
-                    data = Ext.JSON.decode(response.responseText);
-                   Ext.each(data,function(r){
-                     if(r.error != 0)
-                         Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getStore().reload();
-                  });
-                 }
-             });
-          }
-        }
+          if (rec) {  
+              Ext.Msg.prompt('Motivo de anulación', 'Ingresar el motivo de la anulación del documento seleccionado!',function(b,t){ 
+                if(b=='ok'){ 
+                     Ext.Ajax.request({
+                        url :sisbotica_paulino.util.Rutas.facturacionAnular,
+                        params:{
+                        idfacturacion : rec.get('idfacturacion'),
+                        idcotizacion  : rec.get('idcoti'),
+                        motivo        : t
+                        },
+                        success:function(response){
+                            data = Ext.JSON.decode(response.responseText);
+                            Ext.each(data,function(r){
+                                if(r.error != 0)
+                                    Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getStore().reload();
+                            });
+                        }
+                    });
+                }
+           });
+         }
+       }
       });
     },
     onClickVerCotizacionFactura:function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts){
@@ -171,14 +176,25 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
       });
     },
     onClickBuscarCotizacionesPorFechas:function(btn){
-        __store = Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getStore();
-
-        __store.load({
-            params:{
-              vDesde : Ext.ComponentQuery.query('#dfDesde')[0].getRawValue(),
-              vHasta : Ext.ComponentQuery.query('#dfHasta')[0].getRawValue()
+        g  = Ext.ComponentQuery.query('#dgvVentasFacturar')[0];
+        r  = g.getSelectionModel().getSelection()[0];
+        gs = g.getStore();
+        gs.load(
+            {
+                params:{
+                    vDesde : Ext.ComponentQuery.query('#dfDesde')[0].getRawValue(),
+                    vHasta : Ext.ComponentQuery.query('#dfHasta')[0].getRawValue()
+                },
+                callback: function (records, operation, success) {
+                    try {
+                        i = this.find('idfacturacion', r.get('idfacturacion'));  //where 'id': the id field of your model, record.getId() is the method automatically created by Extjs. You can replace 'id' with your unique field.. And 'this' is your store.
+                        g.getView().select(i); 
+                    } catch (error) {
+                        return 0;
+                    }  
+                }
             }
-        });
+        );
 
     },
     onSelectedDetalleFacturacionVenta:function(grid, td, cellIndex, record, tr, rowIndex, e, eOpts)
@@ -333,6 +349,49 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
         objrpt = window.open( sisbotica_paulino.util.Rutas.listadoVentasAdmin+ 
         '?desde='+ d.toString() +'&hasta='+ h.toString(), "", "width=700,height=900");  
   
+    },
+    onClickGenTxtfact:function(b){
+        g =Ext.ComponentQuery.query('#dgvVentasFacturar')[0];
+        st= g.getStore();
+        r = Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getSelectionModel().getSelection()[0];
+        if(r){
+            Ext.Ajax.request({
+                url :sisfacturaelectronica.util.Rutas.generarTxtFacturador,
+                params:{
+                  idfact : r.get('idfacturacion')
+                },
+                success:function(response){
+                    rp = Ext.JSON.encode(response.responseText);
+                    st.reload({
+                        callback: function (records, operation, success) {
+                            try {
+                                i = this.find('idfacturacion', r.get('idfacturacion'));  //where 'id': the id field of your model, record.getId() is the method automatically created by Extjs. You can replace 'id' with your unique field.. And 'this' is your store.
+                                g.getView().select(i); 
+                            } catch (error) {
+                                return 0;
+                            }  
+                        }
+                    });
+                    sisfacturaelectronica.util.Util.showToast('Se ha generado nuevamente el ( txt al facturador )');
+                }
+              });
+        }
+    },
+    onClickActEstado:function(b){
+        g = Ext.ComponentQuery.query('#dgvVentasFacturar')[0];
+        r = g.getSelectionModel().getSelection()[0];
+        Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getStore().reload(
+            {
+                callback: function (records, operation, success) {
+                    try {
+                        i = this.find('idfacturacion', r.get('idfacturacion'));  //where 'id': the id field of your model, record.getId() is the method automatically created by Extjs. You can replace 'id' with your unique field.. And 'this' is your store.
+                        g.getView().select(i); 
+                    } catch (error) {
+                        return 0;
+                    }  
+                }
+           }
+        );
     }
 
 });

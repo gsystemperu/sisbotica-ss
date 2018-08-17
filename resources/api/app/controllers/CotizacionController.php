@@ -1021,7 +1021,7 @@ class CotizacionController extends Controller
    * [listarCotizacionesParaFacturarAction, Lista todas las cotizaciones con el estado confirmado]
    * @return [json]
    */
-  public function listarCotizacionesParaFacturarAction(){
+  /*public function listarCotizacionesParaFacturarAction(){
        $request        = new Phalcon\Http\Request();
        $response       = new \Phalcon\Http\Response();
        if($request->isGet() ==true)
@@ -1042,7 +1042,45 @@ class CotizacionController extends Controller
             return $response;
 
        }
-  }
+  }*/
+  public function listarCotizacionesParaFacturarAction(){
+    $request        = new Phalcon\Http\Request();
+    $response       = new \Phalcon\Http\Response();
+    if($request->isGet() ==true)
+    {
+         $vDesde  = $request->get('vDesde');
+         $vHasta  = $request->get('vHasta');
+        
+         if( strlen($vDesde)!=0 && strlen($vHasta) !=0)
+         {
+             $datax = array($vDesde,$vHasta);
+             $jsonDatax     = json_decode(Cotizacion::listarCotizacionesParaFacturarPorFechas($datax))->data;
+         }else{
+             $datax = array();
+             $jsonDatax     = json_decode(Cotizacion::listarCotizacionesParaFacturar($datax))->data;
+         }
+         $af = array();
+         $hp   = new FuncionesHelpers();
+         if($jsonDatax !=''){
+           foreach ($jsonDatax as $r) {
+               $af[] = array("idfact" => $r->idfacturacion,"estsunat"=>$hp->estado_xml_facturador($r->nomarchivo));
+            }
+           if(!empty($af)){ $rs = Facturacion::actualizarEstadosFacturador($hp->esCadenaNulo(json_encode($af)));}
+         }
+         if( strlen($vDesde)!=0 && strlen($vHasta) !=0)
+         {
+             $data = array($vDesde,$vHasta);
+             $jsonData     = Cotizacion::listarCotizacionesParaFacturarPorFechas($data);
+         }else{
+             $data = array();
+             $jsonData     = Cotizacion::listarCotizacionesParaFacturar($data);
+         }
+         $response->setContentType('application/json', 'UTF-8');
+         $response->setContent($jsonData);
+         return $response;
+
+    }
+}
 
 
   public function listardocumentosventaAction(){

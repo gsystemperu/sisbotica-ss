@@ -45,7 +45,7 @@ Ext.define('sisbotica_paulino.store.tree.ControlAlmacen', {
           }
         ]
       },
-      {
+      /*{
         text: 'Administración',
         expanded: true,
         //leaf : true,
@@ -61,7 +61,7 @@ Ext.define('sisbotica_paulino.store.tree.ControlAlmacen', {
         
         ]
       },
-     {
+      {
         text: 'Reportes',
         expanded: true,
         //leaf : true,
@@ -74,7 +74,7 @@ Ext.define('sisbotica_paulino.store.tree.ControlAlmacen', {
             titulo: "Reportes Productos",
             glyph: 'xf16b'
           }
-          /*{
+          {
             text: 'Movimientos',
             leaf: true,
             //itemId: "wContenedorOrdenCompra",
@@ -87,10 +87,10 @@ Ext.define('sisbotica_paulino.store.tree.ControlAlmacen', {
             //itemId: "wContenedorOrdenCompra",
             titulo: "Valorizacion Inventario",
             glyph: 'xf16b'
-          }*/
+          }
         
         ]
-      },
+      },*/
       {
         text: 'Configuraciones',
         leaf: true,

@@ -143,7 +143,8 @@ class FacturacionController extends Controller
       {
            $vId           = $request->getPost('idfacturacion');
            $vIdcoti       = $request->getPost('idcotizacion');
-           $data          = array($vId,$vIdcoti);
+           $vMotivo       = $request->getPost('motivo');
+           $data          = array($vId,$vIdcoti,$vMotivo);
            $jsonData      = Facturacion::anular($data);
            $response->setContentType('application/json', 'UTF-8');
            $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));
@@ -321,7 +322,33 @@ class FacturacionController extends Controller
                return $response;
           }
         }
-        
+        public function generartxtfacturadorAction(){
+          $request        = new Phalcon\Http\Request();
+          $response       = new \Phalcon\Http\Response();
+          if($request->isPost() ==true)
+          {
+               $vId  = $request->getPost('idfact');
+               $data = array($vId);
+               $jsonData = Facturacion::volverGenerarDataFacturador($data);
+               $response->setContentType('application/json', 'UTF-8');
+               $response->setContent(json_encode($jsonData, JSON_NUMERIC_CHECK));
+               return $response;
+          }
+        } 
+        public function ingresarPagoPorNumeroTicketAction(){
+          $request        = new Phalcon\Http\Request();
+          $response       = new \Phalcon\Http\Response();
+          if($request->isPost() ==true)
+          {
+               $vId  = $request->getPost('id');
+               $data = array($vId);
+               $jsonData = Facturacion::ingresarPagoPorNumeroTicket($data);
+               $response->setContentType('application/json', 'UTF-8');
+               $response->setContent(json_encode($jsonData, JSON_NUMERIC_CHECK));
+               return $response;
+          }
+        } 
+            
 
         
 }

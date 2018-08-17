@@ -104,8 +104,8 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesContenedorCotizacionesFacturar
             //'id='+ _record.get('idfacturacion'), "", "width=700,height=900");
             //setTimeout(function(){ objrpt.close()}, 4000);
 
-            var objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ _record.get('idfacturacion'), "", "width=700,height=900");
-            //setTimeout(function(){ objrpt.close(); }, 1000);
+            var objrpt = window.open( sisbotica_paulino.util.Rutas.imprimirTicket+ 'id='+ _record.get('idfacturacion'), "", "width=700,height=900");
+            //setTimeout(function(){ objrpt.close(); }, 4000);
       
           //}
       } catch (e) {
