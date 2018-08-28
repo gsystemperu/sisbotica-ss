@@ -154,6 +154,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
                   me = Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
                   l = me.getLayout();
                   l.setActiveItem(0);
+                  Ext.ComponentQuery.query('#cboCliente')[0].setRawValue('');
                   setTimeout(function(){ objrpt.close() },5000);
                 }, 2800);
             }else{
@@ -161,6 +162,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.MainController', {
               me = Ext.ComponentQuery.query('#wContenedorPuntoVenta')[0];
               l = me.getLayout();
               l.setActiveItem(0);
+              Ext.ComponentQuery.query('#cboCliente')[0].setRawValue('');
               Ext.Msg.show({
                 title : 'Venta',
                 msg : '<H1> Código de la Venta  :: '+ __data.error.toString()  +'</H1>',

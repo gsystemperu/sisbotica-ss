@@ -45,7 +45,7 @@ Ext.define('sisbotica_paulino.store.tree.ControlAlmacen', {
           }
         ]
       },
-      /*{
+      {
         text: 'Administración',
         expanded: true,
         //leaf : true,
@@ -61,7 +61,7 @@ Ext.define('sisbotica_paulino.store.tree.ControlAlmacen', {
         
         ]
       },
-      {
+     /* {
         text: 'Reportes',
         expanded: true,
         //leaf : true,

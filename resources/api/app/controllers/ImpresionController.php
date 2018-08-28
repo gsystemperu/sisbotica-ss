@@ -6,9 +6,6 @@ include __DIR__ .'/../library/fpdf/exfpdf.php';
 include __DIR__ .'/../library/fpdf/jspdf.php';
 include __DIR__ .'/../library/phpqrcode/qrlib.php';
 
-//use Greenter\Ws\Services\SunatEndpoints;
-//$serializer = 
-use JMS\Serializer\SerializerBuilder; //::create()->build();
 class ImpresionController extends Controller
 {
   
