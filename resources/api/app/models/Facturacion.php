@@ -27,7 +27,6 @@ class Facturacion extends \Phalcon\Mvc\Model
         $sql     = $obj->executarJson('ventas','sp_pagos_acuenta_buscar',$param);
         return $sql;
     }
-
     public static function guardarPuntoVentaPago($data)
     {
         $obj     = new SQLHelpers();
@@ -49,7 +48,6 @@ class Facturacion extends \Phalcon\Mvc\Model
         $sql     =  $obj->executarJson('ventas','sp_cliente_facturacion_buscar',$param);
         return $sql;
     }
-
     public static function anular($data)
     {
         $obj     = new SQLHelpers();

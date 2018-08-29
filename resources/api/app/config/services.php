@@ -296,7 +296,7 @@ $di->set('router',function() {
      $router->add('/buscar_pago_acuenta', array('controller'=>'facturacion','action'=>'buscarpagoacuenta'));
      $router->add('/agregar_punto_venta_pago', array('controller'=>'facturacion','action'=>'actualizarpuntoventapago'));
      $router->add('/buscar_punto_venta_pagos', array('controller'=>'facturacion','action'=>'buscarventaspdv'));
-     $router->add('/anular_facturacion', array('controller'=>'facturacion','action'=>'  '));
+     $router->add('/anular_facturacion', array('controller'=>'facturacion','action'=>'anularfactura'));
      $router->add('/actualizar_guia_remision', array('controller'=>'facturacion','action'=>'actualizarguiaremision'));
      $router->add('/listar_moneda', array('controller'=>'facturacion','action'=>'listarmoneda'));
      $router->add('/listar_nombre_moneda', array('controller'=>'facturacion','action'=>'listarnombremoneda'));
