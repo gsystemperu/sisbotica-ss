@@ -102,7 +102,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.ContenedorMain', {
          handler:'onClickIngresarPago'
        },
        {
-         text : 'LISTADO VENTAS',
+         text : 'VENTAS',
          itemId:'btnListadoVentasPdv',
          scale : 'medium',
          handler:'onClickListadoVentaPdv'

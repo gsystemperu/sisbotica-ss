@@ -28,11 +28,19 @@
     function Header()
     {
         $dataEmpresa =  json_decode(Empresa::listar())->data[0];
+        $this->Image('../public/img/logo.jpg', 10, 10, 28);
+        $this->SetFont('Arial','B',10);
+        $this->setX(40);
+        $this->MultiCell(0,4, pinta(''),'T','L');
+        $this->setX(40);
+        $this->MultiCell(0,4, pinta($dataEmpresa->razonsocial),0,'L');
         $this->SetFont('Arial','',8);
-        $this->MultiCell(0,4, pinta($dataEmpresa->razonsocial),'T','L');
-        $this->MultiCell(100,4, pinta(strtoupper($dataEmpresa->direccion)),0,'L');
-        $this->MultiCell(100,4,"CORREO: ".pinta($dataEmpresa->correo),0,'L');
-        $this->MultiCell(0,4,pinta("TELÉFONO: ".$dataEmpresa->telefono),'B','L');
+        $this->setX(40);
+        $this->MultiCell(120,4, pinta(strtoupper($dataEmpresa->direccion)),0,'L');
+        $this->setX(40);
+        $this->MultiCell(120,4,"CORREO: ".pinta($dataEmpresa->correo),0,'L');
+        $this->setX(40);
+        $this->MultiCell(0,5,pinta("TELÉFONO: ".$dataEmpresa->telefono),'B','L');
     }
     function Footer()
     {

@@ -13,7 +13,11 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProveedor', {
                 waitMsg: 'Guardando informacion...',
                 success: function (form, action) {
                     if (action.result.error != 0) {
-                        Ext.ComponentQuery.query('#' + btn.idcontrol.toString())[0].getStore().load();
+                        c = Ext.ComponentQuery.query('#' + btn.idcontrol.toString())[0];
+                        c.getStore().load();
+                        c.setValue(action.result.error)
+                        t = _form.down('[name=razonsocial]').getValue();
+                        c.setRawValue(t);
                         me.getView().close();
                     }
                 },

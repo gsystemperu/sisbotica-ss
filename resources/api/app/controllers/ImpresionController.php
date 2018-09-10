@@ -734,7 +734,8 @@ class ImpresionController extends Controller
         $pdf->setFont("Arial", "", 7);
         $pdf->Cell(20, 5, "SON : ", $borde, 0, "L");
         $pdf->setFont("Arial", "", 7);
-        $pdf->Cell(65, 5, $dataFacturacion->totalletras, $borde, 2, "L");
+        //$pdf->Cell(65, 5, $dataFacturacion->totalletras, $borde, 2, "L");
+        $pdf->Cell(65, 5, strtoupper(pinta( convertir_a_letras($totalVenta) )), $borde, 2, "L");
         $pdf->Ln(1);
         $pdf->setX(4); 
         $pdf->setFont("Arial", "", 9);
@@ -765,7 +766,7 @@ class ImpresionController extends Controller
     }
     // @Grupo reportes de ventas
     // Muestra todos los reportes del esquema facturación
-    public function impresiondeventasAction(){
+    public function impresiondeventasAction(){ //EDDY
       $request    = new Phalcon\Http\Request();
       $desde = $request->get("desde");
       $hasta = $request->get("hasta");
@@ -802,7 +803,7 @@ class ImpresionController extends Controller
       $pdf->Cell(18,5,pinta('Fecha'),'B',0,'C');
       $pdf->Cell(20,5,pinta('Documento'),'B',0,'C');
       $pdf->Cell(20,5,pinta('Nro.'),'B',0,'C');
-      $pdf->Cell(70,5,pinta('Cliente'),'B',0,'L');
+      $pdf->Cell(65,5,pinta('Cliente'),'B',0,'L');
       $pdf->Cell(30,5,pinta('Total'),'B',0,'R');
       $pdf->Cell(0,5,pinta('Estado'),'B',1,'C');
       $item = 1;
@@ -815,13 +816,17 @@ class ImpresionController extends Controller
               $pdf->Cell(18,5,pinta($row->fechafact),$borde,0,'C');
               $pdf->Cell(20,5,pinta($row->tipodoc),$borde,0,'C');
               $pdf->Cell(20,5,pinta($row->docinterno),$borde,0,'C');
-              $pdf->Cell(70,5,pinta($row->nomcompleto),$borde,0,'L');
+              $pdf->Cell(65,5,pinta($row->nomcompleto),$borde,0,'L');
               $pdf->Cell(30,5,pinta(number_format($row->totalcoti, 2, '.',' ')),$borde,0,'R');
+              $pdf->SetFont($font,'',6.5);
               $pdf->Cell(0,5,pinta($row->descripcion),$borde,1,'C');
-              $total += $row->totalcoti;
+              $pdf->SetFont($font,'',$tam);
+              if($row->estado!=7){
+                $total += $row->totalcoti;
+              }
       }
       $pdf->Ln(1.5);
-      $pdf->Cell(145,5,pinta('TOTAL'),0,0,'R');
+      $pdf->Cell(140,5,pinta('TOTAL'),0,0,'R');
       $pdf->Cell(21,5,pinta(number_format($total, 2, '.',' ')),'T',1,'R');
       
       $pdf->Ln(5);
@@ -862,7 +867,7 @@ class ImpresionController extends Controller
       else{ $data   = array($desde,$hasta);}
       $detalle      = json_decode(Cotizacion::listarCotizacionesParaFacturarPorFechas($data));
       $resumen      = json_decode(Facturacion::resumenVentas($data));
-      $resumenco   = json_decode(Facturacion::resumenVentasCotizacion($data));
+      $resumenco    = json_decode(Facturacion::resumenVentasCotizacion($data));
       
       $pdf = new  ReporteVentas('P','mm','A4');
       $borde = 0;
@@ -900,7 +905,7 @@ class ImpresionController extends Controller
       $total= 0;
       $pdf->SetFont($font,'',$tam);
       $borde='B';
-      //print_r($detalle);die();
+      //print_r($detalle->data[0]);die();
       foreach($detalle->data as $row){
               $pdf->SetFont($font,'',8);
               $pdf->Cell(8,5,pinta($item++),$borde,0,'C'); 
@@ -929,17 +934,20 @@ class ImpresionController extends Controller
       $tc = 0;
       $pdf->SetFont($font,'',8);
       $ttg =0;
-      foreach($resumenco->data as $row){
+      if($resumenco->data){
+        foreach($resumenco->data as $row){
         
-        $pdf->Cell(18,5,pinta($row->fechacoti),$borde,0,'C');
-        $pdf->Cell(50,5,pinta($row->descripcion),$borde,0,'R');
-        $pdf->Cell(30,5,pinta(number_format($row->totalcoti, 2, '.',' ')),$borde,1,'R');
-        $tc +=$row->totalcoti;
-        if($row->descripcion =='CT FACTURADA' || $row->descripcion =='VD FACTURADA' || $row->descripcion =='CT CONFIRMADA')
-        {
-          $ttg += $row->totalcoti;
-        }
-      } 
+          $pdf->Cell(18,5,pinta($row->fechacoti),$borde,0,'C');
+          $pdf->Cell(50,5,pinta($row->descripcion),$borde,0,'R');
+          $pdf->Cell(30,5,pinta(number_format($row->totalcoti, 2, '.',' ')),$borde,1,'R');
+          $tc +=$row->totalcoti;
+          if($row->descripcion =='CT FACTURADA' || $row->descripcion =='VD FACTURADA' || $row->descripcion =='CT CONFIRMADA')
+          {
+            $ttg += $row->totalcoti;
+          }
+        } 
+      }
+      
       $pdf->Cell(18,5,pinta(''),0,0,'C');
       $pdf->Cell(50,5,'',0,0,'R');
       $pdf->Cell(30,5,pinta(number_format($tc, 2, '.',' ')),$borde,1,'R');
@@ -1012,17 +1020,19 @@ class ImpresionController extends Controller
       $total =0;
       $off = $textypos+6;
       foreach($det as $pro){
-        $pdf->setX(2);
-        $pdf->Cell(35,$off,  strtoupper(substr($pro->producto, 0,35)) );
-        $off+=5;
-        $pdf->setX(15);
-        $pdf->Cell(11,$off,number_format($pro->cantidad,2,".",",") ,0,0,"R");
-        $pdf->setX(24);
-        $pdf->Cell(11,$off,number_format($pro->precio,2,".",",") ,0,0,"R");
-        $pdf->setX(32);
-        $pdf->Cell(11,$off,number_format($pro->total,2,".",",") ,0,0,"R");
-        $total += $pro->total;
-        $off+=4;
+        if($pro->estado!=7){
+            $pdf->setX(2);
+            $pdf->Cell(35,$off,  strtoupper(substr($pro->producto, 0,35)) );
+            $off+=5;
+            $pdf->setX(15);
+            $pdf->Cell(11,$off,number_format($pro->cantidad,2,".",",") ,0,0,"R");
+            $pdf->setX(24);
+            $pdf->Cell(11,$off,number_format($pro->precio,2,".",",") ,0,0,"R");
+            $pdf->setX(32);
+            $pdf->Cell(11,$off,number_format($pro->total,2,".",",") ,0,0,"R");
+            $total += $pro->total;
+            $off+=4;
+        }
       }
       $textypos=$off+6;
       $pdf->setX(2);

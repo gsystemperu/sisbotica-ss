@@ -140,6 +140,8 @@ class ProductoController extends Controller
               $idseccion        = $request->getPost('idalmacenseccion');
               $cantblister      = $request->getPost('cantidadblister');
               $accionfarma      = $request->getPost('accionfarmacologica');
+              $ventapordefecto  = $request->getPost('ventapordefecto');
+           
 
               //echo "test";die();
               //$usuario = "BOTICA";
@@ -195,10 +197,9 @@ class ProductoController extends Controller
                     $ventarecetamed,
                     $formato->esNumeroCero($idseccion),
                     $formato->esNumeroCero($cantblister),
-                    $accionfarma
-                    
+                    $accionfarma,
+                    $ventapordefecto
               );
-
               $jsonData  = Producto::actualizar($data);
               $id        = $jsonData[0]["error"];
               if($request->getPost('imagen')!='' && $request->getPost('imagenguardar')==1){

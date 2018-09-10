@@ -7,7 +7,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoController', {
     }
   },
   onKeyUpMarcaProducto:function(obj,e,opts){
-    console.log(obj.getValue().length);
     if (e.keyCode == 113) {
       sisbotica_paulino.util.Util.focusControl('txtBuscarCodigoProd')  
     }
@@ -27,10 +26,10 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoController', {
     }
   },
   onKeyUpBuscarProducto: function (obj, e, eOpts) {
-    if (e.keyCode == 113) {
+    if (e.keyCode == 113) { 
         switch (obj.itemId) {
           case 'txtBuscarCodigoProd': sisbotica_paulino.util.Util.focusControl('txtBuscarActivoProd');     break;
-          case 'txtBuscarActivoProd': sisbotica_paulino.util.Util.focusControl('txtBuscarCodigoProd');     break;
+          case 'txtBuscarActivoProd': sisbotica_paulino.util.Util.focusControl('txtBuscarMarcaProd');     break;
         }   
     }
     if (e.keyCode == 13) {
@@ -82,7 +81,8 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoController', {
               blister:0,
               preciokilo: r.get('preciokilo'),
               preciogramo: r.get('preciogramo'),
-              precioblister:r.get('precioblister')
+              precioblister:r.get('precioblister'),
+              precioventa:r.get('precioventa')
             };
             _grid = Ext.ComponentQuery.query('#dgvDetalleCaja')[0];
             if (_grid.getStore().findRecord('idprod', parseInt( r.get('id') ))) {
@@ -99,7 +99,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoController', {
               _grid.getStore().insert(0, _data);
               me.onCalcularTotalVenta();  
              }
-        
           }
         }
       });
@@ -109,23 +108,44 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoController', {
   accionClickItem: function (listview, record, item, index, e, eOpts) {
     me = this;
     if (Ext.ComponentQuery.query('#cboCliente')[0].getValue()) {
+      mv = 1;
+      p  = 0;
+      switch (record.get('ventapordefecto')) {
+        case 1: 
+          mv='U'; 
+          p = record.get('precioventa');
+        break;
+        case 2: 
+          mv='P'; 
+          p = record.get('preciounidad');
+        break;
+        case 3: 
+          mv='B'; 
+          p = record.get('precioblister');
+        break;
+        default: 
+          mv = 'U';
+          p = record.get('precioventa');
+        break;
+      }
       var _data = {
         idprod: record.get('id'),
         producto: record.get('nombre'),
         cantidad: 1,
-        precio: record.get('precioventa'),
-        total: record.get('precioventa') * 1,
+        precio: parseFloat(p),    //record.get('precioventa'),
+        total:  parseFloat(p) * 1,   //record.get('precioventa') * 1,
         minutos: record.get('minutos'),
-        dosis: 0,
-        preciodosis: record.get('preciounidad'),
+        dosis : 0,
         gramos: 0,
-        kilos: 0,
+        kilos : 0,
+        preciodosis: record.get('preciounidad'),
         preciokilo: record.get('preciokilo'),
         preciogramo: record.get('preciogramo'),
-        blister : 0,
-        precioblister: record.get('precioblister')
-      };
-      var _grid = Ext.ComponentQuery.query('#dgvDetalleCaja')[0];
+        precioblister: record.get('precioblister'),
+        precioventa : record.get('precioventa'),
+        mv : mv
+      }; 
+      _grid = Ext.ComponentQuery.query('#dgvDetalleCaja')[0];
       if (_grid.getStore().findRecord('idprod', parseInt( record.get('id') ))) {
         Ext.Msg.alert('Información','El producto ingresado se encuentra en lista, solo puede modificar la cantidad.');return false;
        }

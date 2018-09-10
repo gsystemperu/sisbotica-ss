@@ -39,7 +39,8 @@ class ProveedorController extends Controller
                     $request->getPost('direccion'),
                     $request->getPost('direccionfiscal'),
                     $request->getPost('numrucprov'),
-                    $request->getPost('correo')
+                    $request->getPost('correo'),
+                    $request->getPost('iddocidentidad')
              );
               $jsonData = Proveedor::actualizar($data);
               $response->setContentType('application/json', 'UTF-8');

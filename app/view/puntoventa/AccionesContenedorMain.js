@@ -80,7 +80,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.AccionesContenedorMain', {
         }
       });*/
       Ext.ComponentQuery.query('#btnEditarClientePdv')[0].record= record;
-      Ext.ComponentQuery.query('#txtBuscarMarcaProd')[0].focus(false,100);
+      Ext.ComponentQuery.query('#txtBuscarCodigoProd')[0].focus(false,100);
 
     },
 

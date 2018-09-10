@@ -15,7 +15,7 @@ Ext.define('sisbotica_paulino.view.main.Main', {
       region: 'west',
       collapsible: true,
       titleCollapse: false,
-      collapsed: false,
+      collapsed: true,
       itemId: 'panMenu',
       titleAlign: 'center',
       width: 230,
@@ -156,7 +156,7 @@ Ext.define('sisbotica_paulino.view.main.Main', {
           items: [
             {
               xtype: 'image',
-              src: 'resources/images/lgsis.png',
+              ////src: 'resources/images/lgsis.png',
               width: 100,
               height: 30,
               hidden:false
@@ -202,7 +202,7 @@ Ext.define('sisbotica_paulino.view.main.Main', {
           items: [
             {
               xtype: 'image',
-              src: 'resources/images/lgsis.png',
+              //src: 'resources/images/lgsis.png',
               width: 300,
               height: 80,
               hidden: false

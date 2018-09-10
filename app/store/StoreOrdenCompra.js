@@ -10,7 +10,6 @@ Ext.define('sisbotica_paulino.store.OrdenesCompras', {
     requiere:['sisbotica_paulino.model.DataModels'],
     model   :'sisbotica_paulino.model.OrdenCompra',
     autoLoad: true,
-    remoteSort: true,
     autoSync  : true,
     autoDestroy: true,
     extraParams :{
@@ -18,6 +17,7 @@ Ext.define('sisbotica_paulino.store.OrdenesCompras', {
         hasta       : null,
         proveedor   : 0
     },
+    groupField: 'fordencompra',
     proxy: {
         type: 'ajax',
         api: {read: 'resources/api/ordencompra_listar'},

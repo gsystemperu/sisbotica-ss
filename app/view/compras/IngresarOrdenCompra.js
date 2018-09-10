@@ -139,7 +139,8 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             displayField: 'descripcion',
                                             value: 1,
                                             editable: false,
-                                            name: 'idmoneda'
+                                            name: 'idmoneda',
+                                            flex: 1.5
                                         },
                                         {
                                             xtype: 'combo',
@@ -153,7 +154,7 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             labelAlign: 'right',
                                             editable: false,
                                             value: 1,
-                                            flex: 1
+                                            flex: 1.5
 
                                         },
                                         {
@@ -163,7 +164,9 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             name: 'serie',
                                             value: '001',
                                             flex: 1,
-                                            allowBlank: false
+                                            allowBlank: false,
+                                            fieldStyle: 'font-size:14px; background-color:#2f67bf;color:#fcf4f4'
+
                                         },
                                         {
                                             xtype: 'textfield',
@@ -171,7 +174,8 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             name: 'numerodoc',
                                             flex: 0.5,
                                             allowBlank: false,
-                                            value: ''
+                                            value: '',
+                                            fieldStyle: 'font-size:14px; background-color:#2f67bf;color:#fcf4f4'
                                         }
                                     ]
                                 },
@@ -182,7 +186,7 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                     columnWidth: 0.5,
                                     defaults: {
                                         allowBlank: false
-                                       
+
                                     },
                                     items: [
                                         {
@@ -209,7 +213,7 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             editable: false,
                                             name: 'idalmacen',
                                             allowBlank: false,
-                                            labelWidth : 150
+                                            labelWidth: 150
                                         }
                                     ]
                                 },
@@ -357,6 +361,33 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                         xtype: 'numbercolumn',
                                         text: 'Precio Venta',
                                         dataIndex: 'precioventa',
+                                        flex: 0.6,
+                                        align: 'right',
+                                        editor: {
+                                            xtype: 'numberfield',
+                                            format: '0.00',
+                                            decimalPrecision: 2,
+                                            decimalSeparator: '.'
+                                        }
+                                    },
+                                    {
+                                        xtype: 'numbercolumn',
+                                        text: 'Precio Pastilla',
+                                        dataIndex: 'preciopastilla',
+                                        flex: 0.6,
+                                        align: 'right',
+                                        editor: {
+                                            xtype: 'numberfield',
+                                            format: '0.00',
+                                            decimalPrecision: 2,
+                                            decimalSeparator: '.'
+                                        }
+                                    },
+
+                                    {
+                                        xtype: 'numbercolumn',
+                                        text: 'Precio Blister',
+                                        dataIndex: 'precioblister',
                                         flex: 0.6,
                                         align: 'right',
                                         editor: {

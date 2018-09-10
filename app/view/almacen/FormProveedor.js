@@ -11,7 +11,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProveedor', {
     layout: 'fit',
     title: '..:: Registro de Proveedor ::..',
     width: 480,
-    height: 300,
+    height: 450,
     autoShow: true,
     controller :'acciones-proveedor',
     config : {
@@ -25,12 +25,13 @@ Ext.define('sisbotica_paulino.view.almacen.FormProveedor', {
         this.callParent();
     },
     getFormulario: function (_idcontrol) {
+        storeTipoDoc = Ext.create('sisbotica_paulino.store.TipoDocumentos');
         return obj = [
             {
                 xtype: 'form',
                 defaultType:'textfield',
                 reference :'frmProveedor',
-                padding : 10,
+                bodyPadding : 10,
                 defaults:{
                       anchor :'100%',
                       flex :1
@@ -46,7 +47,22 @@ Ext.define('sisbotica_paulino.view.almacen.FormProveedor', {
                         fieldLabel:'Razon Social',
                         allowBlank : false,
                         name : 'razonsocial',
-                        
+                    },
+                    {
+                        xtype: 'combo',
+                        name: 'iddocidentidad',
+                        store: storeTipoDoc,
+                        queryMode: 'local',
+                        displayField: 'descripcion',
+                        valueField: 'idtipdoc',
+                        fieldLabel : 'Tipo Documento',
+                        value: 1,
+                        editable: false,
+                        flex: 1.5
+                    },
+                    {
+                        fieldLabel:'Numero',
+                        name : 'numrucprov'
                     },
                     {
                         fieldLabel:'Correo',

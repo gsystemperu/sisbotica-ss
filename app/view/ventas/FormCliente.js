@@ -9,14 +9,14 @@ Ext.define('sisbotica_paulino.view.ventas.FormCliente', {
         'sisbotica_paulino.view.ventas.AccionesRegCotizacion',
     ],
     reference : 'myFormClienteListado',
-    margin: 30,
     autoScroll: true,
     controller:'acciones-regcotizacion',
     submitEmptyText : false,
+    padding : 15,
     url : sisbotica_paulino.util.Rutas.clienteGuardarViaListado,
     layout: {
       type: 'vbox',
-      pack: 'start',
+      //pack: 'start',
       align: 'stretch'
     },
     initComponent: function()

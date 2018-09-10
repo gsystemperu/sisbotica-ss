@@ -172,18 +172,7 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
                   listeners: {
                     keypress: 'onKeyPressTextoMarca'
                   }
-                },
-                
-                {
-                  xtype: 'button',
-                  text  :'Filtros',
-                  tooltip: 'Filtros de la vista producto',
-                  flex: 1,
-                  menu: [{
-                      text:'Solo Analgesicos',
-                      handler: 'onClickImprimirListado'
-                  }]
-              }
+                }
               ]
             },
 

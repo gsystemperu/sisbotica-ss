@@ -41,7 +41,9 @@ Ext.define('sisbotica_paulino.store.DetalleOrdenCompra', {
             {name: "cantidad", type:'int' },
             {name: "precio", type:'float' },
             {name: "total", type:'float' },
-            {name: "precioventa", type:'float' }
+            {name: "precioventa", type:'float' },
+            {name: "preciopastilla", type:'float' },
+            {name: "precioblister", type:'float' }
     ],
     proxy: { type: 'memory' }
 });
@@ -103,18 +105,20 @@ Ext.define('sisbotica_paulino.store.CajaDetalleVenta', {
     fields: [
       {name: "idprod", type:'int' },
       {name: "producto", type:'string' },
-      {name: "cantidad", type:'int' },
+      {name: "cantidad", type:'int' }, 
       {name: "precio", type:'float' },
       {name: "total", type:'float' },
       {name: "dosis", type:'float' },
       {name: "preciodosis", type:'float' },
       {name: "precioblister" , type:'float'},
+      {name: "preciounidad", type:'float' },
       {name: "precioanterior", type:'float' },
       {name: "kilos", type:'float' },
       {name: "gramos", type:'float' },
       {name: "preciokilo", type:'float' },
       {name: "preciogramo", type:'float' },
-      {name: "blister", type:'float' }
+      {name: "blister", type:'float' },
+      {name: "mv", type:'string' }
 
 
     ],
@@ -176,6 +180,29 @@ Ext.define('sisbotica_paulino.store.BusquedaEstado', {
       [2 ,'CT CONFIRMADA'],
       [3 ,'CT FACTURADA'],
       [4 ,'CT ANULADA'],
+    ],
+    proxy: { type: 'memory' }
+});
+
+
+
+/**
+ * Store del modo de venta para el punto de venta : Unidad, Pastilla, Blister
+ *
+ * @type {Store}
+ */
+
+Ext.define('sisbotica_paulino.store.ModoVenta', {
+    extend: 'Ext.data.Store',
+    fields: [
+            {name: "id",type:'integer'},
+            {name: "descripcion", type:'string' },
+            
+    ],
+    data : [
+      [1 ,'U'],
+      [2 ,'P'],
+      [3 ,'B'],
     ],
     proxy: { type: 'memory' }
 });

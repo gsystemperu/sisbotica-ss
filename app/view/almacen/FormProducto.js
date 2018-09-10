@@ -724,10 +724,10 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                 ]
               },
               {
-                xtype: 'container',
+                xtype: 'fieldset',
+                title : 'PUNTO DE VENTA',
                 layout: {
                   type: 'hbox',
-                  align: 'stretch',
                   pack: 'start'
                 },
                 padding: '5 0 5 0',
@@ -739,13 +739,12 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                 items: [
                   {
                     xtype: 'label',
-                    text: '** Venta con Receta Médica',
+                    text: '** Con Receta Médica',
                     padding: '5px 0 0 0',
                     border: true,
                     height: 25,
                     flex :1,
                     style: {
-                     // background: '#007C7B',
                       color: '#bf0000',
                       textAlign: 'left',
                       fontWeight: 'bold',
@@ -757,8 +756,49 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                     xtype: 'checkbox',
                     name: 'ventaconreceta',
                     boxLabelAlign: 'before',
-                    flex: 3
-                  }
+                    flex: 1
+                  },
+                  {
+                    xtype: 'label',
+                    text: 'Por defecto vender',
+                    padding: '5px 0 0 0',
+                    border: true,
+                    height: 25,
+                    flex :1,
+                    style: {
+                      color: '#bf0000',
+                      textAlign: 'left',
+                      fontWeight: 'bold',
+                      fontSize: '13px',
+                      padding:'10px'
+                    }
+                  },{
+                    xtype      : 'fieldcontainer',
+                    defaultType: 'radiofield',
+                    flex: 1,
+                    defaults: {
+                        flex: 1
+                    },
+                    layout: 'hbox',
+                    items: [
+                        {
+                            boxLabel  : 'Unidad',
+                            name      : 'ventapordefecto',
+                            inputValue: 1,
+                            value : true
+                        }, {
+                            boxLabel  : 'Pastilla',
+                            name      : 'ventapordefecto',
+                            inputValue: 2,
+                            
+                        }, {
+                            boxLabel  : 'Blister',
+                            name      : 'ventapordefecto',
+                            inputValue: 3,
+                            
+                        }
+                    ]
+                }
                 ]
               },
               {

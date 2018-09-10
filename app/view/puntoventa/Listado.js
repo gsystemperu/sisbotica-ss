@@ -28,7 +28,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.Listado',{
                                             '<tr>',
                                                 '<td  align="left" class="productoprecio"> ',
                                                 '<tpl if="(ventaunidad==true && ventablister==true) || (ventaunidad==true && ventablister==false)">',
-                                                    'Precio Blister : S/.        {precioblister} <br> Precio Unidad : S/.        {preciounidad}',
+                                                    'Precio Unidad : S/.        {precioventa} <br>  Precio Blister : S/.        {precioblister} <br> Precio Pastilla : S/.        {preciounidad}',
                                                 '</tpl>',
                                                 '<tpl if="ventaunidad==false && ventablister==false">',
                                                     'Precio Venta : S/. {precioventa} <br> A Mano : (  {_cajas} ) {presentacion}  <br> Sección : {seccion}</strong></td>',

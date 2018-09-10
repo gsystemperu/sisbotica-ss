@@ -3,7 +3,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.Pago',{
     xtype :'wPuntoVentaPago',
     alias : 'wPuntoVentaPago',
     itemId :'wPuntoVentaPago',
-
     layout:{type:'vbox',align:'stretch'},
     padding : 100,
     controller:'puntoventa-main',
@@ -22,12 +21,10 @@ Ext.define('sisbotica_paulino.view.puntoventa.Pago',{
                 listeners:{
                   click : 'onClickGuardarCajaPago'
                 }
-
               }
             ]
          });
         this.callParent(arguments);
-
     },
     getPanelTotales:function(){
       return obj = {

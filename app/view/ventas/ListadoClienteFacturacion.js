@@ -182,11 +182,11 @@ Ext.define('sisbotica_paulino.view.ventas.ListadoClienteFacturacion', {
                   fieldLabel :'Filtros',
                   padding : '0 10 0 10',
                 },*/
-                {
+               /* {
                   xtype:'button',
                   text : 'IMPRIMIR CUENTA',
                   handler : 'onClickImprimirCC'
-                },
+                },*/
                 {
                   xtype:'button',
                   text : 'IMPRIMIR LISTADO',

@@ -100,10 +100,10 @@ Ext.define('sisbotica_paulino.Application', {
        Ext.getBody().on('keydown', function(ev){
              if(ev.getKey() == ev.self.F4)
              { sisbotica_paulino.util.Util.focusControl('txtBuscarCodigoBarrasProd');}
-             if(ev.ctrlKey == true && ev.getKey() == 112){ //Ctrb + f1
+             /*if(ev.ctrlKey == true && ev.getKey() == 112){ //Ctrb + f1
                 sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
-             }
-             if(ev.ctrlKey == true && ev.getKey() == 66 || ev.getKey() == 98 ){ //Ctrb + f1
+             }*/
+             if(ev.ctrlKey == true && ev.getKey() == 66  ){ //Ctrb + f1
                 Ext.Msg.prompt('Facturación', 'Ingresar el número (id) de la venta',function(b,t){ 
                     if(b=='ok'){ 
                         Ext.Ajax.request({
@@ -122,8 +122,11 @@ Ext.define('sisbotica_paulino.Application', {
                          });
                     }
                 });
-                //sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
              }
+             if(ev.ctrlKey == true && ev.getKey() == 67  ){ // (Contrl + C)
+                sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
+             }
+             
         });
        //Ext.create('wMain');
        Ext.create('sisbotica_paulino.view.seguridad.Login');

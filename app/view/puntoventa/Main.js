@@ -16,40 +16,46 @@ Ext.define('sisbotica_paulino.view.puntoventa.Main', {
         'Ext.tab.Tab',
     ],
     controller: 'puntoventa-main',
-    layout: 'border',
+    layout: {
+       type:'hbox',
+       pack: 'start',
+       align: 'stretch'
+    },
     url: '',
     initComponent: function () {
         me = this;
-        var _storeDetalle = Ext.create('sisbotica_paulino.store.CajaDetalleVenta');
+        s = Ext.create('sisbotica_paulino.store.CajaDetalleVenta');
+        m = Ext.create('sisbotica_paulino.store.ModoVenta');
         Ext.apply(me, {
-            items: me.getItems(_storeDetalle, 1),
+            items: me.getItems(s, 1,m),
 
         });
         this.callParent(arguments);
     },
-    getItems: function (_storeDetalle, _numeromesa) {
+    getItems: function (sd, _numeromesa,m) {
         var rowEditing = Ext.create('Ext.grid.plugin.RowEditing', {
             clicksToMoveEditor: 1,
             autoCancel: false
         });
-        var _obj = [{
+        var _obj = [
+            {
                 xtype: 'panel',
                 flex: 1.3,
-                region: 'west',
+                border:true,
                 layout: {
                     type: 'vbox',
                     align: 'stretch',
                     pack: 'center'
                 },
-
-                items: [{
+                items: [
+                    {
                         xtype: 'panel',
                         flex: 2,
                         layout: 'fit',
                         items: [{
                             xtype: 'gridpanel',
                             itemId: 'dgvDetalleCaja',
-                            store: _storeDetalle,
+                            store: sd,
                             plugins: [rowEditing],
                             selModel: 'cellmodel',
                             plugins: {
@@ -64,81 +70,28 @@ Ext.define('sisbotica_paulino.view.puntoventa.Main', {
                                 },
                                 {
                                     dataIndex: 'cantidad',
-                                    text: 'Cantidad',
-                                    flex: 0.7,
+                                    text: 'Cant.',
+                                    flex: 0.5,
                                     align: 'center',
                                     editor: {
-                                        xtype: 'numberfield',
+                                        xtype:'textfield',
                                         value: 0,
-                                        maxValue: 1000,
-                                        minValue: 0,
                                         itemId: 'txtCantidadUnidad'
-
-                                    },
-                                    hidden:false
-                                },
-                                {
-                                    dataIndex: 'blister',
-                                    text: 'Blister',
-                                    flex: 0.7,
-                                    align: 'center',
-                                    hidden:false,
-                                    editor: {
-                                        xtype: 'numberfield',
-                                        value: 0,
-                                        maxValue: 1000,
-                                        minValue: 0,
-                                        itemId: 'txtCantidadBlister'
-
                                     },
                                 },
                                 {
-                                    dataIndex: 'dosis',
-                                    text: 'Pastilla',
-                                    flex: 0.7,
-                                    hidden: false,
-                                    align: 'center',
-                                    editor: {
-                                        xtype: 'numberfield',
-                                        value: 0,
-                                        maxValue: 1000,
-                                        minValue: 0,
-                                        itemId: 'txtCantidadDosis'
-
-                                    },
-                                },
-
-
-
-                                {
-                                    dataIndex: 'kilos',
-                                    text: 'Kilos',
-                                    hidden: true,
-                                    flex: 0.7,
-                                    align: 'center',
-                                    editor: {
-                                        xtype: 'numberfield',
-                                        value: 0,
-                                        maxValue: 1000,
-                                        minValue: 0,
-                                        itemId: 'txtCantidadDosis'
-
-                                    },
-                                },
-                                {
-                                    dataIndex: 'gramos',
-                                    text: 'Gramos',
-                                    hidden: true,
-                                    flex: 0.7,
-                                    align: 'center',
-                                    editor: {
-                                        xtype: 'numberfield',
-                                        value: 0,
-                                        maxValue: 1000,
-                                        minValue: 0,
-                                        itemId: 'txtCantidadDosis'
-
-                                    },
+                                    dataIndex: 'mv',
+                                    text : '(p)',
+                                    flex: 0.5,
+                                    editor :{
+                                        xtype:'combo',
+                                        store : m,
+                                        displayField :'descripcion',
+                                        valueField : 'descripcion',
+                                        listeners : {
+                                            change  : 'onChangeMv'
+                                        }
+                                    }
                                 },
                                 {
                                     xtype: 'numbercolumn',
@@ -151,7 +104,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.Main', {
                                     xtype: 'numbercolumn',
                                     dataIndex: 'total',
                                     text: 'Total',
-                                    flex: 1.5,
+                                    flex:1,
                                     align: 'right',
 
                                 },

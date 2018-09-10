@@ -26,6 +26,7 @@ class OrdencompraController extends Controller
                     $request->getPost('numerodoc'),
                     $request->getPost('usuario')
               );
+             // print_r($data);die();
               $jsonData = OrdenCompra::actualizar($data);
               $response->setContentType('application/json', 'UTF-8');
               $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));
@@ -34,7 +35,7 @@ class OrdencompraController extends Controller
          }
     }
 
-  public function modificarAction()
+  public function modificarAction() //eddy
     {
          $request        = new \Phalcon\Http\Request();
          $response       = new \Phalcon\Http\Response();
@@ -48,10 +49,15 @@ class OrdencompraController extends Controller
                     $request->getPost('fecha'),
                     ($request->getPost('flagestadoigv')==''?0:1),
                     $request->getPost('vjsondetalle'),
-                    $request->getPost('idmoneda')
+                    $request->getPost('idmoneda'),
+                    $request->getPost('documentoventa'),
+                    $request->getPost('idalmacen'),
+                    $request->getPost('idformapago'),
+                    $request->getPost('serie'),
+                    $request->getPost('numerodoc'),
+                    $request->getPost('usuario')
              );
-             //print_r($data);die();
-               $jsonData = OrdenCompra::actualizar($data);
+              $jsonData = OrdenCompra::actualizar($data);
               $response->setContentType('application/json', 'UTF-8');
               $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));
               return $response;

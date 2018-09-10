@@ -13,7 +13,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoPdv', {
     ],
     layout: {
         type: 'vbox',
-        //pack: 'start',
         align: 'stretch'
     },
     bodyPadding: 0,
@@ -75,6 +74,18 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoPdv', {
                 hideGroupedHeader: true,
                 enableGroupingMenu: false
             }],
+            viewConfig: {
+                getRowClass: function(record, index, rowParams, ds) {
+
+                    if(record.get('estado') == 7){
+                        return "red-row"; 
+                    }else{
+                        return "black-row";
+                    }
+                   
+                }
+             },    
+
             columns: [
                 {
                         text: 'F.Facturado',
@@ -99,28 +110,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoPdv', {
                     dataIndex: 'nomcompleto',
                     flex: 1.5
                 },
-                /*{
-                    text: 'RUC',
-                    dataIndex: 'numrucper',
-                    flex: 0.5,
-                    align: 'right',
-
-                },*/
-                {
-                    text: 'Estado',
-                    dataIndex: 'descripcion',
-                    flex: 0.7,
-                    align: 'center',
-                    renderer : function(value,style){
-                       if(value=='CT ANULADA'){
-                          return '<span style="color:red;">'+value.toString()+'</span>'
-                       }else if(value=='CT CONFIRMADA'){
-                          return '<span style="color:#FF9800;">'+value.toString()+'</span>'
-                       }else{
-                         return '<span style="color:DarkSlateBlue;"><b>'+value.toString()+'</b></span>';
-                       }
-                    }
-                },
                 {
                     text: 'F.Pago',
                     dataIndex: 'formapago',
@@ -137,7 +126,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoPdv', {
                     renderer:Ext.util.Format.numberRenderer('0.00'),
                     summaryType: 'sum',
                     summaryRenderer: function(v,summaryData,field,metaData){
-                       // t = v - metaData.record.data.totalcotianulado;
                         return v.toFixed(2);
                     }
                 },
@@ -244,12 +232,6 @@ Ext.define('sisbotica_paulino.view.puntoventa.ListadoPdv', {
                     glyph: sisbotica_paulino.util.Glyphs.getGlyph('buscar'),
                     tooltip: 'Buscador por rangos de fechas : { Desde , Hasta }',
                     handler: 'onClickBuscarCotizacionesPorFechas'
-                },
-                {
-                    xtype: 'button',
-                    text : 'Visualizar Venta',
-                    tooltip: 'Vista Previa del documento de venta',
-                    handler: 'onClickVisualizarVenta'
                 },
                 {
                     xtype: 'button',
