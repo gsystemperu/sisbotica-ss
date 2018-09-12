@@ -29,7 +29,7 @@
      */
 
     //"theme": "ext-theme-neptune",
-    "theme": "megafillstheme",
+    "theme": "patologia-theme",
 
     /**
      * The list of required packages (with optional versions; default is "latest").

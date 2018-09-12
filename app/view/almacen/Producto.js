@@ -53,16 +53,22 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
                 flex: 1,
                 align: 'left',
                 hidden: true,
-              }, {
+              }, 
+              {
                 text: 'Presentacion',
                 dataIndex: 'presentacion',
                 flex: 1,
                 align: 'left',
                 renderer: function (value, metaData, record) {
-                  if(record.data.cantidadunidadmedida>1)
-                    return record.data.presentacion + ' DE ' +record.data.cantidadunidadmedida.toString();
-                  else
-                    return record.data.presentacion.toString();
+                  try {
+                      if(record.data.cantidadunidadmedida>1)
+                        return record.data.presentacion + ' DE ' +record.data.cantidadunidadmedida.toString();
+                      else
+                        return record.data.presentacion.toString();
+                  } catch (error) {
+                    return '';
+                  }
+                 
                 }
               },
               {
@@ -95,7 +101,7 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
                 }
               },
               {
-                //xtype:'numbercolumn',
+                xtype:'numbercolumn',
                 text: 'Precio Venta',
                 dataIndex: 'precioventa',
                 flex: 1,

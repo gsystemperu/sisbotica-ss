@@ -16,8 +16,7 @@ class Producto extends \Phalcon\Mvc\Model
         return $sql;
     }
     public static function buscarNombre($data)
-    {
-       $obj     = new SQLHelpers();
+    {  $obj     = new SQLHelpers();
        $param   = $data;
        $sql     =  $obj->executarJson('inventario','sp_producto_listar_all',$param);
        return $sql;

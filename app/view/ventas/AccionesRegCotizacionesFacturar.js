@@ -107,6 +107,7 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
               case 3: u=sisbotica_paulino.util.Rutas.cotizacionDetalle; break;
               case 5: u=sisbotica_paulino.util.Rutas.facturacionDetalle; break;
               case 7: u=sisbotica_paulino.util.Rutas.facturacionDetalle; break;
+              case 6: u=sisbotica_paulino.util.Rutas.facturacionDetalle; break;
               
 
           }
@@ -115,6 +116,7 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
               case 3: v = record.get('idcoti');break;
               case 5: v = record.get('idfacturacion');break;
               case 7: v = record.get('idfacturacion');break;
+              case 6: v = record.get('idfacturacion');break;
                 
           }
           Ext.Ajax.request({
