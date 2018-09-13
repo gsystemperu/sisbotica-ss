@@ -17,14 +17,14 @@ Ext.define('sisbotica_paulino.store.tree.ControlVentas', {
                    titulo: "Proforma/Facturar",
                    glyph : 'xf022'
                  },
-                 {
+               /*  {
                   text: 'Crear Documento',
                   leaf: true,
                   itemId: "wRegistrarFacturaBoleta",
                   titulo: 'Documento de venta',
                   glyph : 'xf022'
 
-                },
+                },*/
               
                ]
              },

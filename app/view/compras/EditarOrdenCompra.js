@@ -53,154 +53,159 @@ Ext.define('sisbotica_paulino.view.compras.EditarOrdenCompra', {
                             defaultType: 'textfield',
                             title: 'Datos Principales',
                             layout: 'fit',
-                            items: [{
-                                xtype: 'container',
-                                layout: 'hbox',
-                                margin: '0 0 5 6',
-                                columnWidth: 0.5,
-                                defaults: {
-                                    allowBlank: false
-                                },
-                                items: [
-                                    {
-                                        xtype: 'combo',
-                                        fieldLabel: 'Razon Social',
-                                        itemId: 'cboProveedoresfEditar',
-                                        store: storeProveedores,
-                                        valueField: 'id',
-                                        displayField: 'razonsocial',
-                                        queryMode: 'local',
-                                        flex: 2,
-                                        editable: false,
-                                        name: 'idprov'
-
-
-                                    },
-                                    {
-                                        xtype: 'button',
-                                        glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
-                                        handler: 'onClickFormularioProveedor',
-                                        control: 'cboProveedoresfEditar'
-                                    },
-                                    {
-                                        xtype: 'datefield',
-                                        fieldLabel: 'Fecha Pedido',
-                                        value: new Date(),
-                                        labelAlign: 'right',
-                                        flex: 1,
-                                        name: 'fecha',
-
-                                    },
-                                    {
-                                        xtype: 'combo',
-                                        fieldLabel: 'Forma Pago',
-                                        labelAlign: 'right',
-                                        store: sfpag,
-                                        queryMode: 'local',
-                                        valueField: 'idfopag',
-                                        displayField: 'descripcion',
-                                        flex: 1.5,
-                                        editable: false,
-                                        name: 'idformapago',
-                                        allowBlank: false
-                                    }
-                                 ]
-                            },
-
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: 'hbox',
-                            margin: '0 0 5 6',
-                            columnWidth: 0.5,
-                            defaults: {
-                                allowBlank: false
-                            },
                             items: [
                                 {
-                                    xtype: 'combo',
-                                    fieldLabel: 'Moneda',
-                                    labelAlign: 'left',
-                                    store: storeMonedas,
-                                    queryMode: 'local',
-                                    valueField: 'id',
-                                    displayField: 'descripcion',
-                                    value: 1,
-                                    editable: false,
-                                    name: 'idmoneda'
-                                },
-                                {
-                                    xtype: 'combo',
-                                    fieldLabel: 'Documento',
-                                    store: stdoc,
-                                    displayField: 'descripcion',
-                                    valueField: 'id',
-                                    queryMode: 'local',
-                                    allowBlank: false,
-                                    name: 'documentoventa',
-                                    labelAlign: 'right',
-                                    editable: false,
-                                    value: 1,
-                                    flex: 1
-
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    fieldLabel: 'Serie/Número',
-                                    labelAlign: 'right',
-                                    name: 'serie',
-                                    value: '001',
-                                    flex: 1,
-                                    allowBlank: false
-                                },
-                                {
-                                    xtype: 'textfield',
-                                    labelAlign: 'right',
-                                    name: 'numerodoc',
-                                    flex: 0.5,
-                                    allowBlank: false,
-                                    value: ''
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: 'hbox',
-                            margin: '0 0 5 6',
-                            columnWidth: 0.5,
-                            defaults: {
-                                allowBlank: false
-                            },
-                            items: [
-                                {
-                                    xtype: 'checkboxfield',
-                                    boxLabel: '<b>Precios Incluye I.g.v. </b>',
-                                    name: 'flagestadoigv',
-                                    itemId: 'ckbAplicarIgvEditar',
-                                    value: true,
-                                    listeners: {
-                                        change: 'onChangeInIgv'
-                                    }
-
-                                },
-                                {
-                                    xtype: 'combo',
-                                    fieldLabel: 'Almacen Destino',
+                                    xtype: 'container',
+                                    layout: 'hbox',
                                     margin: '0 0 5 6',
-                                    itemId: 'cboAlmacen',
-                                    labelAlign: 'right',
-                                    store: sAlam,
-                                    valueField: 'id',
-                                    displayField: 'descripcion',
-                                    queryMode: 'local',
-                                    flex: 1,
-                                    editable: false,
-                                    name: 'idalmacen',
-                                    allowBlank: false
+                                    columnWidth: 0.5,
+                                    defaults: {
+                                        allowBlank: false
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'combo',
+                                            fieldLabel: 'Razon Social',
+                                            itemId: 'cboProveedoresfEditar',
+                                            store: storeProveedores,
+                                            valueField: 'id',
+                                            displayField: 'razonsocial',
+                                            queryMode: 'local',
+                                            flex: 2,
+                                            editable: false,
+                                            name: 'idprov'
+
+
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                                            handler: 'onClickFormularioProveedor',
+                                            control: 'cboProveedoresfEditar'
+                                        },
+                                        {
+                                            xtype: 'datefield',
+                                            fieldLabel: 'Fecha Pedido',
+                                            value: new Date(),
+                                            labelAlign: 'right',
+                                            flex: 1,
+                                            name: 'fecha',
+
+                                        },
+                                        {
+                                            xtype: 'combo',
+                                            fieldLabel: 'Forma Pago',
+                                            labelAlign: 'right',
+                                            store: sfpag,
+                                            queryMode: 'local',
+                                            valueField: 'idfopag',
+                                            displayField: 'descripcion',
+                                            flex: 1.5,
+                                            editable: false,
+                                            name: 'idformapago',
+                                            allowBlank: false
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'container',
+                                    layout: 'hbox',
+                                    margin: '0 0 5 6',
+                                    columnWidth: 0.5,
+                                    defaults: {
+                                        allowBlank: false
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'combo',
+                                            fieldLabel: 'Moneda',
+                                            labelAlign: 'left',
+                                            store: storeMonedas,
+                                            queryMode: 'local',
+                                            valueField: 'id',
+                                            displayField: 'descripcion',
+                                            value: 1,
+                                            editable: false,
+                                            name: 'idmoneda',
+                                            flex: 1.5
+                                        },
+                                        {
+                                            xtype: 'combo',
+                                            fieldLabel: 'Documento',
+                                            store: stdoc,
+                                            displayField: 'descripcion',
+                                            valueField: 'id',
+                                            queryMode: 'local',
+                                            allowBlank: false,
+                                            name: 'documentoventa',
+                                            labelAlign: 'right',
+                                            editable: false,
+                                            value: 1,
+                                            flex: 1.5
+
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            fieldLabel: 'Serie/Número',
+                                            labelAlign: 'right',
+                                            name: 'serie',
+                                            value: '001',
+                                            flex: 1,
+                                            allowBlank: false,
+                                            fieldStyle: 'font-size:14px; background-color:#2f67bf;color:#fcf4f4'
+                                        },
+                                        {
+                                            xtype: 'textfield',
+                                            labelAlign: 'right',
+                                            name: 'numerodoc',
+                                            flex: 0.5,
+                                            allowBlank: false,
+                                            value: '',
+                                            fieldStyle: 'font-size:14px; background-color:#2f67bf;color:#fcf4f4'
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'container',
+                                    layout: 'hbox',
+                                    margin: '0 0 5 6',
+                                    columnWidth: 0.5,
+                                    defaults: {
+                                        allowBlank: false
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'checkboxfield',
+                                            boxLabel: '<b>Precios Incluye I.g.v. </b>',
+                                            name: 'flagestadoigv',
+                                            itemId: 'ckbAplicarIgvEditar',
+                                            value: true,
+                                            listeners: {
+                                                change: 'onChangeInIgv'
+                                            }
+        
+                                        },
+                                        {
+                                            xtype: 'combo',
+                                            fieldLabel: 'Almacen Destino',
+                                            margin: '0 0 5 6',
+                                            itemId: 'cboAlmacen',
+                                            labelAlign: 'right',
+                                            store: sAlam,
+                                            valueField: 'id',
+                                            displayField: 'descripcion',
+                                            queryMode: 'local',
+                                            flex: 1,
+                                            editable: false,
+                                            name: 'idalmacen',
+                                            allowBlank: false,
+                                            labelWidth: 150
+                                        }
+                                    ]
                                 }
+
                             ]
-                        },
+                        },//fin FieldSet
                         {
                             xtype: 'fieldset',
                             columnWidth: 0.1,
@@ -269,7 +274,7 @@ Ext.define('sisbotica_paulino.view.compras.EditarOrdenCompra', {
                                                 name: 'occodigo',
                                                 readOnly: true
                                             }
-                                            
+
 
                                             ]
                                         }
@@ -338,7 +343,48 @@ Ext.define('sisbotica_paulino.view.compras.EditarOrdenCompra', {
                                         align: 'right'
 
                                     },
+                                    {
 
+                                        xtype: 'numbercolumn',
+                                        text: 'Precio Venta',
+                                        dataIndex: 'precioventa',
+                                        flex: 0.6,
+                                        align: 'right',
+                                        editor: {
+                                            xtype: 'numberfield',
+                                            format: '0.00',
+                                            decimalPrecision: 2,
+                                            decimalSeparator: '.'
+                                        }
+                                    },
+                                    {
+
+                                        xtype: 'numbercolumn',
+                                        text: 'Precio Pastilla',
+                                        dataIndex: 'preciopastilla',
+                                        flex: 0.6,
+                                        align: 'right',
+                                        editor: {
+                                            xtype: 'numberfield',
+                                            format: '0.00',
+                                            decimalPrecision: 2,
+                                            decimalSeparator: '.'
+                                        }
+                                    },
+                                    {
+
+                                        xtype: 'numbercolumn',
+                                        text: 'Precio Blister',
+                                        dataIndex: 'precioblister',
+                                        flex: 0.6,
+                                        align: 'right',
+                                        editor: {
+                                            xtype: 'numberfield',
+                                            format: '0.00',
+                                            decimalPrecision: 2,
+                                            decimalSeparator: '.'
+                                        }
+                                    },
                                     {
                                         xtype: 'widgetcolumn',
                                         flex: 0.2,

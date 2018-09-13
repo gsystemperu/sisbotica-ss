@@ -35,7 +35,7 @@ class OrdencompraController extends Controller
          }
     }
 
-  public function modificarAction() //eddy
+  public function modificarAction()
     {
          $request        = new \Phalcon\Http\Request();
          $response       = new \Phalcon\Http\Response();
@@ -61,7 +61,6 @@ class OrdencompraController extends Controller
               $response->setContentType('application/json', 'UTF-8');
               $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));
               return $response;
-
          }
     }
 

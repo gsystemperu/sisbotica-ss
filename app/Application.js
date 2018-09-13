@@ -123,9 +123,9 @@ Ext.define('sisbotica_paulino.Application', {
                     }
                 });
              }
-             if(ev.ctrlKey == true && ev.getKey() == 67  ){ // (Contrl + C)
-                sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
-             }
+             //if(ev.ctrlKey == true && ev.getKey() == 67  ){ // (Contrl + C)
+             //   sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
+             //}
              
         });
        //Ext.create('wMain');

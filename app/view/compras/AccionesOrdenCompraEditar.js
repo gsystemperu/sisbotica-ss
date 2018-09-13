@@ -81,12 +81,13 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompraEditar', {
                        "idprod": record.get('idprod'),
                        "cantidad": record.get('cantidad'),
                        "precio": record.get("precio"),
-                       "total": record.get("total")
-
+                       "total": record.get("total"),
+                       "precioventa":record.get("precioventa"),
+                       "preciopastilla":record.get("preciopastilla"),
+                       "precioblister":record.get("precioblister"),
                    };
                    _dataDetalle.push(_reg);
                }
-
            });
            _txt1 = Ext.ComponentQuery.query('#txtJsonDetalleOCEditar');
            _txt1[0].setValue(JSON.stringify(_dataDetalle));

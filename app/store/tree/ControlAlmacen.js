@@ -35,14 +35,14 @@ Ext.define('sisbotica_paulino.store.tree.ControlAlmacen', {
             itemId: "wContenedorOrdenCompra",
             titulo: "Orden Compra",
             glyph: 'xf16b'
-          },
+          }/*,
           {
             text: 'Guias Entrada',
             leaf: true,
             itemId: "wContenedorGuias",
             titulo: "Guia Entrada",
             glyph: 'xf16b'
-          }
+          }*/
         ]
       },
       {

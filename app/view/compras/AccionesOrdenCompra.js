@@ -309,7 +309,10 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
                                 producto: record.nombre,
                                 cantidad: record.cantidad,
                                 precio: record.preciocompra,
-                                total: record.total
+                                total: record.total,
+                                precioventa:record.precioventa,
+                                preciopastilla:record.preciopastilla,
+                                precioblister:record.precioblister
                             };
                             _store.insert(0, _data);
                         });
@@ -318,11 +321,11 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
                 });
                 if (rec.get('idestado') == 3) {
                     b = Ext.ComponentQuery.query('#frmOrdenCompraEditar')[0];
-                    b.down('#btnGuardarVenta').setDisabled(true);
+                    //b.down('#btnGuardarVenta').setDisabled(true);
                     b.down('#usuario').setValue(sisbotica_paulino.util.Data.usuario);
                 } else {
                     b = Ext.ComponentQuery.query('#frmOrdenCompraEditar')[0];
-                    b.down('#btnGuardarVenta').setDisabled(false);
+                   // b.down('#btnGuardarVenta').setDisabled(false);
                     b.down('#usuario').setValue(sisbotica_paulino.util.Data.usuario);
                 }
             } catch (e) {
