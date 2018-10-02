@@ -10,13 +10,11 @@ Ext.define('sisbotica_paulino.store.Productos', {
     requiere:['sisbotica_paulino.model.DataModels'],
     model   :'sisbotica_paulino.model.Producto',
     autoLoad: false,
-    remoteSort: true,
-    autoSync  : true,
-    autoDestroy: true,
     extraParams :{
       nombre : '',
       tipoproducto : 0,
-      codigobarras: ''
+      codigobarras: '',
+      query : ''
     },
     proxy: {
         type: 'ajax',

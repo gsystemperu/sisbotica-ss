@@ -46,6 +46,7 @@ class CotizacionController extends Controller
               $vCategoria       =  $request->get('vCategoria');
 
               $data = array($vCodigo,$vDescripcion,$vCategoria,$vIdCliente);
+              //print_r($data);die();
               $jsonData             = Cotizacion::productoListarPorCliente($data);
               $response->setContentType('application/json', 'UTF-8');
               $response->setContent($jsonData);

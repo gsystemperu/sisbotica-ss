@@ -283,21 +283,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
         },
         padding: '0 0 10 0',
         items: [
-          {
-            fieldLabel: 'Modelo',
-            store: storeModelos,
-            displayField: 'descripcion',
-            valueField: 'id',
-            queryMode: 'local',
-            emptyText: '---- Seleccionar -----',
-            flex: 1,
-            name: 'idmodelo',
-            itemId: 'idmodelo',
-
-          },
-          { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'), handler: 'onClickNuevoUnidadMedida', hidden: false },
-          { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('refrescar'), handler: 'onClickRefrescarModelo', hidden: false },
-
+          
           {
             fieldLabel: 'Marca',
             flex: 1,
@@ -308,13 +294,9 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
             queryMode: 'local',
             labelAlign: 'right',
             emptyText: '---- Seleccionar -----',
-
-            itemId: 'idmarca'
-
-          },
-          { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'), handler: 'onClickNuevoUnidadMedida' },
-          { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('refrescar'), handler: 'onClickRefrescarMarca' },
-
+            itemId: 'idmarca',
+            hidden:true
+          }
         ]
       },
       {
@@ -329,11 +311,25 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
         padding: '0 0 10 0',
         items: [
           {
+            fieldLabel: 'Modelo',
+            store: storeModelos,
+            displayField: 'descripcion',
+            valueField: 'id',
+            queryMode: 'local',
+            emptyText: '---- Seleccionar -----',
+            flex: 1,
+            name: 'idmodelo',
+            itemId: 'idmodelo',
+            labelAlign: 'left'
+
+          },
+          { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'), handler: 'onClickNuevoUnidadMedida', hidden: false },
+          { xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('refrescar'), handler: 'onClickRefrescarModelo', hidden: false },
+          {
             xtype: 'numberfield',
             fieldLabel: 'Precio Compra',
             name: 'preciocompra',
             fieldStyle: 'font-size:15px;',
-            labelAlign: 'left',
             value: 0,
             flex: 1,
             decimalPrecision: 5,
@@ -359,7 +355,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
          
         ]
       },
-      {
+    /*  {
         xtype: 'container',
         layout: {
           type: 'hbox',
@@ -401,33 +397,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
             labelWidth:130
           }
         ]
-      },
-      {
-        xtype: 'container',
-        layout: {
-          type: 'hbox',
-        },
-        padding: '0 0 10 0',
-        defaultType: 'combo',
-        hidden: true,
-        items: [
-
-          {
-            fieldLabel: 'U.M. Fraccion',
-            name: 'idunidadmedidafraccion',
-            flex: 1,
-            labelAlign: 'right',
-            store: storeUnidadMedida,
-            displayField: 'descripcion',
-            valueField: 'id',
-            queryMode: 'local',
-            editable: false,
-            hidden: true,
-            emptyText: '---- Seleccionar -----',
-          }
-        ]
-
-      },
+      },*/
       {
         xtype: 'textfield',
         fieldLabel: 'Composicion Items',
@@ -604,73 +574,150 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                   },
                 ]
               },
-              {
+              { //** Area Precios */
                 xtype: 'fieldset',
-                title : 'PRESENTACIÓN CAJA',
+                title : 'Precio(s)',
                 layout: {
-                  type: 'hbox',
+                  type: 'vbox',
                   align: 'stretch',
                   pack: 'start'
                 },
-                padding: '5 0 5 0',
-                defaultType: 'numberfield',
-                defaults: {
-                  labelAlign: 'right',
-                  
-                },
-                items: [
-                  {
-                    xtype: 'label',
-                    text: 'Se Vende por Unidad',
-                    padding: '5px 0 0 0',
-                    border: true,
-                    height: 25,
-                    flex: 1.95,
-                    style: {
-                      //background: '#007C7B',
-                      color: '#bf0000',
-                      textAlign: 'left',
-                      fontWeight: 'bold',
-                      fontSize: '13px',
-                      padding:'10px'
-                      
+                padding: '5 5 5 5',
+                 items: 
+                  [
+                    {
+                      xtype:'container',
+                      layout: {
+                        type: 'hbox',
+                        align: 'stretch',
+                        pack: 'start'
+                      },
+                      defaultType: 'numberfield',
+                      defaults: {
+                        labelAlign: 'right',
+                        labelWidth :120
+                      },
+                      padding: '5 5 5 5',
+                      items:[
+                        {
+
+                          xtype: 'numberfield',
+                          fieldLabel: 'Entero',
+                          name: 'precioventa',
+                          flex:1,
+                          allowDecimals: true,
+                          decimalSeparator: '.',
+                          decimalPrecision: 5,
+                          step: '0.1',
+                          value: 0,
+                          allowBlank: false,
+                          labelAlign: 'left'
+                        },
+                        {
+                          xtype:'combo',
+                          fieldLabel: 'Presentación',
+                          name: 'idpresentacion',
+                          itemId: 'idpresentacion',
+                          flex:1,
+                          store: storePresentacion,
+                          displayField: 'despres',
+                          valueField: 'idpres',
+                          queryMode: 'local',
+                          editable: false,
+                          flex :2,
+                          emptyText: '---- Seleccionar -----',
+                        },
+                        {
+                          xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                          handler: 'onClickNuevoPresentacion'
+                        },
+                        {
+                          xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('refrescar'),
+                          handler: 'onClickRefrescarPresentacion'
+                        },
+                        {
+                          xtype: 'numberfield',
+                          fieldLabel: 'Contenido',
+                          name: 'cantidadunidadmedida',
+                          fieldStyle: 'font-size:15px;',
+                          value: 0,
+                          flex:1,
+                          enableKeyEvents : true,
+                          listeners : {
+                            keypress:'onKeyPressCalFra'
+                          }
+                         
+                        }
+                      ]
                     },
-                    
-                  },
-                  {
-                    xtype: 'checkbox',
-                    name: 'ventaunidad',
-                    boxLabelAlign: 'before',
-                    bodyPadding: 5,
-                    flex: 0.5,
-                    listeners : {
-                      change :'onChangeVentaUnidad'
+                    {
+                      xtype:'container',
+                      layout: {
+                        type: 'hbox',
+                        align: 'stretch',
+                        pack: 'start'
+                      },
+                      defaultType: 'numberfield',
+                      defaults: {
+                        labelAlign: 'right',
+                        labelWidth :120
+                      },
+                      padding: '5 5 5 5',
+                      items:[
+                       /* {
+                          xtype: 'checkbox',
+                          name: 'ventaunidad',
+                          boxLabelAlign: 'before',
+                          bodyPadding: 5,
+                          flex: 0.5,
+                          listeners : {
+                            change :'onChangeVentaUnidad'
+                          }
+      
+                        },*/
+      
+                        {
+                          fieldLabel: 'Fraccion',
+                          name: 'preciounidad',
+                          labelAlign: 'left',
+                          value: 0,
+                          flex: 1
+                        },
+                        {
+                          xtype:'combo',
+                          fieldLabel: 'Presentación',
+                          name: 'idpresentacionfraccion',
+                          flex:1,
+                          store: storePresentacion,
+                          displayField: 'despres',
+                          valueField: 'idpres',
+                          queryMode: 'local',
+                          editable: false,
+                          flex :2,
+                          emptyText: '---- Seleccionar -----',
+                        },
+                        {
+                          xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                          handler: 'onClickNuevoPresentacion'
+                        },
+                        {
+                          xtype: 'button', glyph: sisbotica_paulino.util.Glyphs.getGlyph('refrescar'),
+                          handler: 'onClickRefrescarPresentacion'
+                        }
+                      ]
                     }
-
-
-                  },
-
-                  {
-                    fieldLabel: 'Precio Unidad',
-                    name: 'preciounidad',
-                    labelWidth: 130,
-                    labelAlign: 'right',
-                    disabled:true,
-                    value: 0,
-                    flex: 3
-                  },
-                ]
-              },
+                 ]
+               },
               {
                 xtype: 'fieldset',
-                title : 'PRESENTACIÓN CAJA',
+                title : 'Precio(s)',
                 layout: {
                   type: 'hbox',
                   align: 'stretch',
                   pack: 'start'
                 },
                 padding: '5 0 5 0',
-                hidden: false,
+                hidden: true,
                 defaultType: 'numberfield',
                 defaults: {
                   labelAlign: 'right'
@@ -679,7 +726,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                 items: [
                   {
                     xtype: 'label',
-                    text: 'Se vende por Blister (Capsulas, pastillas, comprimidos etc..)',
+                    text: 'Blister',
                     padding: '5px 0 0 0',
                     border: true,
                     height: 25,
@@ -782,12 +829,12 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                     layout: 'hbox',
                     items: [
                         {
-                            boxLabel  : 'Unidad',
+                            boxLabel  : 'Entero',
                             name      : 'ventapordefecto',
                             inputValue: 1,
                             value : true
                         }, {
-                            boxLabel  : 'Pastilla',
+                            boxLabel  : 'Fracción',
                             name      : 'ventapordefecto',
                             inputValue: 2,
                             
@@ -795,6 +842,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                             boxLabel  : 'Blister',
                             name      : 'ventapordefecto',
                             inputValue: 3,
+                            hidden:true
                             
                         }
                     ]
@@ -836,22 +884,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                   flex: 1,
                 },
                 items: [
-                  {
-
-                    xtype: 'numberfield',
-                    fieldLabel: 'Precio Publico Lima',
-                    name: 'precioventa',
-                    flex: 1,
-                    allowDecimals: true,
-                    decimalSeparator: '.',
-                    decimalPrecision: 5,
-                    step: '0.1',
-                    labelWidth: 170,
-                    value: 0,
-                    allowBlank: false,
-                    fieldStyle: 'font-size:20px;text-transform: uppercase;background-color:#F9F7D8'
-
-                  },
+              
                   {
 
                     xtype: 'numberfield',

@@ -387,8 +387,16 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProducto', {
         Ext.ComponentQuery.query('[name=cantidadblister]')[0].setDisabled(true).setValue(0);
         Ext.ComponentQuery.query('[name=precioblister]')[0].setDisabled(true).setValue(0);
       }
+    },
+    onKeyPressCalFra:function(txt,e,op){
+      if(e.keyCode == 13){
+        p  = Ext.ComponentQuery.query('[name=precioventa]')[0].getValue();
+        if(parseFloat(txt.getValue())>0){
+           pf = parseFloat(p)/ parseFloat(txt.getValue());
+           Ext.ComponentQuery.query('[name=preciounidad]')[0].setValue(pf);
+        }else{
+          Ext.ComponentQuery.query('[name=preciounidad]')[0].setValue(0);
+        }
+      }
     }
-
-
-
 });

@@ -40,7 +40,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.Main', {
         var _obj = [
             {
                 xtype: 'panel',
-                flex: 1.3,
+                flex: 1.5,
                 border:true,
                 layout: {
                     type: 'vbox',
@@ -128,7 +128,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.Main', {
                             '->',
                             {
                                 xtype: 'numberfield',
-                                fieldLabel: '<b><div style="font-size:20px;margin-top:16px;">Total </div></b>',
+                                fieldLabel: '<b><div style="font-size:20px;margin-top:12px;">Total </div></b>',
                                 itemId: 'txtTotalVentaCaja',
                                 decimalSeparator: '.',
                                 readOnly: true,
@@ -142,7 +142,7 @@ Ext.define('sisbotica_paulino.view.puntoventa.Main', {
             },
             {
                 xtype: 'panel',
-                flex: 1,
+                flex: 1.5,
                 region: 'center',
                 layout: {
                     type: 'vbox',

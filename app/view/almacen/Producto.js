@@ -122,7 +122,7 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
               }
             ],
             tbar: [{
-              xtype: 'fieldset',
+              xtype: 'container',
               layout: 'hbox',
               flex: 1,
               padding: '0 5 10 5',

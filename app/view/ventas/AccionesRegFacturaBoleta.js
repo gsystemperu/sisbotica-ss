@@ -21,14 +21,13 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
           Ext.ComponentQuery.query('#btnCotizaciones')[0].setText(_txt);
           Ext.ComponentQuery.query('#btnFacturasBoletas')[0].setText(_txtf);
 
-
       } catch (e) {
         console.log('Select ERP cliente');
       }
     },
 
     onClickBuscarProducto: function (btn) {
-      if(Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue()){
+      if(Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue() || Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue() == 0){
         var _win = Ext.create('sisbotica_paulino.view.ventas.BuscarProductoFB', { 
             cliente: Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue(),
             detalle : 'dgvDetalleVentaFacturaBoleta' 
@@ -117,7 +116,7 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
       });
     },
      onClickEditarCotizacion: function (btn) {
-        //xamudio
+       
         var _grid = this.lookupReference('dgvVentasCotizaciones');
         var _rec = btn.getWidgetRecord();// _grid.getSelectionModel().getSelection()[0];
        
@@ -236,6 +235,62 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
         }
 
     },
+    onChangeMv:function(ob,v,o)
+   { 
+    ob.up('#dgvDetalleVentaFacturaBoleta').getView().refresh();
+    r = ob.up('#dgvDetalleVentaFacturaBoleta').getSelectionModel().getSelection()[0] ;
+    //console.log(r);
+    switch(v)
+    {
+      case 'U': 
+        ca = r.get('cantidad'); //   parseFloat(ca);
+        pa = r.get('precioventa');
+        to = pa * ca;
+        r.set('precio', pa.toFixed(2));
+        r.set('total', to.toFixed(2));
+        r.set('dosis', 0);
+        r.set('blister', 0);
+        r.commit();
+        ob.up('#dgvDetalleVentaFacturaBoleta').getView().refresh();
+        this.onCalcularTotalVenta();
+      break;
+      case 'F': 
+        ca = r.get('cantidad');  
+        pa = r.get('preciofraccion');
+        to = pa * parseFloat(ca);   
+        r.set('precio', pa.toFixed(2));
+        r.set('total', to.toFixed(2));
+        r.set('blister', 0);
+        r.commit();
+        ob.up('#dgvDetalleVentaFacturaBoleta').getView().refresh();
+        this.onCalcularTotalVenta();
+      break;
+      case 'B': 
+        ca = r.get('cantidad');  
+        pa = r.get('precioblister');
+        to = pa * parseFloat(ca);  
+        r.set('precio', pa.toFixed(2));
+        r.set('total', to.toFixed(2));
+        r.set('dosis', 0);
+        r.commit();
+        ob.up('#dgvDetalleVentaFacturaBoleta').getView().refresh();
+        this.onCalcularTotalVenta();
+      break;
+      default :
+        ca = r.get('cantidad');
+        pa = r.get('precioventa');
+        to = pa * ca;
+        r.set('precio', pa.toFixed(2));
+        r.set('total', to.toFixed(2));
+        r.set('precioanterior', pe.toFixed(2));
+        r.set('dosis', 0);
+        r.set('blister', 0);
+        r.commit();
+        ob.up('#dgvDetalleVentaFacturaBoleta').getView().refresh();
+        this.onCalcularTotalVenta();
+      break;
+     }
+    },
     onEditorCalcularTotal: function (editor, e) {
       var _cant = 0;
       var _pre = 0;
@@ -245,8 +300,6 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
       e.record.set('total', _tot.toFixed(2));
       this.onCalcularTotalVenta(false);
     },
-
-
     onSelectedIncluyeIGV: function (obj, newValue, oldValue, eOpts) {
         this.onCalcularTotalVenta(newValue);
     },
@@ -286,6 +339,9 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
         __objSubTotal.setValue(s.toFixed(2));
         __objIgv.setValue(i.toFixed(2));
         __objTotal.setValue(_tot.toFixed(2));
+        
+        
+       
     },
     onClickEliminarDetalle: function (button, event, eOpts) {
         var grid = this.lookupReference('dgvDetalleVentaFacturaBoleta');
@@ -331,9 +387,15 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
                     if(action.result.error!=0){
                         _form.reset();
                         _store.removeAll();
-                        var objrpt = window.open( sisbotica_paulino.util.Rutas.rptImprimirNota+ 'id='+ action.result.error, "", "width=700,height=900");
-                              //setTimeout(function(){ objrpt.close(); }, 1000);
-                    } 
+                        Ext.Msg.show({
+                            title: 'Venta',
+                            msg: '<H1> Código de la Venta  :: ' + action.result.error.toString() + '</H1>',
+                            width: 500,
+                            closable: false,
+                            icon: Ext.Msg.QUESTION,
+                            buttons: Ext.Msg.YES
+                          });
+                     } 
                 },
                 failure: function () {
                     Ext.Msg.alert("AkinetFarma", action.result.msg);
@@ -451,7 +513,31 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
         }
 
     },
+    onItemkeydownRowProd:function(view, record, item, index, e){
+        if(e.getKey()==13)
+        {
+            me = this;
+            var _store         = Ext.ComponentQuery.query('#dgvDetalleVentaFacturaBoleta')[0].getStore();
+            var _precio         = 0;
+            _data = {
+                    idprod: parseInt(record.get('id')),
+                    descripcion: record.get('nombre'),
+                    cantidad: 1,
+                    precio: parseFloat(record.get('precioprod')),
+                    total: parseInt(1) * parseFloat(record.get('precioprod'))
+                };
+    
+            if (_store.findRecord('idprod', parseInt( record.get('id') ))) {
+                Ext.Msg.alert("Error", "Producto ya se encuentra cargada");
+                return false;
+            }
+            _store.insert(0, _data);
+            this.onCalcularTotalVentaPorBusqueda();
+            btn = Ext.ComponentQuery.query('#btnSalirFB')[0];
+            btn.fireEvent('click',btn);
 
+        }                            
+    },
     onClickRowProducto: function (obj, td, cellIndex, record, tr, rowIndex, e, eOpts) {
       /*
           precioprod   = 1
@@ -643,7 +729,7 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
         };
         store.load(1);
     },
-    onKeyPressTextoNombreCliente:function(texto, e, eOpts){ //eddy
+    onKeyPressTextoNombreCliente:function( texto, e, eOpts){ 
 
         if(e.charCode == 13){
         txtQuery =  Ext.ComponentQuery.query('#txtQueryBuscar')[0];
@@ -741,5 +827,100 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
     onClickCancelarFacturaBoleta:function(btn){
         _panel = btn.up('tabpanel');
         _panel.getChildByElement('wRegistrarFacturaBoleta').close();
-    }
+    },
+    onKeyPressBuscar:function(txt,e,op){
+        if(e.charCode == 13)
+        {
+                switch (txt.name) {
+                    case 'txtBusComercial': 
+                        data= {
+                            cliente: Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue(),
+                            detalle : 'dgvDetalleVentaFacturaBoleta',
+                            comercial : txt.getValue()
+                        };
+                    break;
+                    case 'txtBusLaboratorio':
+                        data= {
+                            cliente: Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue(),
+                            detalle : 'dgvDetalleVentaFacturaBoleta',
+                            laboratorio : txt.getValue()
+                        };
+                    break;
+                    case 'txtBusGenerico': 
+                        data= {
+                            cliente: Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue(),
+                            detalle : 'dgvDetalleVentaFacturaBoleta',
+                            generico : txt.getValue()
+                        };
+                    break;
+                }
+
+                if(Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue() || Ext.ComponentQuery.query('#cboDatosCliente')[0].getValue() == 0){
+                    Ext.create('sisbotica_paulino.view.ventas.BuscarProductoFB', data);
+                }else{
+                    Ext.Msg.alert("AkinetFarma","Buscar al cliente para buscar los precios de los productos !!"); return false;
+                }
+        }
+     },
+     onClickSalirFB:function(b){
+         console.log(this.getView());
+         this.getView().close();
+     },
+     onKeyUpFiltroProducto:function(cbo, e, eOpts){  // borrar
+            if(parseInt(e.getKey())==38 || parseInt(e.getKey())==40){   
+                return '';
+            }
+            else{
+                        try {
+                            if(cbo.getValue()!==''){
+                                if(cbo.getValue().length == 5){
+                                    s =  cbo.getStore();
+                                    //s.clearFilter();
+                                    s.reload({
+                                        params:{
+                                            query : cbo.getValue().toString().trim()
+                                        }
+                                    });
+                                }
+                            }
+                        } catch (error) {
+                           alert(error);
+                        }
+                       
+                  
+            }
+            
+
+         
+     },
+     onSelectProducto:function(combo, record, eOpts  ){
+        
+         me = this;
+         s         = Ext.ComponentQuery.query('#dgvDetalleVentaFacturaBoleta')[0].getStore();
+         p        = 0;
+         d = {
+                 idprod: parseInt(record.get('id')),
+                 descripcion: record.get('nombre'),
+                 cantidad: 1,
+                 precio: ( record.get('ventapordefecto')==1? parseFloat(record.get('precioventa')) : parseFloat(record.get('preciounidad')))  ,
+                 total: parseInt(1) * ( record.get('ventapordefecto')==1? parseFloat(record.get('precioventa')) : parseFloat(record.get('preciounidad'))    ),
+                 mv : ( record.get('ventapordefecto')==1?'U':'F'),
+                 preciofraccion : record.get('preciounidad'),
+                 precioventa    : parseFloat(record.get('precioventa'))
+             };
+            
+         if (s.findRecord('idprod', parseInt( record.get('id') ))) {
+             Ext.Msg.alert("Error", "Producto ya se encuentra cargada");
+             return false;
+         }
+         s.insert(0, d);
+        
+         this.onCalcularTotalVentaPorBusqueda();
+         t = setInterval(function(){ 
+            combo.setRawValue('');
+            clearInterval(t);
+         }, 100);
+         
+         
+     }
 });

@@ -344,8 +344,13 @@ Ext.define('sisbotica_paulino.model.Producto', {
         {name: "accionfarmacologica",type: 'string'},
         {name: "_cajas",type: 'float'},
         {name: "_unidades",type: 'float'},
-        {name: "ventapordefecto",type: 'int'}
-        
+        {name: "ventapordefecto",type: 'int'},
+        {name: "idpresentacionfraccion",type: 'int'},
+        { name: 'filtro', type: 'string',
+    			convert: function(val,row) {
+    				return row.data.nombre + '   => Precio   Und. : ' + row.data.precioventa +' - Fra. : ' + row.data.preciounidad ;
+                }	
+        }
     ]
 });
 

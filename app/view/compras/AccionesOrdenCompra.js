@@ -82,6 +82,7 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
         } else {
             me.onCalcularTotalOrdenCompra();
         }
+        this.getView().close();
 
     },
 

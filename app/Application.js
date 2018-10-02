@@ -71,6 +71,7 @@ Ext.define('sisbotica_paulino.Application', {
         'almacen.ProductoExistenciasEditar',
         'almacen.ReportesProducto',
         'puntoventa.ConfigPuntoVenta',
+        'puntoventa.ListadoProdGrid',
 
         //@Conf views
         'conf.configEmpresa',
@@ -99,7 +100,8 @@ Ext.define('sisbotica_paulino.Application', {
 
        Ext.getBody().on('keydown', function(ev){
              if(ev.getKey() == ev.self.F4)
-             { sisbotica_paulino.util.Util.focusControl('txtBuscarCodigoBarrasProd');}
+             { 
+                 sisbotica_paulino.util.Util.focusControl('cboProducto');}
              /*if(ev.ctrlKey == true && ev.getKey() == 112){ //Ctrb + f1
                 sisbotica_paulino.util.Util.crearWindowOpenMantenimiento('Tipo de Cambio','wfrmTipoCambio',450,130,null,'wTipoCambio');
              }*/

@@ -23,38 +23,52 @@ class ProductoController extends Controller
          if($request->isGet() ==true)
          {
               $tipoproducto = $request->get('tipoproducto');
-              if($tipoproducto>0)
-              {
-                    $data = array($tipoproducto);
-                    $jsonData = Producto::buscarTipo($data);
-                    $response->setContentType('application/json', 'UTF-8');
-                    $response->setContent($jsonData);
-                    return $response;
+              $query        = $request->get('query');
+              
+              if($query!=''){
+                
+                $data = array($query,0);
+                $jsonData = Producto::buscarNombreYcliente($data);
+                $response->setContentType('application/json', 'UTF-8');
+                $response->setContent($jsonData);
+                return $response;
               }else{
-                  if(strlen($request->get('nombre'))==0 || $request->get('nombre') =='*' )
-                  {
-                    $jsonData = Producto::listar();
-                  }else{
-                    if(strlen($request->get('idclie'))==0){
-                      $data = array($request->get('nombre'));
-                      $jsonData = Producto::buscarNombre($data);
-                    }elseif($request->get('codigobarras')!=''){
-                      $data = array($request->get('codigobarras'), $request->get('idclie'));
-                      $jsonData = Producto::buscarCodigoBarras($data);
-                    }elseif(strlen($request->get('marca'))!=''){
-                      $data = array($request->get('marca'));
-                      $jsonData = Producto::buscarMarca($data);
+                if($tipoproducto>0)
+                {
+                      $data = array($tipoproducto);
+                      $jsonData = Producto::buscarTipo($data);
+                      $response->setContentType('application/json', 'UTF-8');
+                      $response->setContent($jsonData);
+                      return $response;
+                }else{
+                    if(strlen($request->get('nombre'))==0 || $request->get('nombre') =='*' )
+                    {
+                      $jsonData = Producto::listar();
                     }else{
-                      $data = array($request->get('nombre'),$request->get('idclie'));
-                      if($request->get('tb')==1){
-               
-                        $jsonData = Producto::buscarNombreYcliente($data);
+                      if(strlen($request->get('idclie'))==0){
+                        $data = array($request->get('nombre'));
+                        $jsonData = Producto::buscarNombre($data);
+                      }elseif($request->get('codigobarras')!=''){
+                        $data = array($request->get('codigobarras'), $request->get('idclie'));
+                        $jsonData = Producto::buscarCodigoBarras($data);
+                      }elseif(strlen($request->get('marca'))!=''){
+                        $data = array($request->get('marca'));
+                        $jsonData = Producto::buscarMarca($data);
                       }else{
-                      
-                        $jsonData = Producto::buscarNombreYclienteGenerico($data);
+                          $data = array($request->get('nombre'),$request->get('idclie'));
+                          if($request->get('tb')==1){
+                  
+                            $jsonData = Producto::buscarNombreYcliente($data);
+                          }else{
+                          
+                            $jsonData = Producto::buscarNombreYclienteGenerico($data);
+                          }
                       }
-                   }
-                  }
+                    }
+
+              }
+
+              
                   $response->setContentType('application/json', 'UTF-8');
                   $response->setContent($jsonData);
                   return $response;
@@ -141,6 +155,7 @@ class ProductoController extends Controller
               $cantblister      = $request->getPost('cantidadblister');
               $accionfarma      = $request->getPost('accionfarmacologica');
               $ventapordefecto  = $request->getPost('ventapordefecto');
+              $idpresentacionfra  = $request->getPost('idpresentacionfraccion');
            
 
               //echo "test";die();
@@ -198,7 +213,8 @@ class ProductoController extends Controller
                     $formato->esNumeroCero($idseccion),
                     $formato->esNumeroCero($cantblister),
                     $accionfarma,
-                    $ventapordefecto
+                    $ventapordefecto,
+                    $formato->esNumeroCero($idpresentacionfra)
               );
               $jsonData  = Producto::actualizar($data);
               $id        = $jsonData[0]["error"];

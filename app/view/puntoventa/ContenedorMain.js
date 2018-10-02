@@ -59,7 +59,8 @@ Ext.define('sisbotica_paulino.view.puntoventa.ContenedorMain', {
         emptyText: 'SELECCIONAR AL CLIENTE',
         listeners:{
           'select' : 'onSelectCliente'
-        }
+        },
+        value : 0
         
       },
       {

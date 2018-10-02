@@ -2,32 +2,55 @@ Ext.define('sisbotica_paulino.view.ventas.BuscarProductoFB', {
     extend: 'Ext.window.Window',
     alias: 'widget.wBuscarProductoFB',
     xtype: 'wBuscarProductoFB',
+    itemId: 'wBuscarProductoFB',
     requires: [
       'sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta'
     ],
     config : {
       cliente : 0,
-      detalle : null
+      detalle : null,
+      comercial: '',
+      generico : '',
+      laboratorio:''
     },
     autoShow: true,
-    width: 1200,
+    width: 1000,
     height: 600,
     title: ' :: Buscar Producto :: ',
     iconCls: 'fa fa-address-card-o fa-2x',
     controller: 'acciones-regfacturaboleta',
     bodyPadding: 5,
-    modal: true,
+    closable: true,
+    autoShow:true,
     layout: {
-        type: 'fit',
+        type: 'vbox',
         align: 'stretch',
         pack: 'start'
     },
-
     initComponent: function () {
-        var store = Ext.create('sisbotica_paulino.store.ProductosPorPrecioPersona');
+        st = Ext.create('sisbotica_paulino.store.ProductosPorPrecioPersona');
         me        = this;
-        store.getProxy().extraParams={vIdCliente : me.getCliente()};
-        store.load();
+        if(me.getComercial()){
+            st.getProxy().extraParams={
+                vDescripcion : me.getComercial(),
+                vIdCliente : me.getCliente()
+            };
+        }
+        if(me.getLaboratorio()){
+            st.getProxy().extraParams={
+                vIdCliente : me.getCliente(),
+                vCategoria : me.getLaboratorio()
+            };
+        }
+
+        st.load({
+            callback : function(r, o, s) {
+                re = r[0];
+                g = Ext.ComponentQuery.query('#dgvBuscarProducto')[0];
+                g.getSelectionModel().select(re);
+                g.getView().focusRow(re);
+            }
+        });
         me = this;
         Ext.apply(me, {
             items: [
@@ -40,23 +63,48 @@ Ext.define('sisbotica_paulino.view.ventas.BuscarProductoFB', {
                   {
                     xtype: 'grid',
                     reference: 'dgvBuscarProducto',
-                    store:store,
+                    itemId: 'dgvBuscarProducto',
+                    store:st,
+                    flex:1.5,
+                    viewConfig:{
+                        listeners:{
+                            itemkeydown:'onItemkeydownRowProd'
+                        }
+                    },
                     columns: [
                          {
                             text:'Producto',
                             flex: 2,
                             dataIndex:'nombre',
                         },
+                        {
+                            xtype :'numbercolumn',
+                            text:'Precio Entero',
+                            flex: 0.5,
+                            dataIndex:'precioprod',
+                            align :'right',
+                            renderer: Ext.util.Format.numberRenderer('0.00')
+                        },
+
                        {
-                            text:'Unida Medida',
-                            flex: 1,
+                            text:'Und.Medida',
+                            flex: 0.5,
                             dataIndex:'unidadmedida',
                         },
                         {
-                             text:'Presentacion',
-                             flex: 1,
-                             dataIndex:'presentacion',
-                         },
+                            xtype :'numbercolumn',
+                            text:'Precio Fraccion',
+                            flex: 0.5,
+                            dataIndex:'precioprod',
+                            align :'right',
+                            renderer: Ext.util.Format.numberRenderer('0.00')
+                        },
+
+                       {
+                            text:'Und.Medida',
+                            flex: 0.5,
+                            dataIndex:'unidadmedida',
+                        },
                          {
                              xtype :'numbercolumn',
                               text:'Stock',
@@ -75,43 +123,24 @@ Ext.define('sisbotica_paulino.view.ventas.BuscarProductoFB', {
 
                               }
                           },
-                        {
-                            xtype :'numbercolumn',
-                            text:'Precio',
-                            flex: 0.5,
-                            dataIndex:'precioprod',
-                            align :'right',
-                            renderer: Ext.util.Format.numberRenderer('0.00')
-                        }
-
-                    ],
-                     listeners: {
-                            cellclick: 'onClickRowProducto'
-                    }
+                        
+                    ]
+                  
                 }
-
             ],
-            tbar:[
+            buttons:[
                 {
-                    xtype:'textfield',
-                    fieldLabel :'<b>Producto</b>',
-                    reference : 'txtProductoNombre',
-                    flex: 1,
-                    selectOnFocus:true,
-                    enableKeyEvents : true,
-                    listeners:{
-                      keypress:'onKeyPressTextoDeBusquedaProducto2'
-                    }
-                },
-                {
-                    xtype:'button',
-                    glyph: sisbotica_paulino.util.Glyphs.getGlyph('buscar'),
-                    handler :'onClickBuscarProductoPorNombre'
-
+                    text:'CANCELAR',
+                    listeners :{
+                        click : 'onClickSalirFB',
+                    },
+                    itemId:'btnSalirFB'
                 }
             ]
-
         });
         me.callParent();
+       
+        
+
     }
 });

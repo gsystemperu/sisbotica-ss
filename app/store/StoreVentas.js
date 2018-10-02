@@ -23,29 +23,6 @@ Ext.define('sisbotica_paulino.store.Clientes', {
         }
     }
 });
-
-/*
-Ext.define('sisbotica_paulino.store.Productos', {
-    extend: 'Ext.data.Store',
-    requiere:['sisbotica_paulino.model.DataModelVentas'],
-    model   :'sisbotica_paulino.model.Producto',
-    autoLoad: false,
-    remoteSort: true,
-    autoSync  : true,
-    autoDestroy: true,
-    groupField: 'categoria',
-    sorters: [{property: 'idprod',direction: 'ASC'}],
-    extraParams: { vCodigo: '', vDescripcion: '', vCategoria : null},
-    proxy: {
-        type: 'ajax',
-        api: {read: 'resources/api/buscar_producto'},
-        reader: {
-            type: 'json',
-            rootProperty: 'data',
-        }
-    }
-});*/
-
 Ext.define('sisbotica_paulino.store.ProductosPorPrecioPersona', {
     extend: 'Ext.data.Store',
     requiere:['sisbotica_paulino.model.DataModelVentas'],
@@ -54,9 +31,13 @@ Ext.define('sisbotica_paulino.store.ProductosPorPrecioPersona', {
     remoteSort: true,
     autoSync  : true,
     autoDestroy: true,
-    //groupField: 'categoria',
     sorters: [{property: 'idprod',direction: 'ASC'}],
-    extraParams: { vCodigo: '', vDescripcion: '', vCategoria : null,vIdCliente:0},
+    extraParams: { 
+        vCodigo: '', 
+        vDescripcion: '', 
+        vCategoria : null,
+        vIdCliente:0
+    },
     proxy: {
         type: 'ajax',
         api: {read: 'resources/api/buscar_producto_por_persona'},
@@ -73,12 +54,15 @@ Ext.define('sisbotica_paulino.store.DetalleCotizacion', {
             {name: "idprod", type:'int' },
             {name: "descripcion", type:'string' },
             {name: "cantidad", type:'int' },
-            //{name: "precio", type:'float' },
-            {name: "precio"},
+            {name: "precio", type:'float' },
             {name: "total", type:'float' }  ,
             {name: "vencimiento",type:'date', format:'d/m/Y'},
             {name: "presentacion", type:'string' },
-            {name: "unidadcantidad", type:'float' }
+            {name: "unidadcantidad", type:'float' },
+            {name: "preciofraccion", type:'float' },
+            {name: "precioventa", type:'float' },
+            {name: "mv", type:'string' }
+            
     ],
     proxy: { type: 'memory' }
 });
@@ -153,10 +137,8 @@ Ext.define('sisbotica_paulino.store.FormaPago', {
     extend: 'Ext.data.Store',
     requiere:['sisbotica_paulino.model.DataModelVentas'],
     model   :'sisbotica_paulino.model.FormaPago',
-    autoLoad: true,
-    remoteSort: true,
+    autoLoad: false,
     autoSync  : true,
-    autoDestroy: true,
     sorters: [{property: 'idfopag',direction: 'ASC'}],
     proxy: {
         type: 'ajax',

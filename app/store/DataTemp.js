@@ -196,13 +196,11 @@ Ext.define('sisbotica_paulino.store.ModoVenta', {
     extend: 'Ext.data.Store',
     fields: [
             {name: "id",type:'integer'},
-            {name: "descripcion", type:'string' },
-            
+            {name: "descripcion", type:'string' },            
     ],
     data : [
       [1 ,'U'],
-      [2 ,'P'],
-      [3 ,'B'],
+      [2 ,'F']
     ],
     proxy: { type: 'memory' }
 });
