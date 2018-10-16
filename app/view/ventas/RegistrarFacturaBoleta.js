@@ -33,7 +33,6 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
             }
         })
         m = Ext.create('sisbotica_paulino.store.ModoVenta');
-       // storeProductos.load();
         me = this;
         Ext.applyIf(me, {
             items: [{
@@ -348,7 +347,13 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
                                             listeners: {
                                                 select : 'onSelectProducto'
                                             }
-                                        }
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                                            handler: 'onClickProducto',
+                                            height: 33
+                                        },
                                     ]
                                    }
                             ]

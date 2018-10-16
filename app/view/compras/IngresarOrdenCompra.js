@@ -14,11 +14,12 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
             clicksToMoveEditor: 1,
             autoCancel: false
         });
-
         storeProveedores = Ext.create('sisbotica_paulino.store.Proveedores');
         storeDetalle = Ext.create('sisbotica_paulino.store.DetalleOrdenCompra');
         storeMonedas = Ext.create('sisbotica_paulino.store.Monedas');
+        storeProductos = Ext.create('sisbotica_paulino.store.Productos');
         sfpag = Ext.create('sisbotica_paulino.store.FormaPago');
+        sfpag.load();
         sAlam = Ext.create('sisbotica_paulino.store.Almacenes');
         stdoc = Ext.create('sisbotica_paulino.store.DocumentoVenta');
         me = this;
@@ -69,7 +70,6 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
 
                                         {
                                             xtype: 'combo',
-                                            fieldLabel: 'Razon Social',
                                             itemId: 'cboProveedoresf',
                                             store: storeProveedores,
                                             valueField: 'id',
@@ -77,19 +77,24 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             queryMode: 'local',
                                             flex: 2,
                                             editable: true,
-                                            name: 'vidproveedor'
+                                            name: 'vidproveedor',
+                                            forceSelection: true,
+                                            fieldStyle: 'font-size:30px;text-transform:uppercase',
+                                            emptyText: 'EJEMPLO: ROXFARMA LAB.',
 
                                         },
                                         {
                                             xtype: 'button',
                                             glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
                                             handler: 'onClickFormularioProveedor',
-                                            control: 'cboProveedoresf'
+                                            control: 'cboProveedoresf',
+                                            height: 40
                                         },
                                         {
                                             xtype: 'button',
                                             glyph: sisbotica_paulino.util.Glyphs.getGlyph('refrescar'),
                                             handler: 'onClickRefrescarProveedor',
+                                            height: 40
                                             //control: 'cboProveedoresf'
                                         },
 
@@ -165,7 +170,7 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             value: '001',
                                             flex: 1,
                                             allowBlank: false,
-                                            fieldStyle: 'font-size:14px; background-color:#2f67bf;color:#fcf4f4'
+                                            fieldStyle: 'font-size:14px; background-color:#475d7f;color:#fcf4f4'
 
                                         },
                                         {
@@ -175,7 +180,7 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             flex: 0.5,
                                             allowBlank: false,
                                             value: '',
-                                            fieldStyle: 'font-size:14px; background-color:#2f67bf;color:#fcf4f4'
+                                            fieldStyle: 'font-size:14px; background-color:#475d7f;color:#fcf4f4'
                                         }
                                     ]
                                 },
@@ -224,205 +229,218 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                         {
                             xtype: 'fieldset',
                             columnWidth: 0.1,
+                            padding: 5,
+                            layout:'fit',
+                            flex:1,
+                            defaultType: 'textfield',
+                            items: [
+                                 {
+                                    xtype: 'container',
+                                    margin: '0 0 0 0',
+                                    layout: {
+                                        type:'hbox',
+                                        align: 'streach'
+                                    },
+                                    frame: true,
+                                    border: false,
+                                    items: [
+                                                      {
+                                                        xtype: 'label',
+                                                        text: 'Producto',
+                                                        width: 120,
+                                                        height: 32,
+                                                            style: {
+                                                                paddingTop: '3px',
+                                                                background: '#6a4b5a',
+                                                                color: 'white',
+                                                                textAlign: 'center',
+                                                                fontWeight: 'bold',
+                                                                fontSize: '13px'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'combo',
+                                                            flex: 3,
+                                                            queryMode: 'local',
+                                                            itemId: 'cboProducto',
+                                                            store: storeProductos,
+                                                            displayField: 'filtro',
+                                                            emptyText: ' DIGITAR NOMBRE DEL PRODUCTO',
+                                                            valueField: 'id',
+                                                            queryMode: 'remote',
+                                                            fieldStyle: 'font-size:20px;',
+                                                            listeners: {
+                                                                select : 'onSelectProducto'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'button',
+                                                            glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                                                            handler: 'onClickNuevoProducto',
+                                                            //control: 'cboProveedoresf',
+                                                            height: 32
+                                                        },
+                                                        {
+                                                            xtype: 'label',
+                                                            text: 'NRO° ORDEN COMPRA ',
+                                                            width: 210,
+                                                            height: 32,
+                                                            style: {
+                                                                paddingTop: '3px',
+                                                                background: '#6a4b5a',
+                                                                color: 'white',
+                                                                textAlign: 'center',
+                                                                fontWeight: 'bold',
+                                                                fontSize: '15px',
+                                                                textAlign: 'center'
+                                                            }
+                                                        },
+                                                        {
+                                                            xtype: 'textfield',
+                                                            itemId: 'txtNumeroPedido',
+                                                            value: '000000000',
+                                                            readOnly: true,
+                                                            flex: 1,
+                                                            fieldStyle: 'font-size:20px;text-transform:uppercase;text-aling:center;',
+                                                        }
+                                          
+
+
+                                    ]
+                                }
+                            ]  
+                        },
+                        {
+                            xtype: 'fieldset',
+                            columnWidth: 0.1,
                             padding: 10,
                             defaultType: 'textfield',
-                            items: [{
-                                xtype: 'container',
-                                margin: '0 0 0 -5',
-                                layout: 'fit',
-                                frame: true,
-                                border: false,
-                                items: [{
-                                    xtype: 'container',
-                                    layout: 'vbox',
-                                    columnWidth: 0.5,
-                                    margin: '0 0 10 6',
-                                    items: [
-
+                            items: [
+                                {
+                                    xtype: 'panel',
+                                    layout: 'fit',
+                                    margin: '0 0 5 0',
+                                    items: [{
+                                        xtype: 'grid',
+                                        flex: 1,
+                                        itemId: 'dgvDetalleOrdenCompra',
+                                        reference: 'dgvDetalleOrdenCompra',
+                                        store: storeDetalle,
+                                        plugins: [rowEditing],
+                                        selModel: 'cellmodel',
+                                        plugins: {
+                                            ptype: 'cellediting',
+                                            clicksToEdit: 1
+                                        },
+                                        columns: [{
+                                            text: 'Producto',
+                                            dataIndex: 'producto',
+                                            flex: 1.8
+                                        },
 
                                         {
-                                            xtype: 'container',
-                                            layout: 'hbox',
-                                            padding: '0 0 0 0',
-                                            items: [{
-                                                xtype: 'label',
-                                                text: 'Producto',
-                                                width: 80,
-                                                height: 23,
-                                                style: {
-                                                    paddingTop: '3px',
-                                                    background: '#6a4b5a',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                    fontWeight: 'bold',
-                                                    fontSize: '13px'
-                                                }
-                                            },
-                                            {
+                                            xtype: 'numbercolumn',
+                                            text: 'Cant.',
+                                            dataIndex: 'cantidad',
+                                            flex: 0.3,
+                                            align: 'center',
+                                            editor: {
+                                                xtype: 'numberfield',
+                                                value: 0,
+                                                //maxValue: 1000,
+                                                minValue: 0,
+                                                itemId: 'txtCantidadUnidad'
+
+                                            }
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            text: 'Precio Compra',
+                                            dataIndex: 'precio',
+                                            flex: 0.6,
+                                            align: 'right',
+                                            editor: {
+                                                xtype: 'numberfield',
+                                                format: '0.00',
+                                                decimalPrecision: 2,
+                                                decimalSeparator: '.'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            text: 'Total',
+                                            dataIndex: 'total',
+                                            flex: 0.6,
+                                            align: 'right'
+
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            text: 'Precio Venta',
+                                            dataIndex: 'precioventa',
+                                            flex: 0.6,
+                                            align: 'right',
+                                            editor: {
+                                                xtype: 'numberfield',
+                                                format: '0.00',
+                                                decimalPrecision: 2,
+                                                decimalSeparator: '.'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'numbercolumn',
+                                            text: 'Precio Fracción',
+                                            dataIndex: 'preciopastilla',
+                                            flex: 0.6,
+                                            align: 'right',
+                                            editor: {
+                                                xtype: 'numberfield',
+                                                format: '0.00',
+                                                decimalPrecision: 2,
+                                                decimalSeparator: '.'
+                                            }
+                                        },
+
+                                        {
+                                            xtype: 'numbercolumn',
+                                            text: 'Precio Blister',
+                                            hidden:true,
+                                            dataIndex: 'precioblister',
+                                            flex: 0.6,
+                                            align: 'right',
+                                            editor: {
+                                                xtype: 'numberfield',
+                                                format: '0.00',
+                                                decimalPrecision: 2,
+                                                decimalSeparator: '.'
+                                            }
+                                        },
+
+                                        {
+                                            xtype: 'widgetcolumn',
+                                            flex: 0.2,
+                                            widget: {
                                                 xtype: 'button',
-                                                // text: 'Buscar Producto',
-                                                glyph: sisbotica_paulino.util.Glyphs.getGlyph('buscar'),
-                                                handler: 'onClickBuscarProducto'
-
-                                            },
-                                            {
-                                                xtype: 'container',
-                                                width: 20
-                                            },
-
-                                            {
-                                                xtype: 'label',
-                                                text: 'NRO° ORDEN COMPRA ',
-                                                width: 210,
-                                                height: 23,
-                                                style: {
-                                                    paddingTop: '3px',
-                                                    background: '#6a4b5a',
-                                                    color: 'white',
-                                                    textAlign: 'center',
-                                                    fontWeight: 'bold',
-                                                    fontSize: '15px',
-                                                    textAlign: 'center'
+                                                width: 24,
+                                                glyph: 0xf014,
+                                                listeners: {
+                                                    click: 'onClickEliminarDetalle'
                                                 }
-                                            },
-                                            {
-                                                xtype: 'textfield',
-                                                itemId: 'txtNumeroPedido',
-                                                value: 'OC000000000',
-                                                readOnly: true
                                             }
 
-                                            ]
-                                        }
-                                    ]
-                                },
-
-                                ]
-                            },
-                            {
-                                xtype: 'panel',
-                                layout: 'fit',
-                                margin: '0 0 5 0',
-                                items: [{
-                                    xtype: 'grid',
-                                    flex: 1,
-                                    itemId: 'dgvDetalleOrdenCompra',
-                                    reference: 'dgvDetalleOrdenCompra',
-                                    store: storeDetalle,
-                                    plugins: [rowEditing],
-                                    selModel: 'cellmodel',
-                                    plugins: {
-                                        ptype: 'cellediting',
-                                        clicksToEdit: 1
-                                    },
-                                    columns: [{
-                                        text: 'Producto',
-                                        dataIndex: 'producto',
-                                        flex: 1.8
-                                    },
-
-                                    {
-                                        xtype: 'numbercolumn',
-                                        text: 'Cant.',
-                                        dataIndex: 'cantidad',
-                                        flex: 0.3,
-                                        align: 'center',
-                                        editor: {
-                                            xtype: 'numberfield',
-                                            value: 0,
-                                            //maxValue: 1000,
-                                            minValue: 0,
-                                            itemId: 'txtCantidadUnidad'
-
-                                        }
-                                    },
-                                    {
-                                        xtype: 'numbercolumn',
-                                        text: 'Precio Compra',
-                                        dataIndex: 'precio',
-                                        flex: 0.6,
-                                        align: 'right',
-                                        editor: {
-                                            xtype: 'numberfield',
-                                            format: '0.00',
-                                            decimalPrecision: 2,
-                                            decimalSeparator: '.'
-                                        }
-                                    },
-                                    {
-                                        xtype: 'numbercolumn',
-                                        text: 'Total',
-                                        dataIndex: 'total',
-                                        flex: 0.6,
-                                        align: 'right'
-
-                                    },
-                                    {
-                                        xtype: 'numbercolumn',
-                                        text: 'Precio Venta',
-                                        dataIndex: 'precioventa',
-                                        flex: 0.6,
-                                        align: 'right',
-                                        editor: {
-                                            xtype: 'numberfield',
-                                            format: '0.00',
-                                            decimalPrecision: 2,
-                                            decimalSeparator: '.'
-                                        }
-                                    },
-                                    {
-                                        xtype: 'numbercolumn',
-                                        text: 'Precio Pastilla',
-                                        dataIndex: 'preciopastilla',
-                                        flex: 0.6,
-                                        align: 'right',
-                                        editor: {
-                                            xtype: 'numberfield',
-                                            format: '0.00',
-                                            decimalPrecision: 2,
-                                            decimalSeparator: '.'
-                                        }
-                                    },
-
-                                    {
-                                        xtype: 'numbercolumn',
-                                        text: 'Precio Blister',
-                                        dataIndex: 'precioblister',
-                                        flex: 0.6,
-                                        align: 'right',
-                                        editor: {
-                                            xtype: 'numberfield',
-                                            format: '0.00',
-                                            decimalPrecision: 2,
-                                            decimalSeparator: '.'
-                                        }
-                                    },
-
-                                    {
-                                        xtype: 'widgetcolumn',
-                                        flex: 0.2,
-                                        widget: {
-                                            xtype: 'button',
-                                            width: 24,
-                                            glyph: 0xf014,
-                                            listeners: {
-                                                click: 'onClickEliminarDetalle'
-                                            }
                                         }
 
-                                    }
 
+                                        ],
+                                        cls: '',
+                                        height: 300,
+                                        listeners: {
+                                            edit: 'onEditorCalcularTotalOrdenCompra'
+                                        }
 
-                                    ],
-                                    cls: '',
-                                    height: 300,
-                                    listeners: {
-                                        edit: 'onEditorCalcularTotalOrdenCompra'
-                                    }
+                                    }]
 
-                                }]
-
-                            }
+                                }
                             ]
 
                         }, // fin fieldset Detalle

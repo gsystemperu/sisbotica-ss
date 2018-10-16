@@ -36,6 +36,11 @@ Ext.define('sisbotica_paulino.view.compras.ContenedorOrdenCompra', {
       , {
         id: 'ordencompra-2',
         xtype:'weditarordencompra'
+      },
+      {
+        xtype:'wFormProducto',
+        regresar:'ingordencompra'
+
       }
     ],
     tbar: me.getToolBar()
@@ -68,6 +73,7 @@ Ext.define('sisbotica_paulino.view.compras.ContenedorOrdenCompra', {
         text :'CONFIRMAR ORDEN',
         handler:'onClickConfirmarOrdenCompra'
       }
+      
 
     ];
   }

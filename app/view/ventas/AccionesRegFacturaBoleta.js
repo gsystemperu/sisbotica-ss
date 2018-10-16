@@ -1,7 +1,6 @@
 Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.acciones-regfacturaboleta',
-
     //@Cliente Seleccionar grilla
     onSelectedCliente:function( grid, record, index, eOpts ){
       try {
@@ -360,18 +359,22 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
     },
     onClickGuardarFacturaBoleta: function () {
        var _form =  Ext.ComponentQuery.query('#frmRegFacturaBoleta')[0];    //this.lookupReference('frmRegFacturaBoleta');
-        if (_form.isValid()) {
+       
+       if (_form.isValid()) {
 
             var _dataDetalle = [];
             var _store = this.lookupReference('dgvDetalleVentaFacturaBoleta').getStore();
             me = this;
+
             _store.each(function (record) {
+                console.log(record);
                 if (record.get('cantidad') != 0) {
                     _reg = {
                         "idprod": record.get('idprod'),
                         "cantidad": record.get('cantidad'),
                         "precio": record.get("precio"),
                         "total": record.get("total"),
+                        "mv" :  record.get("mv"),
                         "vencimiento": (record.get("vencimiento")==null? null:  Ext.Date.format(record.get("vencimiento"), 'd/m/Y') )
                     };
                     _dataDetalle.push(_reg);
@@ -894,7 +897,7 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegFacturaBoleta', {
          
      },
      onSelectProducto:function(combo, record, eOpts  ){
-        
+        console.log(record);
          me = this;
          s         = Ext.ComponentQuery.query('#dgvDetalleVentaFacturaBoleta')[0].getStore();
          p        = 0;

@@ -7,9 +7,17 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProducto', {
       //@ Tabla Producto
     //=============================================
     onClickCancelarProducto:function(btn){
-        var me = Ext.ComponentQuery.query('#wContenedorProducto')[0];
-        var l  = me.getLayout();
-        l.setActiveItem(0);
+        oc = Ext.ComponentQuery.query('#wingresarordencompra')[0];
+        if(oc){
+          me = Ext.ComponentQuery.query('#wContenedorOrdenCompra')[0];    //this;
+          l = me.getLayout();
+          l.setActiveItem(1);
+        }else{
+          var me = Ext.ComponentQuery.query('#wContenedorProducto')[0];
+          var l  = me.getLayout();
+          l.setActiveItem(0);
+        }
+        
     },    
     onClickGuardarProducto: function (btn) {
         _form = Ext.ComponentQuery.query('#wFormProducto')[0];
@@ -37,15 +45,22 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProducto', {
                 waitMsg: 'Guardando informacion...',
                 success: function (form, action) {
                     if(action.result.error!=0){
-                      try {
-                          var me = Ext.ComponentQuery.query('#wContenedorProducto')[0];
-                          var l  = me.getLayout();
-                          l.setActiveItem(0);
-                          Ext.ComponentQuery.query('#dgvProductos')[0].getStore().reload();
-                        } catch (e) {
-                          console.log(e);return false;
+                      oc = Ext.ComponentQuery.query('#wingresarordencompra')[0];
+                      if(oc){
+                          me = Ext.ComponentQuery.query('#wContenedorOrdenCompra')[0];    //this;
+                          l = me.getLayout();
+                          l.setActiveItem(1);
+                      }else{
+                          try {
+                              var me = Ext.ComponentQuery.query('#wContenedorProducto')[0];
+                              var l  = me.getLayout();
+                              l.setActiveItem(0);
+                              Ext.ComponentQuery.query('#dgvProductos')[0].getStore().reload();
+                            } catch (e) {
+                              console.log(e);return false;
 
-                        }
+                            }
+                      }
                     }
                 },
                 failure: function () {

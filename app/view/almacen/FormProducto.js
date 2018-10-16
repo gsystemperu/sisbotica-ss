@@ -9,6 +9,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
     'sisbotica_paulino.view.almacen.AccionesProducto',
 
   ],
+  regresar:'',
   reference: 'myFrmProducto',
   margin: 30,
   autoScroll: true,
@@ -186,6 +187,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
           type: 'hbox',
           anchor: '100%'
         },
+        hidden:true,
         padding: '0 0 5 0',
         items: [
           {
@@ -304,6 +306,7 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
         layout: {
           type: 'hbox',
         },
+        hidden:true,
         defaultType: 'combo',
         defaults: {
           labelAlign: 'right'

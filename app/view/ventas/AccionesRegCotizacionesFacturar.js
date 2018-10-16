@@ -358,7 +358,7 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
         r = Ext.ComponentQuery.query('#dgvVentasFacturar')[0].getSelectionModel().getSelection()[0];
         if(r){
             Ext.Ajax.request({
-                url :sisfacturaelectronica.util.Rutas.generarTxtFacturador,
+                url :sisbotica_paulino.util.Rutas.generarTxtFacturador,
                 params:{
                   idfact : r.get('idfacturacion')
                 },
@@ -374,7 +374,7 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
                             }  
                         }
                     });
-                    sisfacturaelectronica.util.Util.showToast('Se ha generado nuevamente el ( txt al facturador )');
+                    sisbotica_paulino.util.Util.showToast('Se ha generado nuevamente el ( txt al facturador )');
                 }
               });
         }

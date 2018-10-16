@@ -72,5 +72,6 @@ Ext.define('sisbotica_paulino.view.compras.AccionesContenedorOrdenCompra', {
     onClickActualizarLista:function(b){
         Ext.ComponentQuery.query('#gridOrdenesCompra')[0].getStore().load();
     }
+    
 
 });

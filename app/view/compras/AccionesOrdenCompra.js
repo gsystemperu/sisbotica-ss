@@ -152,6 +152,14 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
         _pre = e.record.get('precio');
         _tot = _pre * _cant;
         e.record.set('total', _tot.toFixed(2));
+        _pv = e.record.get('precioventa');
+        if(_pv>0){
+            _c = e.record.get('umcant');
+            if(_c>0){
+                _pf = _pv / _c;
+                e.record.set('preciopastilla',_pf);
+            }
+        }
         this.onCalcularTotalOrdenCompra();
     },
     onClickEliminarDetalle: function (button, event, eOpts) {
@@ -477,4 +485,45 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
         // try {Ext.ComponentQuery.query('#txtBuscarCodigoProd')[0].focus();} catch (e) {}
 
     },
+    onSelectProducto:function(combo, record, eOpts  ){
+         me = this;
+         _store = Ext.ComponentQuery.query('#dgvDetalleOrdenCompra')[0].getStore();
+         _precio = 0;
+         _data = {
+             idprod: parseInt(record.get('id')),
+             producto: record.get('nombre'),
+             cantidad: 1,
+             precio: _precio,    //parseFloat(record.get('preciocompra')),
+             total: parseInt(1) * _precio,    // parseFloat(record.get('preciocompra'))
+             umcant : record.get('cantidadunidadmedida')
+         };
+ 
+         if (_store.findRecord('idprod', parseInt(record.get('id')))) {
+            t = setInterval(function(){ 
+                combo.setRawValue('');
+                clearInterval(t);
+             }, 100);
+             Ext.Msg.alert("AkinetFarma", "Producto ya se encuentra cargada");
+             return false;
+         }
+         _store.insert(0, _data);
+         me.onCalcularTotalOrdenCompra();
+         t = setInterval(function(){ 
+            combo.setRawValue('');
+            clearInterval(t);
+         }, 100);
+         
+         
+     },
+     onClickNuevoProducto:function(b){
+         try {
+            me = Ext.ComponentQuery.query('#wContenedorOrdenCompra')[0];    //this;
+            l = me.getLayout();
+            l.setActiveItem(3);
+           // Ext.ComponentQuery.query('#frmOrdenCompra')[0].reset();
+           // Ext.ComponentQuery.query('#dgvDetalleOrdenCompra')[0].getStore().removeAll();
+        } catch (e) {
+            alert(e);
+        }
+     }
 });

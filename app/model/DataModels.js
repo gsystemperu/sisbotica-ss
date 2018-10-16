@@ -348,9 +348,18 @@ Ext.define('sisbotica_paulino.model.Producto', {
         {name: "idpresentacionfraccion",type: 'int'},
         { name: 'filtro', type: 'string',
     			convert: function(val,row) {
-    				return row.data.nombre + '   => Precio   Und. : ' + row.data.precioventa +' - Fra. : ' + row.data.preciounidad ;
+                    _amano='';
+                    if(row.data.ventaunidad==true && row.data.ventablister==true){
+                        _amano = row.data._cajas.toString() + ' cajas y ' +row.data._unidades.toString() +' unidades';
+                      }else{
+                        _amano = +row.data._cajas;
+                      }
+
+                      return row.data.nombre + '  ||   Precio   Undidad  = ' + row.data.precioventa +'  ||  Fracción = ' + row.data.preciounidad +'  ||  Stock = ' + _amano;
+                    
                 }	
-        }
+        },
+        
     ]
 });
 

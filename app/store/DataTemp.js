@@ -43,7 +43,8 @@ Ext.define('sisbotica_paulino.store.DetalleOrdenCompra', {
             {name: "total", type:'float' },
             {name: "precioventa", type:'float' },
             {name: "preciopastilla", type:'float' },
-            {name: "precioblister", type:'float' }
+            {name: "precioblister", type:'float' },
+            {name: "umcant", type:'float' }
     ],
     proxy: { type: 'memory' }
 });

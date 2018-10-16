@@ -8,6 +8,7 @@ class Facturacion extends \Phalcon\Mvc\Model
 
     public static function actualizar($data)
     {
+        
         $obj     = new SQLHelpers();
         $param   = $data;
         $sql     =  $obj->executar('ventas','sp_facturacion_agregar',$param);

@@ -93,14 +93,13 @@ Ext.define('sisbotica_paulino.view.ventas.ListadoDeCotizacionesFacturar', {
                         dataIndex: 'idfacturacion',
                         flex: 0.3,
                         align: 'center',
-                        
                 },
                 {
                         xtype:'templatecolumn',
                         text: 'Doc. Numero',
                         flex: 0.6,
                         align: 'center',
-                        tpl : '<b>{seriedoc} - {docinterno}</b>'
+                        tpl : '<b>{docinterno}</b>'
                 },
                 {
                     text: 'Nombre / Razon Social',
