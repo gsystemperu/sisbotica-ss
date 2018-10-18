@@ -53,6 +53,12 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                             value: ''
                         },
                         {
+                            xtype: 'hiddenfield',
+                            name: 'posicion',
+                            itemId: 'posicion',
+                            value: 0
+                        },
+                        {
                             xtype: 'fieldset',
                             defaultType: 'textfield',
                             title: 'Datos Principales',
@@ -159,7 +165,7 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             labelAlign: 'right',
                                             editable: false,
                                             value: 1,
-                                            flex: 1.5
+                                            flex: 2
 
                                         },
                                         {
@@ -170,9 +176,8 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             value: '001',
                                             flex: 1,
                                             allowBlank: false,
-                                            fieldStyle: 'font-size:14px; background-color:#475d7f;color:#fcf4f4'
-
-                                        },
+                                            fieldStyle: 'font-size:15px; background-color:#6a4b5a;color:white;align:center;'
+                                         },
                                         {
                                             xtype: 'textfield',
                                             labelAlign: 'right',
@@ -180,7 +185,7 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                             flex: 0.5,
                                             allowBlank: false,
                                             value: '',
-                                            fieldStyle: 'font-size:14px; background-color:#475d7f;color:#fcf4f4'
+                                            fieldStyle: 'font-size:15px; background-color:#6a4b5a;color:white;align:center;'
                                         }
                                     ]
                                 },
@@ -264,7 +269,9 @@ Ext.define('sisbotica_paulino.view.compras.IngresarOrdenCompra', {
                                                             queryMode: 'local',
                                                             itemId: 'cboProducto',
                                                             store: storeProductos,
-                                                            displayField: 'filtro',
+                                                            listConfig : {
+                                                                itemTpl : '<b>{nombre}</b>  <br> <strong style="color:red;"> Precio </strong>  Unidad : {precioventa}      -      Fracción : {preciounidad} <br> <strong style="color:red;"> Stock  </strong>    Unidad : {entero}     -   Fracción : {fraccion} '
+                                                            },
                                                             emptyText: ' DIGITAR NOMBRE DEL PRODUCTO',
                                                             valueField: 'id',
                                                             queryMode: 'remote',

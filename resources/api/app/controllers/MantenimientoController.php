@@ -431,6 +431,27 @@ class MantenimientoController extends Controller
 
     //@ Tabla Marca
     //========================
+
+    public function marcalistarventaAction(){
+        $request        = new Phalcon\Http\Request();
+        $response       = new \Phalcon\Http\Response();
+        if($request->isGet() ==true)
+        {
+                $query        = $request->get('query');
+                if($query){
+                    $data = array($query);
+                    $jsonData = Producto::buscarMarca($data);
+                }else{
+                    $jsonData = Producto::listar();    
+                 }
+                 $response->setContentType('application/json', 'UTF-8');
+                 $response->setContent($jsonData);
+                 return $response;
+            
+        }
+   }
+
+
     public function marcalistarAction(){
         $request        = new Phalcon\Http\Request();
         $response       = new \Phalcon\Http\Response();

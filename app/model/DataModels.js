@@ -248,7 +248,7 @@ Ext.define('sisbotica_paulino.model.Producto', {
         },
         {
             name: "precioventa",
-           // type: 'float'
+            type: 'float'
         },
         {
             name: "precioventafraccion",
@@ -348,18 +348,14 @@ Ext.define('sisbotica_paulino.model.Producto', {
         {name: "idpresentacionfraccion",type: 'int'},
         { name: 'filtro', type: 'string',
     			convert: function(val,row) {
-                    _amano='';
-                    if(row.data.ventaunidad==true && row.data.ventablister==true){
-                        _amano = row.data._cajas.toString() + ' cajas y ' +row.data._unidades.toString() +' unidades';
-                      }else{
-                        _amano = +row.data._cajas;
-                      }
-
-                      return row.data.nombre + '  ||   Precio   Undidad  = ' + row.data.precioventa +'  ||  Fracción = ' + row.data.preciounidad +'  ||  Stock = ' + _amano;
+                      _amano='';
+                      _amano =  row.data.entero.toString() + ' ||  Fracción : ' + row.data.fraccion.toString(); 
+                       return row.data.nombre + '  ||   Precio   Undidad  = ' + row.data.precioventa +'  ||  Fracción = ' + row.data.preciounidad +'  ||  Stock = ' + _amano;
                     
                 }	
         },
-        
+        {name: "entero",type: 'int'},
+        {name: "fraccion",type: 'int'}
     ]
 });
 
@@ -663,11 +659,14 @@ Ext.define('sisbotica_paulino.model.ProductoInventario', {
         {name: 'codigoproducto',type: 'string'},
         {name :'id',type:'integer'},
         {name :'nombre',type:'string'},
-        {name :'stockfisico',type:'integer'},
-        {name :'inventario',type:'integer'},
-        {name :'inventarioseries',type:'integer'},
-        {name :'diferencia',type:'integer'},
+        {name :'entero',type:'integer'},
+        {name :'fraccion',type:'integer'},
+        {name :'inventero',type:'integer'},
+        {name :'invfraccion',type:'integer'},
+        {name :'difeentero',type:'integer'},
+        {name :'difefraccion',type:'integer'},
         {name :'chk',type:'boolean'},
+        {name :'marca',type:'string'}
         
     ]
 });

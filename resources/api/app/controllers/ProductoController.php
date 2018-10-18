@@ -413,8 +413,7 @@ class ProductoController extends Controller
              $request->getPost('id'),
              $request->getPost('referencia'),
              $request->getPost('jsondetalle'),
-             'desarrollo'
-             //$request->getPost('usuario')
+             $request->getPost('usuario')
          );
          $jsonData = Producto::inventarioAgregar($data);
          $response->setContentType('application/json', 'UTF-8');

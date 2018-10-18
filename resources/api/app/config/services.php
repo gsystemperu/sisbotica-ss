@@ -146,6 +146,9 @@ $di->set('router',function() {
     $router->add('/marca_actualizar' , array('controller'=>'mantenimiento','action'=>'marcaactualizar'));
     $router->add('/marca_eliminar'   , array('controller'=>'mantenimiento','action'=>'marcaeliminar'));
     $router->add('/marca_listar'     , array('controller'=>'mantenimiento','action'=>'marcalistar'));
+    $router->add('/marca_listar_venta'     , array('controller'=>'mantenimiento','action'=>'marcalistarventa'));
+
+    
     $router->add('/modelo_actualizar' , array('controller'=>'mantenimiento','action'=>'modeloactualizar'));
     $router->add('/modelo_eliminar'   , array('controller'=>'mantenimiento','action'=>'modeloeliminar'));
     $router->add('/modelo_listar'     , array('controller'=>'mantenimiento','action'=>'modelolistar'));

@@ -598,18 +598,17 @@ class ImpresionController extends Controller
             $pdf->SetFont('Arial','',9);
             //print_r( $jsonData->data[0]);die();
             $pdf->Cell(30,5,'Codigo' ,1,0,'C');
-            $pdf->Cell(100,5,'Producto' ,1,0,'C');
-            $pdf->Cell(20,5,'Stock Fisico' ,1,0,'C');
-            $pdf->Cell(20,5,'Inventario' ,1,0,'C');   
-            $pdf->Cell(20,5,'Diferencia' ,1,1,'C');   
+            $pdf->Cell(120,5,'Producto' ,1,0,'C');
+            $pdf->Cell(20,5,'Entero' ,1,0,'C');
+            $pdf->Cell(20,5,'Fraccion' ,1,1,'C');   
             $pdf->SetFont('Arial','',8);
            foreach ($jsonData->data as $row){
                 //  $pdf->Code39(10,$pdf->getY(), $row->codigobarras ,0.5,10);
               $pdf->Cell(30,5,$row->codigoproducto  ,1,0,'C');
-              $pdf->Cell(100,5,$row->nombre ,1,0,'L');
-              $pdf->Cell(20,5,$row->stockfisico ,1,0,'C');
-              $pdf->Cell(20,5,'' ,1,0,'C');   
-              $pdf->Cell(20,5,'' ,1,1,'C');   
+              $pdf->Cell(120,5,$row->nombre ,1,0,'L');
+              $pdf->Cell(20,5,$row->entero ,1,0,'C');
+              $pdf->Cell(20,5,$row->fraccion ,1,1,'C');
+              
               
             }
       

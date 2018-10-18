@@ -24,6 +24,8 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
         storeVendedores = Ext.create('sisbotica_paulino.store.Vendedores');
         storeMonedas = Ext.create('sisbotica_paulino.store.Monedas');
         storeDocumentoVenta = Ext.create('sisbotica_paulino.store.DocumentoVenta');
+        storeMarcas = Ext.create('sisbotica_paulino.store.MarcaVenta');
+
         storeFormaPago.load({
             callback: function (r, o, s) {
                 re = r[0];
@@ -152,7 +154,8 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
 
 
                                 ]
-                            }, {
+                            }, 
+                            {
                                 xtype: 'container',
                                 layout: {
                                     type: 'hbox',
@@ -319,27 +322,16 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
                                         },
                                         padding: '0 0 5 0',
                                         defaultType: 'textfield',
-                                        items: [{
-                                            xtype: 'label',
-                                            text: 'Producto',
-                                            width: 120,
-                                            height: 32,
-                                            style: {
-                                                paddingTop: '3px',
-                                                background: '#6a4b5a',
-                                                color: 'white',
-                                                textAlign: 'center',
-                                                fontWeight: 'bold',
-                                                fontSize: '13px'
-                                            }
-                                        },
+                                        items: [
                                         {
                                             xtype: 'combo',
-                                            flex: 1,
+                                            flex: 1.5,
                                             queryMode: 'local',
                                             itemId: 'cboProducto',
                                             store: storeProductos,
-                                            displayField: 'filtro',
+                                            listConfig : {
+                                                itemTpl : '<b>{nombre}</b>  --   <strong> {marca} </strong> <br> <strong style="color:red;"> Precio </strong>  Unidad : {precioventa}      -      Fracción : {preciounidad} <br> <strong style="color:red;"> Stock  </strong>    Unidad : {entero}     -   Fracción : {fraccion} '
+                                            },
                                             emptyText : ' DIGITAR NOMBRE DEL PRODUCTO',
                                             valueField: 'id',
                                             queryMode :'remote',
@@ -354,6 +346,29 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
                                             handler: 'onClickProducto',
                                             height: 33
                                         },
+                                        {
+                                            xtype: 'combo',
+                                            flex: 1,
+                                            queryMode: 'local',
+                                            itemId: 'cboMarca',
+                                            store: storeMarcas,
+                                            listConfig : {
+                                                itemTpl : '<b>{nombre}</b>  --   <strong> {marca} </strong> <br> <strong style="color:red;"> Precio </strong>  Unidad : {precioventa}      -      Fracción : {preciounidad} <br> <strong style="color:red;"> Stock  </strong>    Unidad : {entero}     -   Fracción : {fraccion} '
+                                            },
+                                            emptyText : ' DIGITAR NOMBRE DE MARCA',
+                                            valueField: 'id',
+                                            queryMode :'remote',
+                                            fieldStyle : 'font-size:20px;',
+                                            listeners: {
+                                                select : 'onSelectProducto'
+                                            }
+                                        },
+                                        {
+                                            xtype: 'button',
+                                            glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                                            //handler: 'onClickMarca',
+                                            height: 33
+                                        }
                                     ]
                                    }
                             ]

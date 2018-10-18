@@ -176,12 +176,17 @@ Ext.define('sisbotica_paulino.view.almacen.InventarioInicialEditar', {
                         {
                             text: 'Producto',
                             dataIndex: 'nombre',
-                            flex: 2.5,
+                            flex: 3,
                             align: 'left'
                         }, {
-                            text: 'Stock',
-                            dataIndex: 'stockfisico',
-                            flex: 1,
+                            text: 'Marca',
+                            dataIndex: 'marca',
+                            flex: 2,
+                            align: 'left'
+                          },{
+                            text: 'Entero',
+                            dataIndex: 'entero',
+                            flex: 0.5,
                             align: 'right',
                             editor: {
                                 xtype: 'numberfield'
@@ -196,9 +201,9 @@ Ext.define('sisbotica_paulino.view.almacen.InventarioInicialEditar', {
                             }
                         },
                         {
-                            text: 'Inventario',
-                            dataIndex: 'inventario',
-                            flex: 1,
+                            text: 'Fracción',
+                            dataIndex: 'fraccion',
+                            flex: 0.5,
                             align: 'right',
                             editor: {
                                 xtype: 'numberfield'
@@ -213,22 +218,73 @@ Ext.define('sisbotica_paulino.view.almacen.InventarioInicialEditar', {
                             }
                         },
                         {
-                            text: 'Diferencia',
-                            dataIndex: 'diferencia',
-                            flex: 1,
+                            text: 'Inv. Entero',
+                            dataIndex: 'inventero',
+                            flex: 0.5,
                             align: 'right',
                             editor: {
-                                xtype: 'numberfield'
+                              xtype: 'numberfield'
                             },
                             renderer: function (value, metaData, record) {
-                                if (value <= 0)
-                                    metaData.style = "color:red;font-Size:15px";
-                                else
-                                    metaData.style = "font-Size:15px";
-
-                                return value;
+                              if (value <= 0)
+                                metaData.style = "color:red;font-Size:15px";
+                              else
+                                metaData.style = "font-Size:15px";
+              
+                              return value;
                             }
-                        },
+                          },
+                          {
+                            text: 'Inv. Fracción',
+                            dataIndex: 'invfraccion',
+                            flex: 0.5,
+                            align: 'right',
+                            editor: {
+                              xtype: 'numberfield'
+                            },
+                            renderer: function (value, metaData, record) {
+                              if (value <= 0)
+                                metaData.style = "color:red;font-Size:15px";
+                              else
+                                metaData.style = "font-Size:15px";
+              
+                              return value;
+                            }
+                          },
+                          {
+                            text: 'Dif. Entero',
+                            dataIndex: 'difeentero',
+                            flex: 0.5,
+                            align: 'right',
+                            editor: {
+                              xtype: 'numberfield'
+                            },
+                            renderer: function (value, metaData, record) {
+                              if (value <= 0)
+                                metaData.style = "color:red;font-Size:15px";
+                              else
+                                metaData.style = "font-Size:15px";
+              
+                              return value;
+                            }
+                          },
+                          {
+                            text: 'Dif. Fracción',
+                            dataIndex: 'difefraccion',
+                            flex: 0.5,
+                            align: 'right',
+                            editor: {
+                              xtype: 'numberfield'
+                            },
+                            renderer: function (value, metaData, record) {
+                              if (value <= 0)
+                                metaData.style = "color:red;font-Size:15px";
+                              else
+                                metaData.style = "font-Size:15px";
+              
+                              return value;
+                            }
+                          },
                         {
                             text: 'Genera Serie?',
                             xtype: 'checkcolumn',

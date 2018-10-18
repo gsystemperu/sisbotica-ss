@@ -22,7 +22,8 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
         var storeModoEntrega    = Ext.create('sisbotica_paulino.store.ModoEntrega');
         var storeDocumentoVenta = Ext.create('sisbotica_paulino.store.DocumentoVenta');
         var storeMonedas        = Ext.create('sisbotica_paulino.store.Monedas');
-
+        m = Ext.create('sisbotica_paulino.store.ModoVenta');
+        storeFormaPago.load();
         me = this;
         Ext.applyIf(me, {
             items: [{
@@ -57,19 +58,18 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
                                     defaultType: 'textfield',
                                     title: 'Datos Generales',
                                     layout: 'fit',
-                                    items: [{
+                                    items: [
+                                        {
                                             xtype: 'container',
                                             layout: 'hbox',
-                                            margin: '0 0 5 6',
-                                            columnWidth: 0.5,
+                                            margin: '0 0 5 0',
+                                            columnWidth: 1,
                                             items: [{
                                                     xtype: 'combobox',
                                                     itemId: 'cboDatosClienteFact',
                                                     name : 'idper',
-                                                    fieldLabel: 'Nombre / Razon Social',
                                                     flex: 2,
-                                                    fieldStyle: 'text-transform:uppercase',
-                                                    labelWidth: 150,
+                                                    fieldStyle: 'font-size:30px;text-transform:uppercase',
                                                     allowBlank: false,
                                                     editable: true,
                                                     forceSelection : true,
@@ -78,7 +78,7 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
                                                     displayField: 'nombreper',
                                                     valueField :'idper',
                                                     readOnly:true,
-                                                    fieldStyle :'font-size:20px;'
+                                                    emptyText: 'CLIENTE : MIQUEAS FERRER'
                                                 },
                                                 {
 
@@ -101,7 +101,8 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
                                                   value : new Date(),
                                                   flex: 0.8,
                                                   readOnly:true,
-                                                  name :'validohasta'
+                                                  name :'validohasta',
+                                                  hidden: true
                                                 },
                                                 {
 
@@ -118,98 +119,106 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
 
                                             ]
                                         },
+                                        {
+                                            xtype: 'container',
+                                            layout: {
+                                                type: 'hbox',
+                                                align: 'streach'
+                                            },
+                                            columnWidth: 0.5,
+                                            defaults: {
+                                                labelWidth: 80,
+                                            },
+                                            padding: '5 0 5 0',
+                                            items: [{
+                                                    xtype: 'combo',
+                                                    fieldLabel: 'Forma Pago',
+                                                    store: storeFormaPago,
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idfopag',
+                                                    queryMode: 'local',
+                                                    allowBlank: false,
+                                                    name: 'idfopag',
+                                                    editable:false,
+                                                    itemId:'idfopag',
+                                                    value : 1,
+                                                    flex:1
+        
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                                                    handler: 'onClickMantenimiento'
+                                                },
+                                                {
+                                                    xtype: 'combo',
+                                                    fieldLabel: 'Documento',
+                                                    store: storeDocumentoVenta,
+                                                    displayField: 'descripcion',
+                                                    valueField: 'id',
+                                                    queryMode: 'local',
+                                                    allowBlank: false,
+                                                    name: 'documentoventa',
+                                                    labelAlign:'right',
+                                                    editable:false,
+                                                    itemId:'documentoventa',
+                                                    value : 1,
+                                                    flex:1.5
+        
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                                                    handler: 'onClickMantenimiento'
+                                                },
+                                                {
+                                                    xtype: 'combo',
+                                                    fieldLabel: 'Entrega',
+                                                    store: storeModoEntrega,
+                                                    displayField: 'descripcion',
+                                                    valueField: 'idmodo',
+                                                    queryMode: 'local',
+                                                    allowBlank: false,
+                                                    name: 'idmodo',
+                                                    labelAlign:'right',
+                                                    editable:false,
+                                                    itemId:'vmodoentrega',
+                                                    value : 1,
+                                                    flex:1
+                                                },
+                                                {
+                                                    xtype: 'button',
+                                                    glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
+                                                    handler: 'onClickMantenimiento'
+                                                },
+                                                
+                                                {
+                                                  xtype:'textfield',
+                                                  fieldLabel :'Serie/Número',
+                                                  labelAlign :'right',
+                                                  name : 'seriedoc',
+                                                  value : '001',
+                                                  flex : 0.5,
+                                                  allowBlank:false,
+                                                  fieldStyle: 'font-size:15px;text-transform:uppercase;background-color:#6A4B5A;color:white;text-align:center;',
+                                                },
+                                                {
+                                                  xtype:'textfield',
+                                                  labelAlign :'right',
+                                                  name : 'numerodoc',
+                                                  flex : 0.5,
+                                                  allowBlank:false,
+                                                  fieldStyle: 'font-size:15px;text-transform:uppercase;background-color:#6A4B5A;color:white;text-align:center;',
+                                                },
+                                            ]
+        
+        
+                                        }
 
                                     ]
 
                                 },
-                                {
-                                    xtype: 'container',
-                                    layout: 'hbox',
-                                    defaults: {
-                                        labelWidth: 80,
-                                        //  padding:'0 5 0 0'
-                                    },
-                                    items: [{
-                                            xtype: 'combo',
-                                            fieldLabel: 'Forma Pago',
-                                            store: storeFormaPago,
-                                            displayField: 'descripcion',
-                                            valueField: 'idfopag',
-                                            queryMode: 'local',
-                                            allowBlank: false,
-                                            name: 'idfopag',
-                                            editable:false,
-                                            itemId:'idfopag',
-                                            value : 1,
-                                            flex:1
-
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
-                                            handler: 'onClickMantenimiento'
-                                        },
-                                        {
-                                            xtype: 'combo',
-                                            fieldLabel: 'Mod. Entrega',
-                                            store: storeModoEntrega,
-                                            displayField: 'descripcion',
-                                            valueField: 'idmodo',
-                                            queryMode: 'local',
-                                            allowBlank: false,
-                                            name: 'idmodo',
-                                            labelAlign:'right',
-                                            editable:false,
-                                            itemId:'vmodoentrega',
-                                            value : 1,
-                                            flex:1
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
-                                            handler: 'onClickMantenimiento'
-                                        },
-                                        {
-                                            xtype: 'combo',
-                                            fieldLabel: 'Documento',
-                                            store: storeDocumentoVenta,
-                                            displayField: 'descripcion',
-                                            valueField: 'id',
-                                            queryMode: 'local',
-                                            allowBlank: false,
-                                            name: 'documentoventa',
-                                            labelAlign:'right',
-                                            editable:false,
-                                            itemId:'documentoventa',
-                                            value : 1,
-                                            flex:1
-
-                                        },
-                                        {
-                                            xtype: 'button',
-                                            glyph: sisbotica_paulino.util.Glyphs.getGlyph('nuevo'),
-                                            handler: 'onClickMantenimiento'
-                                        },
-                                        {
-                                          xtype:'textfield',
-                                          fieldLabel :'Serie/Número',
-                                          labelAlign :'right',
-                                          name : 'seriedoc',
-                                          value : '001',
-                                          flex : 0.5,
-                                          allowBlank:false
-                                        },
-                                        {
-                                          xtype:'textfield',
-                                          labelAlign :'right',
-                                          name : 'numerodoc',
-                                          flex : 0.5,
-                                          allowBlank:false
-                                        },
-                                    ]
-
-
-                                },
+                             
                                 {
                                     xtype: 'container',
                                     layout: 'hbox',
@@ -231,7 +240,8 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
                                               editable:false,
                                               itemId:'idmoneda',
                                               value : 1,
-                                              flex:1
+                                              flex:1,
+                                              hidden:true
 
                                           },
                                           {
@@ -241,7 +251,8 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
                                             value : 0,
                                             flex : 2,
                                             labelWidth : 75,
-                                            labelAlign:'right'
+                                            labelAlign:'right',
+                                            hidden:true
                                           }
                                     ]
                                 },
@@ -250,7 +261,6 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
                                 {
                                     xtype: 'fieldset',
                                     columnWidth: 0.1,
-                                    title: 'Detalle',
                                     defaultType: 'textfield',
                                     items: [{
                                             xtype: 'container',
@@ -367,13 +377,7 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
                                                 columns: [{
                                                         text: 'Descripción',
                                                         dataIndex: 'descripcion',
-                                                        flex: 2.5
-                                                    },
-                                                    {
-                                                        text: 'Presentacion',
-                                                        dataIndex: 'presentacion',
-                                                        flex: 0.5,
-                                                        align: 'center',
+                                                        flex: 3
                                                     },
                                                     {
                                                         xtype:'numbercolumn',
@@ -391,18 +395,18 @@ Ext.define('sisbotica_paulino.view.ventas.VisualizarCotizacionFacturar', {
                                                         }
                                                     },
                                                     {
-                                                        xtype:'numbercolumn',
-                                                        text: 'Unidad',
-                                                        dataIndex: 'unidadcantidad',
-                                                        flex: 0.5,
-                                                        align: 'center',
-                                                        editor: {
-                                                            xtype: 'numberfield',
-                                                            value: 0,
-                                                            maxValue: 1000,
-                                                            minValue: 0,
-                                                            itemId: 'txtUnidadCantidad'
-
+                                                        dataIndex: 'mv',
+                                                        text : '(p)',
+                                                        flex: 0.2,
+                                                        editor :{
+                                                            xtype:'combo',
+                                                            store : m,
+                                                            displayField :'descripcion',
+                                                            valueField : 'descripcion',
+                                                            editable:false,
+                                                            listeners : {
+                                                                change  : 'onChangeMv'
+                                                            }
                                                         }
                                                     },
                                                     {

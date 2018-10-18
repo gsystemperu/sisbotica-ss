@@ -88,7 +88,7 @@ Ext.define('sisbotica_paulino.view.almacen.ListadoInventario',{
                     itemId: 'lblTituloProducto',
                     padding :'5 5 5 5',
                     style: {
-                      color: '#775c80',
+                      color: '#ffffff',
                       textAlign: 'left',
                       fontWeight: 'bold',
                       fontSize: '23px'

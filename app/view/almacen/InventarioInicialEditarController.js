@@ -4,10 +4,20 @@ Ext.define('sisbotica_paulino.view.almacen.InventarioInicialEditarController', {
      
     //@Acciones
     onEditorCalcularDiferencia:function(editor, e){
-        s = e.record.get('stockfisico');
-        i = e.record.get('inventario');
-        t = s - i;
-        e.record.set('diferencia', t.toFixed(2));
+        switch (e.field) {
+            case 'inventero':
+                s = e.record.get('entero');
+                i = e.record.get('inventero');
+                t = s - i;
+                e.record.set('difeentero', t.toFixed(2));
+            break;
+            case 'invfraccion':
+                s = e.record.get('fraccion');
+                i = e.record.get('invfraccion');
+                t = s - i;
+                e.record.set('difefraccion', t.toFixed(2));
+            break;       
+    }
     },
     onClickGuardarInventario:function(btn){
         f =  Ext.ComponentQuery.query('#wRegInventarioInicialEditar')[0];    //this.lookupReference('frmRegCotizacion');
@@ -22,12 +32,15 @@ Ext.define('sisbotica_paulino.view.almacen.InventarioInicialEditarController', {
                 re = st.getAt(i);
                 //if(re.modified){
                     reg = {
-                        "idprod"     : re.get('idprod'),
-                        "stockfisico": re.get('stockfisico'),
-                        "inventario": re.get("inventario"),
-                        "diferencia": re.get("diferencia"),
-                        "generaserie" : re.get("chk"),
-                        "confirmado" : 0
+                        "idprod"   : re.get('id'),
+                        "entero"   : re.get('entero'),
+                        "fraccion" : re.get("fraccion"),
+                        "inventero"    : re.get("inventero"),
+                        "invfraccion"  : re.get("invfraccion"),
+                        "difeentero"   : re.get("difeentero"),
+                        "difefraccion" : re.get("difefraccion"),
+                        "generaserie"  : re.get("chk"),
+                        "confirmado"   : 0
                     };
                     d.push(reg);
                 //}

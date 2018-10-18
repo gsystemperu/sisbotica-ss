@@ -141,7 +141,7 @@ Ext.define('sisbotica_paulino.view.compras.EditarOrdenCompra', {
                                             labelAlign: 'right',
                                             editable: false,
                                             value: 1,
-                                            flex: 1.5
+                                            flex: 2
 
                                         },
                                         {
@@ -151,8 +151,8 @@ Ext.define('sisbotica_paulino.view.compras.EditarOrdenCompra', {
                                             name: 'serie',
                                             value: '001',
                                             flex: 1,
-                                            allowBlank: false,
-                                            fieldStyle: 'font-size:14px; background-color:#2f67bf;color:#fcf4f4'
+                                            allowBlank: false, 
+                                            fieldStyle: 'font-size:15px; background-color:#6a4b5a;color:white;text-align:center;'
                                         },
                                         {
                                             xtype: 'textfield',
@@ -161,7 +161,7 @@ Ext.define('sisbotica_paulino.view.compras.EditarOrdenCompra', {
                                             flex: 0.5,
                                             allowBlank: false,
                                             value: '',
-                                            fieldStyle: 'font-size:14px; background-color:#2f67bf;color:#fcf4f4'
+                                            fieldStyle: 'font-size:15px; background-color:#6a4b5a;color:white;text-align:center;'
                                         }
                                     ]
                                 },

@@ -55,21 +55,19 @@ Ext.define('sisbotica_paulino.view.almacen.ContenedorProducto', {
     _txt3 = Ext.String.format('Ventas  : {0}',_ventas);
     return obj = [
       {
-       text : 'Productos',
-       iconCls :'fa  fa-dropbox  fa-2x',
+       text : 'LISTAR',
        textAlign :'right',
        iconAlign:'left',
-       scale :'large',
+       glyph: 0xf16b,
        itemId:'btnProductos',
        handler:'onClickVerProductos'
         },
         {
 
-         text : 'Nuevo',
-         iconCls :'fa  fa-dropbox  fa-2x',
+         text : 'NUEVO',
          textAlign :'right',
          iconAlign:'left',
-         scale :'large',
+         glyph: 0xf055,
          handler:'onClickNuevoProducto'
           },
         {
@@ -80,7 +78,8 @@ Ext.define('sisbotica_paulino.view.almacen.ContenedorProducto', {
          iconAlign:'left',
          scale :'large',
          itemId:'btnExistencias',
-         handler:'onClickVerExistencias'
+         handler:'onClickVerExistencias',
+         hidden:true
        },
        {
 

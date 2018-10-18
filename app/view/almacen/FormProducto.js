@@ -294,10 +294,10 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
             displayField: 'descripcion',
             valueField: 'id',
             queryMode: 'local',
-            labelAlign: 'right',
+            labelAlign: 'left',
             emptyText: '---- Seleccionar -----',
             itemId: 'idmarca',
-            hidden:true
+            hidden:false
           }
         ]
       },

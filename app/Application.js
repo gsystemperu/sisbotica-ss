@@ -96,7 +96,7 @@ Ext.define('sisbotica_paulino.Application', {
        //$('#splashscreen').hide();
        Ext.util.Format.decimalSeparator  = '.';
        Ext.util.Format.thousandSeparator = ' ';
-       Ext.util.Format.currencyPrecision = 5;
+       Ext.util.Format.currencyPrecision = 2;
 
        Ext.getBody().on('keydown', function(ev){
              if(ev.getKey() == ev.self.F4)

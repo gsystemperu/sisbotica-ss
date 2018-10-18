@@ -72,16 +72,16 @@ Ext.define('sisbotica_paulino.view.ventas.ListadoClientes', {
                             }
                         ],
                         tbar: [{
-                            xtype: 'fieldset',
+                            xtype: 'container',
                             layout: 'hbox',
                             flex: 1,
-                            padding: '0 5 10 5',
+                            //padding: '0 5 10 5',
                             items: [
 
                                 {
                                     xtype: 'label',
                                     text: 'Nombre/Razon Social',
-                                    padding: '5px 0 0 0',
+                                    //padding: '5px 0 0 0',
                                     border: false,
                                     width: 150,
                                     height: 25,
@@ -108,7 +108,7 @@ Ext.define('sisbotica_paulino.view.ventas.ListadoClientes', {
                                 {
                                     xtype: 'label',
                                     text: 'R.U.C.',
-                                    padding: '5px 0 0 0',
+                                    //padding: '5px 0 0 0',
                                     border: false,
                                     width: 50,
                                     height: 25,

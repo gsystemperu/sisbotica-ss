@@ -506,7 +506,11 @@ Ext.define('sisbotica_paulino.view.compras.AccionesOrdenCompra', {
              Ext.Msg.alert("AkinetFarma", "Producto ya se encuentra cargada");
              return false;
          }
-         _store.insert(0, _data);
+         p = Ext.ComponentQuery.query('#posicion')[0];
+         i = p.getValue();
+         i = i + 1;
+         _store.insert(i, _data);
+         p.setValue(i);
          me.onCalcularTotalOrdenCompra();
          t = setInterval(function(){ 
             combo.setRawValue('');

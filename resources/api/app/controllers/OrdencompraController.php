@@ -26,7 +26,6 @@ class OrdencompraController extends Controller
                     $request->getPost('numerodoc'),
                     $request->getPost('usuario')
               );
-             // print_r($data);die();
               $jsonData = OrdenCompra::actualizar($data);
               $response->setContentType('application/json', 'UTF-8');
               $response->setContent(json_encode($jsonData[0], JSON_NUMERIC_CHECK));

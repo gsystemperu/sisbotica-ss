@@ -171,4 +171,25 @@ Ext.define('sisbotica_paulino.store.ProductosGenericos', {
     }
 });
 
-
+/*
+@DataSet :
+Stores para filtro en venta de productos por marca
+==============================================================
+*/
+Ext.define('sisbotica_paulino.store.MarcaVenta', {
+    extend: 'Ext.data.Store',
+    requiere:['sisbotica_paulino.model.DataModels'],
+    model   :'sisbotica_paulino.model.Producto',
+    autoLoad: false,
+    extraParams :{
+      query : ''
+    },
+    proxy: {
+        type: 'ajax',
+        api: {read: 'resources/api/marca_listar_venta'},
+        reader: {
+            type: 'json',
+            rootProperty: 'data',
+        }
+    }
+});

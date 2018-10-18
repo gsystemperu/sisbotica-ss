@@ -120,10 +120,9 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
                 
           }
           Ext.Ajax.request({
-              //url :(record.get('estado')!=3?sisbotica_paulino.util.Rutas.cotizacionDetalle:sisbotica_paulino.util.Rutas.facturacionDetalle),
               url : u,
               params:{
-                vIdCotizacion :  v  //(record.get('estado')!=3?record.get('idcoti') : record.get('idfacturacion')) 
+                vIdCotizacion :  v  
               },
               method : 'GET',
               success:function(response){
@@ -145,7 +144,8 @@ Ext.define('sisbotica_paulino.view.ventas.AccionesRegCotizacionesFacturar', {
                             total        : record.total,
                             vencimiento  : record.to_char,
                             presentacion : record.presentacion,
-                            unidadcantidad:record.unidadcantidad
+                            unidadcantidad:record.unidadcantidad,
+                            mv  : record.mv
                         };
                       _store.insert(0, _data);
                       _t =_t + record.total

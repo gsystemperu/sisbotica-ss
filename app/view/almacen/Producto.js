@@ -50,14 +50,14 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
               {
                 text: 'Unidad Medida',
                 dataIndex: 'unidadmedida',
-                flex: 1,
+                flex: 2,
                 align: 'left',
                 hidden: true,
               }, 
               {
                 text: 'Presentacion',
                 dataIndex: 'presentacion',
-                flex: 1,
+                flex: 1.5,
                 align: 'left',
                 renderer: function (value, metaData, record) {
                   try {
@@ -75,29 +75,47 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
                 text: 'Forma',
                 dataIndex: 'forma',
                 flex: 1,
-                align: 'left'
+                align: 'left',
+                hidden:true,
               },
               {
                 text: 'Marca',
                 dataIndex: 'marca',
-                flex: 1,
+                flex: 2,
                 align: 'left'
               },
               {
-                text: 'A Mano',
-                dataIndex: 'existencias',
-                flex: 1,
-                align: 'right',
+                xtype:'numbercolumn',
+                text :'Entero',
+                align : 'right',
+                dataIndex:'entero',
+                flex:1,
                 renderer: function (value, metaData, record) {
-                  if (record.data._cajas<=0)
+                  if (value<=0)
                     metaData.style = "color:red;font-Size:15px";
                   else
                     metaData.style = "font-Size:15px";
-                  if(record.data.ventaunidad==true && record.data.ventablister==true){
-                    return '<div style="width:100%">'+ record.data._cajas.toString() + ' cajas y ' +record.data._unidades.toString() +' unidades' +'</div>';
-                  }else{
-                    return '<div style="width:100%">'+record.data._cajas + ' cajas '+'</div>';
-                  }
+                 
+                   Ext.util.Format.numberRenderer(value);
+                   return value;
+                  
+                }
+              },
+              {
+                xtype:'numbercolumn',
+                text :'Fracción',
+                align : 'right',
+                dataIndex:'fraccion',
+                flex:1,
+                renderer: function (value, metaData, record) {
+                  if (value<=0)
+                    metaData.style = "color:red;font-Size:15px";
+                  else
+                    metaData.style = "font-Size:15px";
+                  
+                   Ext.util.Format.numberRenderer('0.00');
+                   return value;
+                  
                 }
               },
               {
@@ -147,7 +165,7 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
                 {
                   xtype: 'textfield',
                   reference: 'txtBuscarNombreProducto',
-                  fieldStyle: 'font-size:15px;height:20px;background-color:#F9F7D8;',
+                  fieldStyle: 'font-size:15px;height:20px',
                   flex: 2,
                   enableKeyEvents: true,
                   listeners: {
@@ -171,7 +189,7 @@ Ext.define('sisbotica_paulino.view.almacen.Producto', {
                 {
                   xtype: 'textfield',
                   reference: 'txtBuscarMarcaProd',
-                  fieldStyle: 'font-size:15px;height:20px;background-color:#F9F7D8;',
+                  fieldStyle: 'font-size:15px;height:20px',
                   flex: 1,
                   enableKeyEvents: true,
                   hidden: false,
