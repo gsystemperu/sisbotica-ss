@@ -28,7 +28,6 @@
      * The name of the theme for this application.
      */
 
-    //"theme": "ext-theme-neptune",
     "theme": "patologia-theme",
 
     /**

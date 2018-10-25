@@ -132,8 +132,7 @@ Ext.define('sisbotica_paulino.Application', {
         });
        //Ext.create('wMain');
        Ext.create('sisbotica_paulino.view.seguridad.Login');
-
        document.getElementById("splashscreen").style.display = 'none';
-
+       
     }
 });

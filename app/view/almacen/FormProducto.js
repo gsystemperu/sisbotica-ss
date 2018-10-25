@@ -645,6 +645,8 @@ Ext.define('sisbotica_paulino.view.almacen.FormProducto', {
                           fieldStyle: 'font-size:15px;',
                           value: 0,
                           flex:1,
+                          minValue :1,
+                          allowBlank:false,
                           enableKeyEvents : true,
                           listeners : {
                             keypress:'onKeyPressCalFra'

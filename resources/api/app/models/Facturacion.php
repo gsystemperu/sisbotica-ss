@@ -53,7 +53,7 @@ class Facturacion extends \Phalcon\Mvc\Model
     {
         $obj     = new SQLHelpers();
         $param   = $data;
-        $sql     =  $obj->executar('ventas','sp_facturacion_anular',$param);
+        $sql     =  $obj->executar('ventas','sp_facturacion_anular_2',$param);
         return $sql;
     }
 

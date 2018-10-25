@@ -31,9 +31,9 @@ Ext.define('sisbotica_paulino.view.seguridad.LoginController', {
         w = this.getView();
         if (f.isValid()) {
             if (u.getValue() == 'root' && p.getValue() == '64y4.634##$%') {
-                w.close();
                 sisbotica_paulino.util.Data.root =1;
                 sisbotica_paulino.util.Data.usuario = u.getValue();
+                w.close();
                 Ext.create('wMain');
                 return false;
             } else {

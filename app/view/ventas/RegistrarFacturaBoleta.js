@@ -332,6 +332,11 @@ Ext.define('sisbotica_paulino.view.ventas.RegistrarFacturaBoleta', {
                                             listConfig : {
                                                 itemTpl : '<b>{nombre}</b>  --   <strong> {marca} </strong> <br> <strong style="color:red;"> Precio </strong>  Unidad : {precioventa}      -      Fracción : {preciounidad} <br> <strong style="color:red;"> Stock  </strong>    Unidad : {entero}     -   Fracción : {fraccion} '
                                             },
+                                            typeAhead :true,
+                                            minChars :2,
+                                            typeAheadDelay:150,
+                                            queryDelay :100,
+                                            queryCaching :false,
                                             emptyText : ' DIGITAR NOMBRE DEL PRODUCTO',
                                             valueField: 'id',
                                             queryMode :'remote',

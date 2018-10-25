@@ -67,7 +67,6 @@ Ext.define('sisbotica_paulino.view.almacen.AccionesProducto', {
                     Ext.Msg.alert("AkinetFarma","Se perdio la conexion con el servidor!");
                 }
             });
-
         }
     },
     onClickNuevoProducto:function(btn)
